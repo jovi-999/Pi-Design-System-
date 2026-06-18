@@ -68,21 +68,20 @@
 - `colors_and_type.css`、`styles.css`、`assets/*.css`（legacy 純 CSS 消費入口，package.json exports 有引用）→ 保留但標 legacy
 - `package.json`、`README.md`、`SKILL.md`、`CHANGELOG.md`、`.gitignore`、`scripts/`
 
-### sandbox/ 處置（**已確認：合併移除**）
-- 現況：`sandbox/` = 下游消費煙霧測試（Vite + `@use file:..`），與 `preview/`（視覺對照頁）用途不同。
-- [ ] 把 sandbox 的 Vite 設定（`modern-compiler`、`fs.allow`、fonts publicDir）上移合併進根目錄 preview Vite（TODO-A）。
-- [ ] 確認 npm `file:` 消費路徑改由根目錄 Vite + `@use src/` 覆蓋後，移除 `sandbox/`。
+### sandbox/ 處置（**已完成：合併移除**）
+- [x] Vite 設定（`modern-compiler` 等）已上移至根目錄 `vite.config.js`（TODO-A）。
+- [x] 移除 `sandbox/`。註：下游消費驗證改由 TODO-B 的 vendored + `@use` 流程涵蓋。
 
-### 已確認移除（DesignSync/Figma 工具產物，已棄用）
-> 使用者確認 DesignSync/Figma 同步工具已棄用，可刪。
-- [ ] `_ds_manifest.json`（已過期，含已刪除的 teal `--cl-primary-500`）
-- [ ] `_ds_bundle.js`
-- [ ] `support.js`
-- [ ] `Canvas.dc.html`
-- [ ] `_adherence.oxlintrc.json`
-- [ ] 刪除前確認 `package.json` 無引用這些檔（先前 grep：package.json 僅 `_ds_manifest` 出現於別處，需複查 exports/files 欄位）。
+### 已移除（DesignSync/Figma 工具產物，已棄用）
+- [x] `_ds_manifest.json`、`_ds_bundle.js`、`support.js`、`Canvas.dc.html`、`_adherence.oxlintrc.json`
+- [x] 刪除前複查：`package.json` 與全 repo 原始碼皆無引用。刪後 `preview:build` 仍通過。
 
-> ⚠️ **不可逆風險**：本目錄非 git repo，刪檔無法復原。執行 TODO-C 前先 `git init`（建議）或手動備份。
+### 整理時新發現：`uploads/`（**待你確認**）
+- `uploads/` ≈ 12MB，內容為 `pasted-*.png` 截圖、色票 png、舊版 icon 字體（`symicon-fill_v1.1/1.2`）、scratch `_border.scss`/`_shadow.scss`。
+- **不在** `package.json` 的 `files` 清單 → 不會發佈、不進散佈，疑似工作暫存。
+- [ ] 待確認：刪除 / 移進 `.gitignore` 觀察 / 保留。
+
+> 註：已先 `git init`，刪檔皆可由 git 還原。
 
 ---
 
