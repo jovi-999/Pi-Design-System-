@@ -79,7 +79,7 @@
 ### 整理時新發現：`uploads/`（**待你確認**）
 - `uploads/` ≈ 12MB，內容為 `pasted-*.png` 截圖、色票 png、舊版 icon 字體（`symicon-fill_v1.1/1.2`）、scratch `_border.scss`/`_shadow.scss`。
 - **不在** `package.json` 的 `files` 清單 → 不會發佈、不進散佈，疑似工作暫存。
-- [ ] 待確認：刪除 / 移進 `.gitignore` 觀察 / 保留。
+- [x] 已刪除（複查僅 TODO.md 提及，無原始碼/文件依賴）。commit `00716a3`。
 
 > 註：已先 `git init`，刪檔皆可由 git 還原。
 
@@ -95,6 +95,22 @@
 
 ---
 
-## Review（執行後補）
+## Review
 
-_（變更摘要待執行後填寫）_
+### 已完成（A、C）
+- **TODO-A（Vite 預覽）** — commit `3bb107b`
+  - 新增 `vite.config.js`（root=repo 根、scss `modern-compiler`）；`package.json` 加 `vite@^5.4.0` + `dev`/`preview:build`/`preview:serve`。
+  - 6 個 `preview/*.html` 連結 `colors_and_type.css` → `/src/index.scss`（保留 `symicon.css`；components 移除 legacy `components.css`）。
+  - `colors_and_type.css` 標 LEGACY；`.gitignore` 加 `dist-preview/`。
+  - 驗證：`vite build` ✓、dev server scss/page/font 皆 200。
+  - **效果**：預覽成單一真相源（直接吃 `src/`），消除與手維 CSS 的漂移。
+- **TODO-C（結構整理）** — commit `0bc91a1`、`00716a3`
+  - 刪 5 個棄用 DesignSync 產物 + `sandbox/` + `uploads/`（皆未進散佈、無引用）。
+  - 每步刪除後 `preview:build` 複驗通過。
+
+### 殘留小待辦（非阻塞）
+- 靜態 `vite build` 字體 rebase（dev 不受影響）→ 需 preview 專屬 entry 覆寫 `$font-path: "/fonts"`。
+- README/SKILL 補 `npm run dev` 預覽說明。
+
+### 下一步
+- **TODO-B（散佈機制）尚未動工**：`sync.mjs` + `status.mjs` + `.lock.json` + 向後相容 alias 層 + `@import→@use` 入口轉換。這是 7 專案散佈的主工程。
