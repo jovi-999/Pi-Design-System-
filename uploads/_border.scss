@@ -1,0 +1,12 @@
+.gl_border-outer {
+  outline: 1px solid $cl-basic-alpha-100;
+}
+
+.gl_border-inner {
+  outline: 1px solid $cl-basic-alpha-100;
+  outline-offset: -1px;
+  @include sz-down(tablet) {
+    outline: 1px solid $cl-basic-alpha-50;
+    outline-offset: 0;
+  }
+}

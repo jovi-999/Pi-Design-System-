@@ -1,0 +1,14 @@
+// ============================================================
+// Pi DS — Shadow utility classes (.gl_shadow-*)
+// 對應 token --shadow-*。六階，無 ring。
+// "Ring" = 與 .gl_border-outer / .gl_border-inner 組合使用。
+// ============================================================
+
+@use "../tokens" as *;
+
+.gl_shadow-xs  { box-shadow: $shadow-xs; }
+.gl_shadow-sm  { box-shadow: $shadow-sm; }
+.gl_shadow-md  { box-shadow: $shadow-md; }
+.gl_shadow-lg  { box-shadow: $shadow-lg; }
+.gl_shadow-xl  { box-shadow: $shadow-xl; }
+.gl_shadow-xxl { box-shadow: $shadow-xxl; }

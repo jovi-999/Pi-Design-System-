@@ -1,0 +1,15 @@
+// ============================================================
+// Pi DS — Loading spinner (.gl_loading)
+// ============================================================
+
+.gl_loading {
+  display: inline-flex;
+  align-self: center;
+
+  .icon { animation: gl_rotate 2.5s linear infinite; }
+}
+
+@keyframes gl_rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pi DS · Sandbox</title>
+  <link rel="stylesheet" href="./src/app.scss" />
+</head>
+<body>
+  <header class="page-header">
+    <h1 class="fz-h1">Pi DS · Sandbox</h1>
+    <p class="fz-body-md fg-3">這頁用的是 <code>@yourteam/design-system</code> 的 SCSS。如果樣式有出來，代表打包路徑、@use、變數都正常。</p>
+  </header>
+
+  <main class="grid">
+    <!-- ============ Buttons ============ -->
+    <section class="card">
+      <h2 class="fz-h3">Buttons</h2>
+      <div class="row">
+        <button class="gl_btn gl_btn-md gl_btn-basic">Basic</button>
+        <button class="gl_btn gl_btn-md gl_btn-success">Success</button>
+        <button class="gl_btn gl_btn-md gl_btn-info">Info</button>
+        <button class="gl_btn gl_btn-md gl_btn-warning">Warning</button>
+        <button class="gl_btn gl_btn-md gl_btn-danger">Danger</button>
+        <button class="gl_btn gl_btn-md gl_btn-purple">Purple</button>
+      </div>
+      <div class="row">
+        <button class="gl_btn gl_btn-md gl_btn-outline-basic">Outline Basic</button>
+        <button class="gl_btn gl_btn-md gl_btn-outline-success">Outline Success</button>
+        <button class="gl_btn gl_btn-md gl_btn-secondary-info">Secondary Info</button>
+        <button class="gl_btn gl_btn-md gl_btn-ghost-danger">Ghost Danger</button>
+        <button class="gl_btn gl_btn-md gl_btn-basic" disabled>Disabled</button>
+      </div>
+      <div class="row">
+        <button class="gl_btn gl_btn-xs gl_btn-success">XS</button>
+        <button class="gl_btn gl_btn-sm gl_btn-success">SM</button>
+        <button class="gl_btn gl_btn-md gl_btn-success">MD</button>
+        <button class="gl_btn gl_btn-lg gl_btn-success">LG</button>
+        <button class="gl_btn gl_btn-xl gl_btn-success">XL</button>
+      </div>
+    </section>
+
+    <!-- ============ Alerts ============ -->
+    <section class="card">
+      <h2 class="fz-h3">Alerts</h2>
+      <div class="gl_alert"><span class="gl_alert-body gl_alert-success">操作成功</span></div>
+      <div class="gl_alert"><span class="gl_alert-body gl_alert-info">這是一則資訊</span></div>
+      <div class="gl_alert"><span class="gl_alert-body gl_alert-warning">注意一下</span></div>
+      <div class="gl_alert"><span class="gl_alert-body gl_alert-danger">出錯了</span></div>
+    </section>
+
+    <!-- ============ Form ============ -->
+    <section class="card">
+      <h2 class="fz-h3">Form</h2>
+
+      <label class="fz-body-sm" style="display:block; margin-bottom:4px;">Email</label>
+      <div class="gl_form-group" style="margin-bottom:12px;">
+        <input class="gl_form-control" type="email" placeholder="you@example.com" />
+      </div>
+
+      <label class="fz-body-sm" style="display:block; margin-bottom:4px;">Password</label>
+      <div class="gl_form-group" style="margin-bottom:12px;">
+        <input class="gl_form-control" type="password" placeholder="••••••••" />
+      </div>
+
+      <label class="fz-body-sm" style="display:block; margin-bottom:4px;">Bio</label>
+      <div class="gl_form-group" style="margin-bottom:12px;">
+        <textarea class="gl_form-control" placeholder="關於你..."></textarea>
+      </div>
+
+      <label class="fz-body-sm" style="display:block; margin-bottom:4px;">Country</label>
+      <div class="gl_form-group" style="margin-bottom:16px;">
+        <select class="gl_form-control">
+          <option>Taiwan</option>
+          <option>Japan</option>
+          <option>USA</option>
+        </select>
+      </div>
+
+      <div class="gl_checkbox-layout gl_checkbox-success">
+        <label>
+          <input type="checkbox" checked />
+          <span class="fz-body-sm">記住我</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- ============ Tokens echo ============ -->
+    <section class="card">
+      <h2 class="fz-h3">Custom CSS using DS tokens</h2>
+      <p class="fz-body-md">下面這個自訂卡片用了 <code>$cl-green-500</code> 和 <code>$sp-4</code>：</p>
+      <div class="my-custom-card">
+        <strong>Sandbox card</strong>
+        <p>Built with DS variables, no <code>.gl_*</code> class.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer fz-body-sm fg-3">
+    Pi DS Sandbox · 開 devtools console，確認沒有 <code>Undefined variable</code> 錯誤。
+  </footer>
+</body>
+</html>

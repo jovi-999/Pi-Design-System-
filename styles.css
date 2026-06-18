@@ -1,0 +1,15 @@
+/* ============================================================
+   Pi Design System — 根樣式入口
+   消費端只要 link / @import 這一支，就會載入全部三份 CSS。
+
+   <link rel="stylesheet" href=".../styles.css">
+   或
+   @import "@yourteam/design-system/styles.css";
+
+   注意：SCSS 專案請改用 src/index.scss（@use），這支是給
+   舊專案 / 純 CSS 載入用的整合入口。
+   ============================================================ */
+
+@import "./colors_and_type.css";
+@import "./assets/symicon.css";
+@import "./assets/components.css";

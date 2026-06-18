@@ -1,0 +1,21 @@
+// ============================================================
+// Pi DS — Border / Ring 描邊 (.gl_border-outer / .gl_border-inner)
+// ------------------------------------------------------------
+// 用 outline（不佔空間、不影響 box model），可與 .gl_shadow-* 疊加
+// 組成 "Ring"：
+//   <div class="gl_shadow-md gl_border-outer">…</div>
+//   <div class="gl_shadow-md gl_border-inner">…</div>
+// ============================================================
+
+@use "../tokens" as *;
+
+// 描在元素外緣
+.gl_border-outer {
+  outline: 1px solid $cl-basic-alpha-100;
+}
+
+// 描在元素內緣（不超出圓角外框）
+.gl_border-inner {
+  outline: 1px solid $cl-basic-alpha-100;
+  outline-offset: -1px;
+}

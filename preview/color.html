@@ -1,0 +1,173 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Color" subtitle="Tonal ramps, alpha overlays" viewport="1200x2400" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Pi DS — Color</title>
+<link rel="stylesheet" href="/src/index.scss" />
+<style>
+  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
+  .wrap { max-width: 1104px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
+  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
+
+  section { margin-bottom: 56px; }
+  section h2 { font-size: 20px; line-height: 28px; margin: 0 0 4px; }
+  section .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 640px; text-wrap: pretty; }
+
+  .ramp { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; }
+  .ramp .label { padding-top: 12px; }
+  .ramp .label .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .ramp .label .hint { font-size: 12px; color: var(--fg-3); line-height: 18px; }
+  .swatches { display: grid; grid-template-columns: repeat(10, 1fr); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .sw { aspect-ratio: 1/1.1; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; line-height: 14px; cursor: pointer; position: relative; }
+  .sw .step { font-weight: 600; opacity: .9; }
+  .sw .var { font-family: ui-monospace, SF Mono, Menlo, monospace; opacity: .85; word-break: break-all; }
+  .sw .hex { font-family: ui-monospace, SF Mono, Menlo, monospace; opacity: .6; }
+  .sw.dark { color: rgba(255,255,255,.9); }
+  .sw.light { color: rgba(31,33,35,.7); }
+
+  /* copy toast */
+  .toast {
+    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--cl-basic-900); color: var(--cl-basic-0);
+    padding: 12px 20px; border-radius: 999px; font-size: 13px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s;
+    z-index: 100; display: flex; align-items: center; gap: 8px;
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .alpha-row { display: flex; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); background-image: linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; }
+  .alpha-row .ac { flex: 1; height: 72px; display: flex; align-items: flex-end; padding: 10px; color: rgba(0,0,0,.7); font-size: 10px; font-family: ui-monospace, monospace; word-break: break-all; line-height: 1.3; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="wrap" data-toast-host>
+  <header>
+    <div class="eyebrow">Pi Design System · 基礎</div>
+    <h1>色彩 Color</h1>
+    <p>點擊任一色塊可複製其 SCSS 變數（如 <code>$cl-blue-400</code>）。</p>
+  </header>
+
+  <section>
+    <h2>色階 Tonal ramps</h2>
+    <div id="ramps" style="display: grid; gap: 16px;"></div>
+  </section>
+
+  <section>
+    <h2>透明色 Alpha overlays</h2>
+    <div style="display: grid; gap: 12px;">
+      <div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">Basic alpha（深色疊淺底）</div>
+        <div class="alpha-row" id="basic-alpha"></div>
+      </div>
+      <div>
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">White alpha（淺色疊深底）</div>
+        <div class="alpha-row" id="white-alpha" style="background: var(--cl-basic-900); background-image: none;"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const ramps = [
+    ['basic',   'Basic',   '中性灰：文字、表面、邊框'],
+    ['red',     'Red',     '破壞性動作、錯誤、負面標記'],
+    ['orange',  'Orange',  'VIP / 付費方案專用'],
+    ['yellow',  'Yellow',  '提醒、輕度確認'],
+    ['green',   'Green',   'CTA 與正向狀態'],
+    ['blue',    'Blue',    '資訊提示、密集表格連結'],
+    ['purple',  'Purple',  'AI 內容、智慧推薦專用'],
+  ];
+  const steps = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+  // per-ramp steps (basic has 0 and 1000; colored ramps 50–900)
+  const rampsEl = document.getElementById('ramps');
+  ramps.forEach(([key, name, hint]) => {
+    const row = document.createElement('div');
+    row.className = 'ramp';
+    const rampSteps = key === 'basic' ? [0,50,100,200,300,400,500,600,700,800,900,1000] : [50,100,200,300,400,500,600,700,800,900];
+    const swatches = rampSteps.map((s) => {
+      const varname = `--cl-${key}-${s}`;
+      const scssVar = `$cl-${key}-${s}`;
+      const label = key === 'basic' ? (s === 0 ? '0 (White)' : String(s)) : String(s);
+      return `<div class="sw ${s >= 500 ? 'dark' : 'light'}" style="background: var(${varname});" data-copy="${scssVar}" title="點擊複製 ${scssVar}"><span class="step">${label}</span><span class="var">${scssVar}</span><span class="hex" data-var="${varname}"></span></div>`;
+    }).join('');
+    row.innerHTML = `
+      <div class="label"><div class="name">${name}</div></div>
+      <div class="swatches" style="grid-template-columns: repeat(${rampSteps.length}, 1fr);">${swatches}</div>
+    `;
+    rampsEl.appendChild(row);
+  });
+  // fill hex labels post-mount
+  requestAnimationFrame(() => {
+    document.querySelectorAll('[data-var]').forEach(el => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(el.dataset.var).trim();
+      el.textContent = v.toUpperCase();
+    });
+  });
+
+  // ---- 點擊色塊複製 SCSS 變數 ----
+  const toast = document.getElementById('toast');
+  let toastTimer = null;
+  function showToast(msg) {
+    toast.textContent = '已複製  ' + msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1500);
+  }
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => showToast(text)).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); showToast(text); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.addEventListener('click', (e) => {
+    const sw = e.target.closest('[data-copy]');
+    if (!sw) return;
+    copyText(sw.dataset.copy);
+  });
+
+  // alpha rows — 顯示變數名 + 點擊複製
+  const basicAlpha = document.getElementById('basic-alpha');
+  [50,100,200,300,400,500,600,700,800,900].forEach(n => {
+    const c = document.createElement('div');
+    c.className = 'ac';
+    const scssVar = `$cl-basic-alpha-${n}`;
+    c.style.background = `var(--cl-basic-alpha-${n})`;
+    c.dataset.copy = scssVar;
+    c.title = `點擊複製 ${scssVar}`;
+    c.style.cursor = 'pointer';
+    c.textContent = scssVar;
+    basicAlpha.appendChild(c);
+  });
+  const whiteAlpha = document.getElementById('white-alpha');
+  [50,100,200,300,400,500,600,700,800,900].forEach(n => {
+    const c = document.createElement('div');
+    c.className = 'ac';
+    const scssVar = `$cl-white-alpha-${n}`;
+    c.style.background = `var(--cl-white-alpha-${n})`;
+    c.style.color = 'rgba(255,255,255,.8)';
+    c.dataset.copy = scssVar;
+    c.title = `點擊複製 ${scssVar}`;
+    c.style.cursor = 'pointer';
+    c.textContent = scssVar;
+    whiteAlpha.appendChild(c);
+  });
+</script>
+</body>
+</html>

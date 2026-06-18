@@ -1,0 +1,109 @@
+// ============================================================
+// Pi DS — Fonts (@font-face)
+//
+// 字體路徑透過 $font-path 設定。預設值是相對於這個檔案的
+// "../../fonts"，也就是 repo 根的 /fonts/ —— 適合本地開發 +
+// 直接從 src/ 讀 SCSS 的情境（不過 npm 別人裝時通常需要覆寫）。
+//
+// 覆寫方式（在使用端的 app.scss）：
+//
+//   @use "@yourteam/design-system/base/fonts" with (
+//     $font-path: "/fonts"          // 你的專案實際字體放哪
+//   );
+//
+// 常見覆寫值：
+//   "/fonts"                          → 專案 public/fonts/
+//   "~@yourteam/design-system/fonts"  → webpack alias 解 node_modules
+//   "https://cdn.example.com/fonts"   → CDN
+// ============================================================
+
+$font-path: "../../fonts" !default;
+
+// ---------- Inter（內文）400 / 500 / 600 / 700 ----------
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("#{$font-path}/Inter-Regular.woff2") format("woff2"),
+       url("#{$font-path}/Inter-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("#{$font-path}/Inter-Medium.woff2") format("woff2"),
+       url("#{$font-path}/Inter-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("#{$font-path}/Inter-SemiBold.woff2") format("woff2"),
+       url("#{$font-path}/Inter-SemiBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("#{$font-path}/Inter-Bold.woff2") format("woff2"),
+       url("#{$font-path}/Inter-Bold.woff") format("woff");
+}
+
+// ---------- D-DIN（數字 display）400 / 700 ----------
+@font-face {
+  font-family: "D-DIN";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("#{$font-path}/D-DIN-PRO-Regular.woff2") format("woff2"),
+       url("#{$font-path}/D-DIN-PRO-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "D-DIN";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("#{$font-path}/D-DIN-PRO-Bold.woff2") format("woff2"),
+       url("#{$font-path}/D-DIN-PRO-Bold.woff") format("woff");
+}
+
+// ---------- D-DIN Condensed（窄體 display）400 / 700 ----------
+@font-face {
+  font-family: "D-DIN Condensed";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("#{$font-path}/D-DINCondensed.woff2") format("woff2"),
+       url("#{$font-path}/D-DINCondensed.woff") format("woff");
+}
+
+@font-face {
+  font-family: "D-DIN Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("#{$font-path}/D-DINCondensed-Bold.woff2") format("woff2"),
+       url("#{$font-path}/D-DINCondensed-Bold.woff") format("woff");
+}
+
+// ---------- symicon（圖示，symicon-6.4s 最新版）----------
+@font-face {
+  font-family: "symicon";
+  font-display: swap;
+  src: url("#{$font-path}/symicon-6.4s.woff2") format("woff2"),
+       url("#{$font-path}/symicon-6.4s.woff") format("woff");
+}
+
+// ---------- Google Sans Flex（variable，窄體 .ft-condensed / .ft-semicondensed 用）----------
+// 由 Google Fonts CDN 載入。HTML <head> 建議加 preconnect：
+//   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+//   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex&display=swap");

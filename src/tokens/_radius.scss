@@ -1,0 +1,19 @@
+// ============================================================
+// Pi DS — Radius Tokens
+// ============================================================
+
+:root {
+  --radius-xs: 2px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+}
+
+$radius-xs:   var(--radius-xs);
+$radius-sm:   var(--radius-sm);
+$radius-md:   var(--radius-md);
+$radius-lg:   var(--radius-lg);
+$radius-xl:   var(--radius-xl);
+$radius-pill: var(--radius-pill);

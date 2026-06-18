@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-preview/
+.DS_Store
+*.tgz
+*.log
+.vscode/
+.idea/
+preview/_shot_*.png
+sandbox/node_modules/
+sandbox/dist/
+sandbox/*.css

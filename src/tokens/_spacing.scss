@@ -1,0 +1,40 @@
+// ============================================================
+// Pi DS — Spacing Tokens
+// 4px base scale
+// ============================================================
+
+:root {
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+}
+
+$sp-1:  var(--sp-1);
+$sp-2:  var(--sp-2);
+$sp-3:  var(--sp-3);
+$sp-4:  var(--sp-4);
+$sp-5:  var(--sp-5);
+$sp-6:  var(--sp-6);
+$sp-8:  var(--sp-8);
+$sp-10: var(--sp-10);
+$sp-12: var(--sp-12);
+$sp-16: var(--sp-16);
+
+// Numeric form — useful for SCSS math (e.g. $sp-4-n * 2)
+$sp-1-n:  4px;
+$sp-2-n:  8px;
+$sp-3-n:  12px;
+$sp-4-n:  16px;
+$sp-5-n:  20px;
+$sp-6-n:  24px;
+$sp-8-n:  32px;
+$sp-10-n: 40px;
+$sp-12-n: 48px;
+$sp-16-n: 64px;

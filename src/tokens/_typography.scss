@@ -1,0 +1,103 @@
+// ============================================================
+// Pi DS — Typography Tokens
+// ============================================================
+
+:root {
+  --font-sans:    "Inter", "IBM Plex Sans TC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-display: "D-DIN Condensed", "D-DIN", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-icon:    "symicon";
+}
+
+$font-sans:    var(--font-sans);
+$font-display: var(--font-display);
+$font-icon:    var(--font-icon);
+
+// ---------- Type scale (numeric — for mixins) ----------
+
+// Headline
+$fz-headline-xxl: (size: 48px, lh: 72px, weight: 700, tracking: -0.01em);
+$fz-headline-xl:  (size: 40px, lh: 60px, weight: 700, tracking: -0.01em);
+$fz-headline-lg:  (size: 32px, lh: 48px, weight: 700, tracking: -0.005em);
+$fz-headline-md:  (size: 28px, lh: 42px, weight: 700, tracking: 0);
+$fz-headline-sm:  (size: 24px, lh: 36px, weight: 700, tracking: 0);
+$fz-headline-xs:  (size: 20px, lh: 30px, weight: 700, tracking: 0);
+
+// Title
+$fz-title-lg: (size: 18px, lh: 28px, weight: 600, tracking: 0);
+$fz-title-md: (size: 16px, lh: 24px, weight: 600, tracking: 0);
+$fz-title-sm: (size: 14px, lh: 20px, weight: 600, tracking: 0);
+
+// Body
+$fz-body-lg: (size: 18px, lh: 32px, weight: 400, tracking: 0);
+$fz-body-md: (size: 16px, lh: 28px, weight: 400, tracking: 0);
+$fz-body-sm: (size: 14px, lh: 24px, weight: 400, tracking: 0);
+$fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
+
+// ---------- Type classes ----------
+// Headline
+.fz-headline-xxl { font-size: 48px; line-height: 72px; font-weight: 700; letter-spacing: -0.01em; }
+.fz-headline-xl  { font-size: 40px; line-height: 60px; font-weight: 700; letter-spacing: -0.01em; }
+.fz-headline-lg  { font-size: 32px; line-height: 48px; font-weight: 700; letter-spacing: -0.005em; }
+.fz-headline-md  { font-size: 28px; line-height: 42px; font-weight: 700; }
+.fz-headline-sm  { font-size: 24px; line-height: 36px; font-weight: 700; }
+.fz-headline-xs  { font-size: 20px; line-height: 30px; font-weight: 700; }
+
+// Title
+.fz-title-lg { font-size: 18px; line-height: 28px; font-weight: 600; }
+.fz-title-md { font-size: 16px; line-height: 24px; font-weight: 600; }
+.fz-title-sm { font-size: 14px; line-height: 20px; font-weight: 600; }
+
+// Body
+.fz-body-lg { font-size: 18px; line-height: 32px; font-weight: 400; }
+.fz-body-md { font-size: 16px; line-height: 28px; font-weight: 400; }
+.fz-body-sm { font-size: 14px; line-height: 24px; font-weight: 400; }
+.fz-body-xs { font-size: 12px; line-height: 20px; font-weight: 400; }
+
+// Legacy aliases (h1-h4 / s1-s4 / t1-t4) — preserved for migration
+.fz-h1 { font-size: 40px; line-height: 48px; font-weight: 700; }
+.fz-h2 { font-size: 32px; line-height: 40px; font-weight: 700; }
+.fz-h3 { font-size: 24px; line-height: 32px; font-weight: 700; }
+.fz-h4 { font-size: 20px; line-height: 24px; font-weight: 700; }
+.fz-s1 { font-size: 18px; line-height: 26px; font-weight: 600; }
+.fz-s2 { font-size: 16px; line-height: 24px; font-weight: 600; }
+.fz-s3 { font-size: 14px; line-height: 22px; font-weight: 600; }
+.fz-s4 { font-size: 12px; line-height: 20px; font-weight: 600; }
+.fz-t1 { font-size: 18px; line-height: 32px; }
+.fz-t2 { font-size: 16px; line-height: 28px; }
+.fz-t3 { font-size: 14px; line-height: 24px; }
+.fz-t4 { font-size: 12px; line-height: 20px; }
+
+// Numeric display font — for stats / money / counts only
+.ft-d-din,
+.ft-d-din-c {
+  font-family: $font-display;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.ft-d-din-c { letter-spacing: -1px; }
+
+.fz-tit { font-weight: 700; -webkit-font-smoothing: subpixel-antialiased; }
+
+// Google Sans Flex condensed display（窄體變體）
+.ft-semicondensed {
+  font-family: "Google Sans Flex", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif !important;
+  font-stretch: 64%;
+  font-weight: 448;
+  &.fz-tit {
+    font-weight: 648;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.ft-condensed {
+  font-family: "Google Sans Flex", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif !important;
+  font-stretch: 48%;
+  font-weight: 448;
+  &.fz-tit {
+    font-weight: 648;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

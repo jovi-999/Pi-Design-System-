@@ -1,0 +1,59 @@
+{
+  "name": "@yourteam/design-system",
+  "version": "0.1.0",
+  "description": "Pi Design System — tokens & components (SCSS).",
+  "main": "src/index.scss",
+  "style": "src/index.scss",
+  "sass": "src/index.scss",
+  "files": [
+    "src",
+    "assets",
+    "fonts",
+    "preview",
+    "docs",
+    "colors_and_type.css",
+    "styles.css",
+    "README.md",
+    "SKILL.md",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    ".": "./src/index.scss",
+    "./tokens": "./src/tokens/index.scss",
+    "./tokens/*": "./src/tokens/_*.scss",
+    "./base": "./src/base/index.scss",
+    "./base/*": "./src/base/_*.scss",
+    "./components": "./src/components/index.scss",
+    "./components/*": "./src/components/_*.scss",
+    "./assets/*": "./assets/*",
+    "./fonts/*": "./fonts/*",
+    "./css": "./colors_and_type.css",
+    "./styles.css": "./styles.css"
+  },
+  "scripts": {
+    "build": "sass src/index.scss dist/pi-ds.css --style=expanded --no-source-map",
+    "build:min": "sass src/index.scss dist/pi-ds.min.css --style=compressed --no-source-map",
+    "build:tokens": "sass src/tokens/index.scss dist/pi-ds-tokens.css --style=expanded --no-source-map",
+    "watch": "sass --watch src/index.scss:dist/pi-ds.css --style=expanded --no-source-map",
+    "lint:scss": "stylelint \"src/**/*.scss\"",
+    "dev": "vite",
+    "preview:build": "vite build",
+    "preview:serve": "vite preview",
+    "test": "npm run build && grep -q -- '--cl-green-500' dist/pi-ds.css && grep -q '.gl_btn' dist/pi-ds.css && echo 'smoke test passed'",
+    "prepublishOnly": "npm run build && npm run build:min"
+  },
+  "devDependencies": {
+    "sass": "^1.77.0",
+    "vite": "^5.4.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yourteam/design-system.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "keywords": ["design-system", "scss", "tokens", "pi"],
+  "license": "UNLICENSED",
+  "private": true
+}

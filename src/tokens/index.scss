@@ -1,0 +1,15 @@
+// ============================================================
+// Pi DS — Tokens (全部一次匯入)
+//
+// 使用：
+//   @use "@yourteam/design-system/src/tokens" as ds;
+//   .card { color: ds.$fg; padding: ds.$sp-4; }
+// ============================================================
+
+@forward "colors";
+@forward "spacing";
+@forward "radius";
+@forward "shadow";
+@forward "typography";
+@forward "motion";
+@forward "breakpoints";

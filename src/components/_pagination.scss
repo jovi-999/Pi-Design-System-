@@ -1,0 +1,53 @@
+// ============================================================
+// Pi DS — Pagination (.gl_pagination)
+// ============================================================
+
+@use "../tokens" as *;
+
+.gl_pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li { display: flex; }
+
+  .gl_page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $cl-basic-100;
+    color: $cl-basic-900;
+    text-decoration: none;
+    border-radius: $radius-sm;
+    font-weight: 500;
+
+    &:hover { background: $cl-basic-200; }
+  }
+
+  li.active .gl_page-link {
+    background: $cl-basic-800;
+    color: $cl-basic-0;
+    cursor: default;
+    font-weight: 700;
+  }
+
+  &.cl-success li.active .gl_page-link { background: $cl-green-500; }
+  &.cl-info    li.active .gl_page-link { background: $cl-blue-500; }
+}
+
+.gl_pagination-md .gl_page-link { min-width: 48px; min-height: 48px; font-size: 16px; }
+.gl_pagination-sm .gl_page-link { min-width: 40px; min-height: 40px; font-size: 14px; }
+
+.gl_ellipsis {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: $cl-basic-100;
+}

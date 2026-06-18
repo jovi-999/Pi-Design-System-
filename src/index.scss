@@ -1,0 +1,20 @@
+// ============================================================
+// Pi DS — Entry point
+//
+// 使用方式：
+//
+//   // 方案 A：全部載入（tokens + base + components）
+//   @use "@yourteam/design-system" as ds;
+//
+//   // 方案 B：只要 tokens（不要 .gl_* class，自己寫 component）
+//   @use "@yourteam/design-system/src/tokens" as ds;
+//
+//   // 方案 C：挑選 component
+//   @use "@yourteam/design-system/src/tokens" as ds;
+//   @use "@yourteam/design-system/src/components/button";
+//   @use "@yourteam/design-system/src/components/modal";
+// ============================================================
+
+@forward "tokens";
+@forward "base";
+@forward "components";
