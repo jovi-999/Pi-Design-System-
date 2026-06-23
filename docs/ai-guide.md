@@ -123,7 +123,7 @@ Size token：`xs`(32px) / `sm`(40px) / `md`(48px, **預設**) / `lg`(56px) / `xl
 | Alert / Toast | `.gl_alert-body.gl_alert-success` |
 | Callout | `.gl_callout-wrap.gl_callout-info` |
 | Tabs | `.gl_content-switcher-outer` > `.gl_content-switcher.is-active` |
-| Pagination | `.gl_pagination.gl_pagination-md` |
+| Pagination | `.gl_pagination-outer.gl_pagination-md` > `.gl_pagination` |
 | Modal | `.gl_modal` + `.gl_modal-header` + `.gl_modal-content` + `.gl_modal-footer` |
 | Dropdown menu item | `.gl_dropdown-item.gl_dropdown-item-md` |
 | Notification row | `.gl_notification-item.gl_notification-info` |

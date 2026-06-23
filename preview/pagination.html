@@ -131,40 +131,61 @@
 <!-- ============ PAGINATION ============ -->
   <section>
     <h2>Pagination</h2>
-    <p class="dek"><code>.gl_pagination</code> + <code>-md / -sm</code>。selected 狀態：basic（深色）、<code>.cl-success</code>、<code>.cl-info</code>。</p>
-    <div class="panel col" style="gap: 24px;">
-      <ul class="gl_pagination gl_pagination-md cl-success">
-        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-left"></i></a></li>
-        <li class="active"><a class="gl_page-link" href="#">1</a></li>
-        <li><a class="gl_page-link" href="#">2</a></li>
-        <li><a class="gl_page-link" href="#">3</a></li>
-        <li><span class="gl_ellipsis">…</span></li>
-        <li><a class="gl_page-link" href="#">24</a></li>
-        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-right"></i></a></li>
-      </ul>
-      <ul class="gl_pagination gl_pagination-sm">
-        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-left"></i></a></li>
-        <li><a class="gl_page-link" href="#">1</a></li>
-        <li class="active"><a class="gl_page-link" href="#">2</a></li>
-        <li><a class="gl_page-link" href="#">3</a></li>
-        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-right"></i></a></li>
-      </ul>
+    <p class="dek"><code>.gl_pagination-outer</code> &gt; <code>.gl_pagination</code> + 尺寸 <code>-md / -sm</code>。當前頁深色實心，其餘與箭頭透明無底。色彩變體：basic（預設）、<code>.cl-success</code>、<code>.cl-info</code>。</p>
+    <div class="panel col" style="gap: 32px;">
+      <!-- 一般尺寸（md，40px）；≤768px 自動縮為 32px。寬度固定 360px 對齊 Figma -->
+      <nav class="gl_pagination-outer gl_pagination-md cl-success" style="width: 360px;">
+        <a class="gl_page-link" href="#"><i class="icon icon-arrow-left"></i></a>
+        <ul class="gl_pagination">
+          <li class="active"><a class="gl_page-link" href="#">1</a></li>
+          <li><a class="gl_page-link" href="#">2</a></li>
+          <li><a class="gl_page-link" href="#">3</a></li>
+          <li><a class="gl_page-link" href="#">4</a></li>
+          <li><a class="gl_page-link" href="#">5</a></li>
+        </ul>
+        <a class="gl_page-link" href="#"><i class="icon icon-arrow-right"></i></a>
+      </nav>
+      <!-- 小尺寸（sm，32px）：≤768px 自動套用，或用 .gl_pagination-sm 強制 -->
+      <nav class="gl_pagination-outer gl_pagination-sm" style="width: 360px;">
+        <a class="gl_page-link" href="#"><i class="icon icon-arrow-left"></i></a>
+        <ul class="gl_pagination">
+          <li class="active"><a class="gl_page-link" href="#">1</a></li>
+          <li><a class="gl_page-link" href="#">2</a></li>
+          <li><a class="gl_page-link" href="#">3</a></li>
+          <li><a class="gl_page-link" href="#">4</a></li>
+          <li><a class="gl_page-link" href="#">5</a></li>
+        </ul>
+        <a class="gl_page-link" href="#"><i class="icon icon-arrow-right"></i></a>
+      </nav>
     </div>
 
     <details class="usage">
-      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_pagination</span></summary>
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_pagination-outer</span></summary>
       <div class="usage-body">
-        <pre><span class="kw">&lt;ul</span> <span class="cls">class="gl_pagination gl_pagination-md cl-success"</span><span class="kw">&gt;</span>
-  <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=1"<span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-chevron-left"</span><span class="kw">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="kw">&lt;li</span> <span class="cls">class="active"</span><span class="kw">&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=1"<span class="kw">&gt;</span>1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=2"<span class="kw">&gt;</span>2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
-  <span class="kw">&lt;li&gt;&lt;span</span> <span class="cls">class="gl_ellipsis"</span><span class="kw">&gt;</span>…<span class="kw">&lt;/span&gt;&lt;/li&gt;</span>
-<span class="kw">&lt;/ul&gt;</span></pre>
+        <pre><span class="kw">&lt;nav</span> <span class="cls">class="gl_pagination-outer gl_pagination-md cl-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=0"<span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-arrow-left"</span><span class="kw">&gt;&lt;/i&gt;&lt;/a&gt;</span>
+  <span class="kw">&lt;ul</span> <span class="cls">class="gl_pagination"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;li</span> <span class="cls">class="active"</span><span class="kw">&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=1"<span class="kw">&gt;</span>1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=2"<span class="kw">&gt;</span>2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=3"<span class="kw">&gt;</span>3<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=4"<span class="kw">&gt;</span>4<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+    <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=5"<span class="kw">&gt;</span>5<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="kw">&lt;/ul&gt;</span>
+  <span class="kw">&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=2"<span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-arrow-right"</span><span class="kw">&gt;&lt;/i&gt;&lt;/a&gt;</span>
+<span class="kw">&lt;/nav&gt;</span></pre>
         <div class="notes">
+          <h4>結構</h4>
+          <ul>
+            <li><strong>兩層</strong>：<code>.gl_pagination-outer</code>（外層列，箭頭推兩端）&gt; <code>.gl_pagination</code>（數字組，置中）</li>
+            <li>prev / next 箭頭是 outer 的<strong>直接子</strong> <code>.gl_page-link</code>，不放進數字 <code>&lt;ul&gt;</code></li>
+            <li>尺寸 / 色彩修飾掛在 <strong>outer</strong></li>
+          </ul>
           <h4>Sizes · Colors</h4>
           <ul>
-            <li>Size：<code>-md</code>（預設）、<code>-sm</code>（緊湊列表）</li>
-            <li>Active 色：<code>.cl-success</code>、<code>.cl-info</code>、不加則為 basic（灰黑）</li>
+            <li>Size：<code>-md</code>（40px，一般）、<code>-sm</code>（32px，強制小）</li>
+            <li>RWD：<code>-md</code> 在 <strong>≤768px（tablet 以下）自動縮為 32px</strong></li>
+            <li>箭頭用 <code>icon-arrow-left</code> / <code>icon-arrow-right</code></li>
+            <li>Active 色：<code>.cl-success</code>、<code>.cl-info</code>、不加則為 basic（深色）</li>
           </ul>
           <h4>規則</h4>
           <ul>
