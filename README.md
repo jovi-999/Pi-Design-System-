@@ -6,6 +6,23 @@
 
 ---
 
+## 對象與導覽
+
+本 README 給**開發者 / 維護者**（設計原則、安裝整合、開發與發版、字型管理）。其他文件分工：
+
+| 文件 | 對象 | 內容 |
+|---|---|---|
+| [STRUCTURE.md](STRUCTURE.md) | 人 + agent | 檔案樹狀圖、各區用途、修改方式與注意 |
+| [docs/ai-guide.md](docs/ai-guide.md) | agent | Figma 名稱 ↔ class 對照表 |
+| [CLAUDE.md](CLAUDE.md) | agent | 對話自動載入的專案規則（禁自創 token 等） |
+| [SKILL.md](SKILL.md) | agent | 結構化使用規則 |
+| `.claude/skills/` | agent | 專案 skill（如 figma-to-pi-ds：Figma→Pi DS 流程） |
+| [CHANGELOG.md](CHANGELOG.md) | 全體 | 版本變更記錄 |
+
+> 想快速定位「要改什麼動哪裡」→ 直接看 **[STRUCTURE.md](STRUCTURE.md)**。
+
+---
+
 ## 目錄
 
 1. [內容基本原則](#內容基本原則)
@@ -165,46 +182,7 @@ TBD —— 各產品的小型 UI kit（HTML mockup）：
 
 ## 檔案結構
 
-```
-src/
-├── tokens/              ← SCSS tokens（colors、type、spacing、radius、shadow、motion）
-│   ├── _colors.scss
-│   ├── _typography.scss
-│   ├── _spacing.scss
-│   ├── _radius.scss
-│   ├── _shadow.scss
-│   ├── _motion.scss
-│   └── index.scss
-├── base/                ← reset、utility class（.fz-*、.bg-*、.text-*）
-│   ├── _reset.scss
-│   ├── _typography.scss
-│   └── index.scss
-├── components/          ← .gl_* class 實作
-│   ├── _button.scss     ← .gl_btn + 7 色 × 4 variant × 5 size
-│   ├── _form.scss       ← .gl_form-group、.gl_form-control、.gl_icon-input-wrap
-│   ├── _checkbox.scss
-│   ├── _radio.scss
-│   ├── _toggle.scss
-│   ├── _alert.scss
-│   ├── _callout.scss
-│   ├── _loading.scss
-│   ├── _dropdown.scss
-│   ├── _content-switcher.scss
-│   ├── _pagination.scss
-│   ├── _modal.scss
-│   ├── _notification.scss
-│   └── index.scss
-└── index.scss           ← 入口（@forward tokens + base + components）
-
-colors_and_type.css      ← 舊版純 CSS bundle（舊專案 <link> 載入用）
-assets/symicon.css       ← icon font classes（172 glyphs）
-assets/icon-cp-map.json  ← icon name → codepoint 對映表
-assets/icon-names.json   ← icon 名稱清單
-assets/noise.svg         ← 細微表面紋理（bg-noise-url token）
-fonts/                   ← Inter（400/600）+ symicon-fill（woff & woff2）
-preview/                 ← 視覺對照頁（tokens、icons、components、samples）
-docs/ai-guide.md         ← ⭐ 給 AI agent（Claude / Cursor）的切版 cheatsheet
-```
+完整檔案樹狀圖、各區用途與「要改什麼動哪裡」的修改指南，已獨立成 **[STRUCTURE.md](STRUCTURE.md)**（人 + agent 共用、單一真相，避免與本檔漂移）。
 
 ---
 

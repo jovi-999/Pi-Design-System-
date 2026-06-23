@@ -4,6 +4,23 @@
 
 ---
 
+## 任務 Y：整理 repo 結構 + 新增 STRUCTURE.md（2026-06-23）
+
+決策（已確認）：文件 + 實體檔案都整理；新檔給人+agent 共用。
+約束：根 colors_and_type.css / styles.css 是散佈產物（package.json exports），搬動即 breaking → 保留原位。
+
+- [x] Y-1 安全實體清理：移除追蹤中的 junk `.thumbnail`（+ 加入 .gitignore）
+- [x] Y-2 新增 `STRUCTURE.md`（根）：樹狀圖 + 各區用途/修改方式/警告/散佈模型
+- [x] Y-3 README 頂部加「對象與導覽」表；舊「檔案結構」段（已過時）改指向 STRUCTURE.md
+- [ ] Y-4 commit
+
+### Review（任務 Y）
+- 根 colors_and_type.css / styles.css 確認為散佈產物，保留原位（搬動即 breaking）。
+- 實體清理僅安全項：移除 junk `.thumbnail`、補 .gitignore。
+- 新增 STRUCTURE.md 作為結構單一真相；README 舊檔案結構段（過時：base/_typography 等）改為指向，消除漂移。
+
+---
+
 ## 任務 X：拆分 components.html 成獨立元件頁（2026-06-23）
 
 痛點：components.html 一頁塞全部元件（939 行），查詢不易。拆成 10 頁。
