@@ -1,0 +1,267 @@
+<!doctype html>
+<!-- @dsCard group="Overview" name="Index" subtitle="預覽殼層：左目錄 + 右內容" viewport="1400x1400" -->
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pi DS — 預覽</title>
+    <link rel="stylesheet" href="/src/index.scss" />
+    <style>
+      /* ============================================================
+     預覽殼層：左側固定目錄 + 右側 iframe 內容區
+     既有 6 張對照頁原檔不動，這裡只負責導覽框架。
+     用 hash（#shadow）記住當前頁，可直接分享深連結。
+     ============================================================ */
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+        /* 暖白底色（預覽殼層專用，非設計系統 token；由使用者指定） */
+        background: #e6e6e6;
+        color: var(--fg);
+        font-family: Inter, system-ui, sans-serif;
+      }
+
+      /* 左側目錄：透明融入暖白底，去除右框線 */
+      .sidebar {
+        width: 264px;
+        flex-shrink: 0;
+        height: 100%;
+        overflow-y: auto;
+        background: transparent;
+        border-right: none;
+        padding: 24px 16px;
+      }
+
+      /* ---- 自訂捲軸（細、圓角、淡色，hover 加深）---- */
+      .sidebar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+      }
+      .sidebar::-webkit-scrollbar {
+        width: 10px;
+      }
+      .sidebar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .sidebar::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 999px;
+        border: 3px solid transparent;
+        background-clip: padding-box;
+      }
+      .sidebar::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.32);
+        background-clip: padding-box;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 8px 20px;
+      }
+      .brand .dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: var(--cl-green-500, #16a34a);
+      }
+      .brand .name {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .nav-group {
+        margin-top: 18px;
+      }
+      .nav-group .gtitle {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--fg-5);
+        padding: 0 8px;
+        margin-bottom: 6px;
+      }
+      .nav-link {
+        display: block;
+        padding: 8px 10px;
+        border-radius: var(--radius-md, 8px);
+        text-decoration: none;
+        color: var(--fg-2);
+        font-size: 14px;
+        line-height: 20px;
+        cursor: pointer;
+      }
+      .nav-link:hover {
+        background: var(--bg-muted);
+        color: var(--fg);
+      }
+      .nav-link.active {
+        background: var(--cl-green-50, #f0fdf4);
+        color: var(--cl-green-700, #15803d);
+        font-weight: 600;
+      }
+      .nav-link .sub {
+        display: block;
+        font-size: 12px;
+        color: var(--fg-3);
+        font-weight: 400;
+        margin-top: 2px;
+      }
+
+      /* 右側內容：外圍留白 + iframe 包成 claude.ai 風卡片（圓角 + 陰影） */
+      .content {
+        flex: 1;
+        height: 100%;
+        padding: 8px;
+      }
+      .content iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+        background: var(--bg);
+        border-radius: var(--radius-lg, 16px);
+        box-shadow: var(--shadow-md);
+      }
+    </style>
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="dot"></span>
+        <span class="name">Pi Design System</span>
+      </div>
+      <nav id="nav"></nav>
+    </aside>
+
+    <main class="content">
+      <iframe id="frame" title="預覽內容"></iframe>
+    </main>
+
+    <script>
+      // 目錄資料：每頁 file + 顯示名 + 分組 + 副標
+      const PAGES = [
+        {
+          file: "color.html",
+          group: "Foundation",
+          name: "Color",
+          sub: "Tonal ramps, alpha overlays",
+        },
+        {
+          file: "type.html",
+          group: "Foundation",
+          name: "Typo",
+          sub: "Inter + Plex TC + D-DIN specimen",
+        },
+        {
+          file: "shadow.html",
+          group: "Foundation",
+          name: "Shadow & Border",
+          sub: "Shadow · Border · Ring",
+        },
+        { file: "button.html",           group: "Components", name: "Button",           sub: "SOLID / OUTLINE / GHOST / GRAY" },
+        { file: "form.html",             group: "Components", name: "Form",             sub: "Input · Select · Checkbox · Toggle…" },
+        { file: "alert.html",            group: "Components", name: "Alert",            sub: "頁面級狀態提示" },
+        { file: "callout.html",          group: "Components", name: "Callout",          sub: "區塊內資訊框" },
+        { file: "content-switcher.html", group: "Components", name: "Content switcher", sub: "分段切換控制" },
+        { file: "dropdown.html",         group: "Components", name: "Dropdown menu",    sub: "下拉選單" },
+        { file: "pagination.html",       group: "Components", name: "Pagination",       sub: "分頁控制" },
+        { file: "notification.html",     group: "Components", name: "Notification",     sub: "通知項目" },
+        { file: "loading.html",          group: "Components", name: "Loading · Spinner",sub: "載入 / spinner" },
+        { file: "modal.html",            group: "Components", name: "Modal",            sub: "Reveal · GSAP modal" },
+        {
+          file: "icons.html",
+          group: "Components",
+          name: "Icons",
+          sub: "250 symicon glyphs · 可搜尋",
+        },
+        {
+          file: "tokens.html",
+          group: "Reference",
+          name: "Tokens",
+          sub: "Tokens reference 對照表",
+        },
+      ];
+
+      const navEl = document.getElementById("nav");
+      const frameEl = document.getElementById("frame");
+
+      // 依 group 分組渲染目錄
+      const groups = [];
+      PAGES.forEach((p) => {
+        let g = groups.find((x) => x.title === p.group);
+        if (!g) {
+          g = { title: p.group, items: [] };
+          groups.push(g);
+        }
+        g.items.push(p);
+      });
+
+      groups.forEach((g) => {
+        const wrap = document.createElement("div");
+        wrap.className = "nav-group";
+        const title = document.createElement("div");
+        title.className = "gtitle";
+        title.textContent = g.title;
+        wrap.appendChild(title);
+        g.items.forEach((p) => {
+          const a = document.createElement("a");
+          a.className = "nav-link";
+          a.href = "#" + p.file.replace(".html", "");
+          a.dataset.file = p.file;
+          a.innerHTML =
+            "<span>" + p.name + '</span><span class="sub">' + p.sub + "</span>";
+          wrap.appendChild(a);
+        });
+        navEl.appendChild(wrap);
+      });
+
+      // iframe 與殼層同源，載入後注入相同的捲軸樣式（內容頁原檔不動）
+      const SCROLLBAR_CSS = `
+      html { scrollbar-width: thin; scrollbar-color: rgba(0,0,0,.18) transparent; }
+      ::-webkit-scrollbar { width: 12px; height: 12px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,.18); border-radius: 999px;
+        border: 3px solid transparent; background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,.32); background-clip: padding-box; }`;
+      frameEl.addEventListener("load", () => {
+        try {
+          const doc = frameEl.contentDocument;
+          if (!doc || doc.getElementById("__sb")) return;
+          const s = doc.createElement("style");
+          s.id = "__sb";
+          s.textContent = SCROLLBAR_CSS;
+          doc.head.appendChild(s);
+        } catch (e) {
+          /* 跨來源時略過 */
+        }
+      });
+
+      // 依 hash 載入對應頁；無 hash 時預設第一頁
+      function load() {
+        const key = location.hash.replace("#", "");
+        const page =
+          PAGES.find((p) => p.file.replace(".html", "") === key) || PAGES[0];
+        frameEl.src = "/preview/" + page.file;
+        document.querySelectorAll(".nav-link").forEach((a) => {
+          a.classList.toggle("active", a.dataset.file === page.file);
+        });
+      }
+
+      window.addEventListener("hashchange", load);
+      load();
+    </script>
+  </body>
+</html>

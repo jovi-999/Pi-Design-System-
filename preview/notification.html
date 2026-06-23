@@ -1,0 +1,199 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Notification" subtitle="通知項目" viewport="1200x2400" -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Pi DS — Notification</title>
+<link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/assets/symicon.css" />
+<style>
+  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
+  .wrap { max-width: 1152px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
+  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
+
+  section { margin-bottom: 56px; }
+  section > h2 { font-size: 22px; line-height: 30px; margin: 0 0 4px; }
+  section > .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 700px; text-wrap: pretty; }
+
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .panel h3 { font-size: 14px; line-height: 20px; margin: 0 0 16px; color: var(--fg-3); font-weight: 600; letter-spacing: .02em; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .col { display: flex; flex-direction: column; gap: 12px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .on-dark { background: var(--cl-basic-900); border-radius: var(--radius-md); padding: 24px; }
+
+  .codelabel { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); margin-top: 6px; }
+  .sizecol { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sizecol-tag { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-2); }
+  .sizecol-px { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); }
+  .kv { display: grid; grid-template-columns: 160px 1fr; gap: 16px 24px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg-3); }
+
+  /* fake modal stage */
+  .modal-stage {
+    position: relative;
+    height: 520px;
+    background: radial-gradient(at 30% 20%, rgba(0,170,144,.18), transparent 50%), var(--cl-basic-900);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
+  /* ------- Usage accordion ------- */
+  details.usage {
+    margin-top: 12px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  details.usage > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--fg-2);
+    user-select: none;
+  }
+  details.usage > summary::-webkit-details-marker { display: none; }
+  details.usage > summary .chev {
+    font-size: 16px; color: var(--fg-3); transition: transform var(--dur-fast) var(--ease-standard);
+  }
+  details.usage[open] > summary .chev { transform: rotate(90deg); }
+  details.usage > summary .tag {
+    margin-left: auto; font-size: 11px; font-weight: 500;
+    color: var(--fg-3); text-transform: none; letter-spacing: 0;
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+  }
+  details.usage > .usage-body {
+    padding: 4px 20px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  @media (max-width: 900px) {
+    details.usage > .usage-body { grid-template-columns: 1fr; }
+  }
+  details.usage pre {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--cl-basic-50);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--fg);
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    white-space: pre;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+  details.usage pre .kw  { color: var(--cl-purple-600); }
+  details.usage pre .cls { color: var(--cl-green-700); }
+  details.usage pre .txt { color: var(--fg-2); }
+  details.usage pre .cmt { color: var(--fg-3); font-style: italic; }
+  details.usage .notes { font-size: 13px; line-height: 22px; color: var(--fg-2); }
+  details.usage .notes h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--fg-3); margin: 0 0 6px; font-weight: 600;
+  }
+  details.usage .notes ul { margin: 0 0 16px; padding-left: 18px; }
+  details.usage .notes ul:last-child { margin-bottom: 0; }
+  details.usage .notes li + li { margin-top: 4px; }
+  details.usage .notes li code,
+  details.usage .notes p code {
+    font-size: 12px; background: var(--cl-basic-50);
+    padding: 1px 6px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pi Design System · Components</div>
+    <h1>Notification</h1>
+  </header>
+
+<!-- ============ NOTIFICATION ITEM ============ -->
+  <section>
+    <h2>Notification item</h2>
+    <p class="dek"><code>/notifications</code> 通知列表的列。<code>.gl_notification-item</code> + icon 上的顏色變體。</p>
+    <div class="panel" style="padding: 0 20px;">
+      <div class="gl_notification-item gl_notification-success">
+        <span class="gl_icon-wrap"><i class="icon icon-checked"></i></span>
+        <div class="gl_notification-item__main">
+          <div class="fz-title-sm">面試心得已發布</div>
+          <div class="fz-body-sm" style="color: var(--fg-2);">你針對「台積電 · 軟體工程師」的面試心得已通過審核。</div>
+        </div>
+        <div class="fz-body-xs" style="color: var(--fg-3); white-space: nowrap;">3 分鐘前</div>
+      </div>
+      <div class="gl_notification-item gl_notification-info">
+        <span class="gl_icon-wrap"><i class="icon icon-user"></i></span>
+        <div class="gl_notification-item__main">
+          <div class="fz-title-sm">3 位使用者覺得你的心得有幫助</div>
+          <div class="fz-body-sm" style="color: var(--fg-2);">累計已被 252 人標記有幫助。</div>
+        </div>
+        <div class="fz-body-xs" style="color: var(--fg-3); white-space: nowrap;">昨天</div>
+      </div>
+      <div class="gl_notification-item gl_notification-purple">
+        <span class="gl_icon-wrap"><i class="icon icon-send"></i></span>
+        <div class="gl_notification-item__main">
+          <div class="fz-title-sm">AI 為你挑了 4 則相似職缺</div>
+          <div class="fz-body-sm" style="color: var(--fg-2);">依你收藏的「後端工程師」條件推薦。</div>
+        </div>
+        <div class="fz-body-xs" style="color: var(--fg-3); white-space: nowrap;">2 天前</div>
+      </div>
+      <div class="gl_notification-item gl_notification-warning" style="border-bottom: 0;">
+        <span class="gl_icon-wrap"><i class="icon icon-alert-triangle"></i></span>
+        <div class="gl_notification-item__main">
+          <div class="fz-title-sm">帳號安全提醒</div>
+          <div class="fz-body-sm" style="color: var(--fg-2);">在新裝置偵測到登入 · 若非本人請立即變更密碼。</div>
+        </div>
+        <div class="fz-body-xs" style="color: var(--fg-3); white-space: nowrap;">5 天前</div>
+      </div>
+    </div>
+
+    <details class="usage">
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_notification-item</span></summary>
+      <div class="usage-body">
+        <pre><span class="kw">&lt;div</span> <span class="cls">class="gl_notification-item gl_notification-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;span</span> <span class="cls">class="gl_icon-wrap"</span><span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-checked"</span><span class="kw">&gt;&lt;/i&gt;&lt;/span&gt;</span>
+  <span class="kw">&lt;div</span> <span class="cls">class="gl_notification-item__main"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;div</span> <span class="cls">class="fz-title-sm"</span><span class="kw">&gt;</span>面試心得已發布<span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;div</span> <span class="cls">class="fz-body-sm"</span><span class="kw">&gt;</span>已通過審核<span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;div</span> <span class="cls">class="fz-body-xs"</span><span class="kw">&gt;</span>3 分鐘前<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+        <div class="notes">
+          <h4>Variants</h4>
+          <ul>
+            <li><code>-success / -info / -warning / -danger / -purple</code> 上色在 icon</li>
+          </ul>
+          <h4>規則</h4>
+          <ul>
+            <li>標題 <code>.fz-title-sm</code>、備註 <code>.fz-body-sm</code>、時間 <code>.fz-body-xs</code> 右對齊</li>
+            <li>最後一筆可覆寫 <code>border-bottom: 0</code></li>
+            <li>未讀狀態用左側 2px dot，在容器外頝設定</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+</div>
+</body>
+</html>

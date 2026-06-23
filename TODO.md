@@ -4,6 +4,37 @@
 
 ---
 
+## 任務 X：拆分 components.html 成獨立元件頁（2026-06-23）
+
+痛點：components.html 一頁塞全部元件（939 行），查詢不易。拆成 10 頁。
+
+決策（已確認）：刪 components.html、新增獨立「Components」目錄群、Icons 留 Brand。
+
+- [x] X-1 用腳本依 `<!-- === XXX === -->` 標記切出 section，生成 10 頁（共用 head/style，內容原樣搬）
+  - [x] `button.html` ← Button
+  - [x] `form.html` ← Form(Input/Select/Textarea) + Checkbox/Radio/Toggle（2 sections）
+  - [x] `alert.html` ← Alert
+  - [x] `callout.html` ← Callout
+  - [x] `content-switcher.html` ← Content switcher
+  - [x] `dropdown.html` ← Dropdown menu
+  - [x] `pagination.html` ← Pagination
+  - [x] `notification.html` ← Notification item
+  - [x] `loading.html` ← Loading · Spinner
+  - [x] `modal.html` ← Modal（含 GSAP modal）
+- [x] X-2 刪除 components.html
+- [x] X-3 index.html nav：移除 Components，新增 10 頁於「Components」群（Icons 留 Components 群尾，依使用者最新分組）
+- [x] X-4 vite.config.js build input：移除 components，加入 10 頁
+- [x] X-5 build 驗證通過（無殘留 components.html 引用）
+- [ ] X-6 commit
+
+### Review（任務 X）
+- 拆分方式：一次性腳本依區塊註解切 section，共用原 head/`<style>`，內容**原樣搬移未改**，無自創 token/class。
+- components.html（939 行）→ 10 頁，最大 form.html（含 Input群 + Checkbox/Radio/Toggle 2 section）。
+- 殼層 nav + vite build input 同步更新；舊 components.html 已刪、無殘留引用。
+- 腳本為 throwaway，置於 scratchpad，未進 repo。
+
+---
+
 ## 0. 背景與痛點
 
 - Pi DS 是公司核心設計系統，要被 **7 個專案**採用，各專案**更新速度不一**（1 個先改，其餘陸續）。

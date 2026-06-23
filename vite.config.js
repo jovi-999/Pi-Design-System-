@@ -16,7 +16,7 @@ export default {
 
   server: {
     port: 5173,
-    open: "/preview/color.html", // 啟動預設開色彩對照頁
+    open: "/preview/index.html", // 啟動預設開預覽目錄頁
   },
 
   css: {
@@ -27,16 +27,27 @@ export default {
   },
 
   build: {
-    // 預覽頁的靜態輸出（選用）：6 張對照頁各自為 input。
+    // 預覽頁的靜態輸出（選用）：目錄頁 + 6 張對照頁各自為 input。
     outDir: "dist-preview",
     rollupOptions: {
       input: {
+        index: "preview/index.html",
         color: "preview/color.html",
         type: "preview/type.html",
-        components: "preview/components.html",
-        icons: "preview/icons.html",
         shadow: "preview/shadow.html",
         tokens: "preview/tokens.html",
+        icons: "preview/icons.html",
+        // 拆分後的元件頁
+        button: "preview/button.html",
+        form: "preview/form.html",
+        alert: "preview/alert.html",
+        callout: "preview/callout.html",
+        contentSwitcher: "preview/content-switcher.html",
+        dropdown: "preview/dropdown.html",
+        pagination: "preview/pagination.html",
+        notification: "preview/notification.html",
+        loading: "preview/loading.html",
+        modal: "preview/modal.html",
       },
     },
   },

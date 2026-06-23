@@ -1,0 +1,182 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Pagination" subtitle="分頁控制" viewport="1200x2400" -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Pi DS — Pagination</title>
+<link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/assets/symicon.css" />
+<style>
+  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
+  .wrap { max-width: 1152px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
+  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
+
+  section { margin-bottom: 56px; }
+  section > h2 { font-size: 22px; line-height: 30px; margin: 0 0 4px; }
+  section > .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 700px; text-wrap: pretty; }
+
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .panel h3 { font-size: 14px; line-height: 20px; margin: 0 0 16px; color: var(--fg-3); font-weight: 600; letter-spacing: .02em; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .col { display: flex; flex-direction: column; gap: 12px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .on-dark { background: var(--cl-basic-900); border-radius: var(--radius-md); padding: 24px; }
+
+  .codelabel { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); margin-top: 6px; }
+  .sizecol { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sizecol-tag { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-2); }
+  .sizecol-px { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); }
+  .kv { display: grid; grid-template-columns: 160px 1fr; gap: 16px 24px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg-3); }
+
+  /* fake modal stage */
+  .modal-stage {
+    position: relative;
+    height: 520px;
+    background: radial-gradient(at 30% 20%, rgba(0,170,144,.18), transparent 50%), var(--cl-basic-900);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
+  /* ------- Usage accordion ------- */
+  details.usage {
+    margin-top: 12px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  details.usage > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--fg-2);
+    user-select: none;
+  }
+  details.usage > summary::-webkit-details-marker { display: none; }
+  details.usage > summary .chev {
+    font-size: 16px; color: var(--fg-3); transition: transform var(--dur-fast) var(--ease-standard);
+  }
+  details.usage[open] > summary .chev { transform: rotate(90deg); }
+  details.usage > summary .tag {
+    margin-left: auto; font-size: 11px; font-weight: 500;
+    color: var(--fg-3); text-transform: none; letter-spacing: 0;
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+  }
+  details.usage > .usage-body {
+    padding: 4px 20px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  @media (max-width: 900px) {
+    details.usage > .usage-body { grid-template-columns: 1fr; }
+  }
+  details.usage pre {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--cl-basic-50);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--fg);
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    white-space: pre;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+  details.usage pre .kw  { color: var(--cl-purple-600); }
+  details.usage pre .cls { color: var(--cl-green-700); }
+  details.usage pre .txt { color: var(--fg-2); }
+  details.usage pre .cmt { color: var(--fg-3); font-style: italic; }
+  details.usage .notes { font-size: 13px; line-height: 22px; color: var(--fg-2); }
+  details.usage .notes h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--fg-3); margin: 0 0 6px; font-weight: 600;
+  }
+  details.usage .notes ul { margin: 0 0 16px; padding-left: 18px; }
+  details.usage .notes ul:last-child { margin-bottom: 0; }
+  details.usage .notes li + li { margin-top: 4px; }
+  details.usage .notes li code,
+  details.usage .notes p code {
+    font-size: 12px; background: var(--cl-basic-50);
+    padding: 1px 6px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pi Design System · Components</div>
+    <h1>Pagination</h1>
+  </header>
+
+<!-- ============ PAGINATION ============ -->
+  <section>
+    <h2>Pagination</h2>
+    <p class="dek"><code>.gl_pagination</code> + <code>-md / -sm</code>。selected 狀態：basic（深色）、<code>.cl-success</code>、<code>.cl-info</code>。</p>
+    <div class="panel col" style="gap: 24px;">
+      <ul class="gl_pagination gl_pagination-md cl-success">
+        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-left"></i></a></li>
+        <li class="active"><a class="gl_page-link" href="#">1</a></li>
+        <li><a class="gl_page-link" href="#">2</a></li>
+        <li><a class="gl_page-link" href="#">3</a></li>
+        <li><span class="gl_ellipsis">…</span></li>
+        <li><a class="gl_page-link" href="#">24</a></li>
+        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-right"></i></a></li>
+      </ul>
+      <ul class="gl_pagination gl_pagination-sm">
+        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-left"></i></a></li>
+        <li><a class="gl_page-link" href="#">1</a></li>
+        <li class="active"><a class="gl_page-link" href="#">2</a></li>
+        <li><a class="gl_page-link" href="#">3</a></li>
+        <li><a class="gl_page-link" href="#"><i class="icon icon-chevron-right"></i></a></li>
+      </ul>
+    </div>
+
+    <details class="usage">
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_pagination</span></summary>
+      <div class="usage-body">
+        <pre><span class="kw">&lt;ul</span> <span class="cls">class="gl_pagination gl_pagination-md cl-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=1"<span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-chevron-left"</span><span class="kw">&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="kw">&lt;li</span> <span class="cls">class="active"</span><span class="kw">&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=1"<span class="kw">&gt;</span>1<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;&lt;a</span> <span class="cls">class="gl_page-link"</span> href="?p=2"<span class="kw">&gt;</span>2<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="kw">&lt;li&gt;&lt;span</span> <span class="cls">class="gl_ellipsis"</span><span class="kw">&gt;</span>…<span class="kw">&lt;/span&gt;&lt;/li&gt;</span>
+<span class="kw">&lt;/ul&gt;</span></pre>
+        <div class="notes">
+          <h4>Sizes · Colors</h4>
+          <ul>
+            <li>Size：<code>-md</code>（預設）、<code>-sm</code>（緊湊列表）</li>
+            <li>Active 色：<code>.cl-success</code>、<code>.cl-info</code>、不加則為 basic（灰黑）</li>
+          </ul>
+          <h4>規則</h4>
+          <ul>
+            <li>當前頁 <code>&lt;li&gt;</code> 加 <code>.active</code></li>
+            <li>總頁 &gt; 5 頁時使用 <code>.gl_ellipsis</code> 省略</li>
+            <li>&lt; 2 頁則不顯示 Pagination</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+</div>
+</body>
+</html>

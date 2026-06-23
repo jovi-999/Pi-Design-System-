@@ -1,0 +1,244 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Button" subtitle="SOLID / OUTLINE / GHOST / GRAY · 7 色系 · 尺寸" viewport="1200x2400" -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Pi DS — Button</title>
+<link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/assets/symicon.css" />
+<style>
+  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
+  .wrap { max-width: 1152px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
+  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
+
+  section { margin-bottom: 56px; }
+  section > h2 { font-size: 22px; line-height: 30px; margin: 0 0 4px; }
+  section > .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 700px; text-wrap: pretty; }
+
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .panel h3 { font-size: 14px; line-height: 20px; margin: 0 0 16px; color: var(--fg-3); font-weight: 600; letter-spacing: .02em; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .col { display: flex; flex-direction: column; gap: 12px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .on-dark { background: var(--cl-basic-900); border-radius: var(--radius-md); padding: 24px; }
+
+  .codelabel { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); margin-top: 6px; }
+  .sizecol { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sizecol-tag { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-2); }
+  .sizecol-px { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); }
+  .kv { display: grid; grid-template-columns: 160px 1fr; gap: 16px 24px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg-3); }
+
+  /* fake modal stage */
+  .modal-stage {
+    position: relative;
+    height: 520px;
+    background: radial-gradient(at 30% 20%, rgba(0,170,144,.18), transparent 50%), var(--cl-basic-900);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
+  /* ------- Usage accordion ------- */
+  details.usage {
+    margin-top: 12px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  details.usage > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--fg-2);
+    user-select: none;
+  }
+  details.usage > summary::-webkit-details-marker { display: none; }
+  details.usage > summary .chev {
+    font-size: 16px; color: var(--fg-3); transition: transform var(--dur-fast) var(--ease-standard);
+  }
+  details.usage[open] > summary .chev { transform: rotate(90deg); }
+  details.usage > summary .tag {
+    margin-left: auto; font-size: 11px; font-weight: 500;
+    color: var(--fg-3); text-transform: none; letter-spacing: 0;
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+  }
+  details.usage > .usage-body {
+    padding: 4px 20px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  @media (max-width: 900px) {
+    details.usage > .usage-body { grid-template-columns: 1fr; }
+  }
+  details.usage pre {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--cl-basic-50);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--fg);
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    white-space: pre;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+  details.usage pre .kw  { color: var(--cl-purple-600); }
+  details.usage pre .cls { color: var(--cl-green-700); }
+  details.usage pre .txt { color: var(--fg-2); }
+  details.usage pre .cmt { color: var(--fg-3); font-style: italic; }
+  details.usage .notes { font-size: 13px; line-height: 22px; color: var(--fg-2); }
+  details.usage .notes h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--fg-3); margin: 0 0 6px; font-weight: 600;
+  }
+  details.usage .notes ul { margin: 0 0 16px; padding-left: 18px; }
+  details.usage .notes ul:last-child { margin-bottom: 0; }
+  details.usage .notes li + li { margin-top: 4px; }
+  details.usage .notes li code,
+  details.usage .notes p code {
+    font-size: 12px; background: var(--cl-basic-50);
+    padding: 1px 6px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pi Design System · Components</div>
+    <h1>Button</h1>
+  </header>
+
+<!-- ============ BUTTON ============ -->
+  <section>
+    <h2>Button</h2>
+    <p class="dek"><code>.gl_btn</code> + 尺寸 (xl/lg/md/sm/xs) + 變體 (solid, outline, ghost, gray) + 顏色 (basic/info/success/warning/danger/orange/purple)。</p>
+
+    <div class="panel">
+      <h3>SIZES</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-xl gl_btn-success">XL 按鈕</button><code class="sizecol-tag">.gl_btn-xl</code><span class="sizecol-px">64px</span></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-lg gl_btn-success">LG 按鈕</button><code class="sizecol-tag">.gl_btn-lg</code><span class="sizecol-px">56px</span></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success">MD 按鈕</button><code class="sizecol-tag">.gl_btn-md</code><span class="sizecol-px">48px</span></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-sm gl_btn-success">SM 按鈕</button><code class="sizecol-tag">.gl_btn-sm</code><span class="sizecol-px">40px</span></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-xs gl_btn-success">XS 按鈕</button><code class="sizecol-tag">.gl_btn-xs</code><span class="sizecol-px">32px</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>SOLID · by color</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-basic">Basic</button><code class="sizecol-tag">.gl_btn-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success">Green</button><code class="sizecol-tag">.gl_btn-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-info">Blue</button><code class="sizecol-tag">.gl_btn-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-warning">Yellow</button><code class="sizecol-tag">.gl_btn-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-danger">Red</button><code class="sizecol-tag">.gl_btn-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-orange">Orange</button><code class="sizecol-tag">.gl_btn-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-purple">Purple</button><code class="sizecol-tag">.gl_btn-purple</code></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>OUTLINE · by color</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-basic">Basic</button><code class="sizecol-tag">.gl_btn-outline-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-success">Green</button><code class="sizecol-tag">.gl_btn-outline-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-info">Blue</button><code class="sizecol-tag">.gl_btn-outline-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-warning">Yellow</button><code class="sizecol-tag">.gl_btn-outline-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-danger">Red</button><code class="sizecol-tag">.gl_btn-outline-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-orange">Orange</button><code class="sizecol-tag">.gl_btn-outline-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-purple">Purple</button><code class="sizecol-tag">.gl_btn-outline-purple</code></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>GHOST · by color</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-basic">Basic</button><code class="sizecol-tag">.gl_btn-ghost-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-success">Green</button><code class="sizecol-tag">.gl_btn-ghost-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-info">Blue</button><code class="sizecol-tag">.gl_btn-ghost-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-warning">Yellow</button><code class="sizecol-tag">.gl_btn-ghost-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-danger">Red</button><code class="sizecol-tag">.gl_btn-ghost-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-orange">Orange</button><code class="sizecol-tag">.gl_btn-ghost-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-purple">Purple</button><code class="sizecol-tag">.gl_btn-ghost-purple</code></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>GRAY · by color</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-basic">Basic</button><code class="sizecol-tag">.gl_btn-gray-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-success">Green</button><code class="sizecol-tag">.gl_btn-gray-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-info">Blue</button><code class="sizecol-tag">.gl_btn-gray-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-warning">Yellow</button><code class="sizecol-tag">.gl_btn-gray-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-danger">Red</button><code class="sizecol-tag">.gl_btn-gray-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-orange">Orange</button><code class="sizecol-tag">.gl_btn-gray-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-purple">Purple</button><code class="sizecol-tag">.gl_btn-gray-purple</code></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>WITH ICON · DISABLED · ICON-ONLY</h3>
+      <div class="row">
+        <button class="gl_btn gl_btn-md gl_btn-success"><i class="icon icon-search"></i><span>搜尋職缺</span></button>
+        <button class="gl_btn gl_btn-md gl_btn-outline-basic"><span>下載報告</span><i class="icon icon-download"></i></button>
+        <button class="gl_btn gl_btn-md gl_btn-success" disabled>已送出</button>
+        <button class="gl_btn gl_btn-md gl_btn-icon gl_btn-gray-basic" aria-label="更多"><i class="icon icon-more-horiz"></i></button>
+        <button class="gl_btn gl_btn-md gl_btn-icon gl_btn-danger" aria-label="刪除"><i class="icon icon-delete"></i></button>
+      </div>
+    </div>
+
+    <details class="usage">
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_btn</span></summary>
+      <div class="usage-body">
+        <pre><span class="cmt">&lt;!-- size × variant × color --&gt;</span>
+<span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-md gl_btn-success"</span><span class="kw">&gt;</span>搜尋職缺<span class="kw">&lt;/button&gt;</span>
+
+<span class="cmt">&lt;!-- with icon --&gt;</span>
+<span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-md gl_btn-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;i</span> <span class="cls">class="icon icon-search"</span><span class="kw">&gt;&lt;/i&gt;</span>
+  <span class="kw">&lt;span&gt;</span>搜尋<span class="kw">&lt;/span&gt;</span>
+<span class="kw">&lt;/button&gt;</span>
+
+<span class="cmt">&lt;!-- icon only --&gt;</span>
+<span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-md gl_btn-icon gl_btn-gray-basic"</span> aria-label="更多"<span class="kw">&gt;</span>
+  <span class="kw">&lt;i</span> <span class="cls">class="icon icon-more-horiz"</span><span class="kw">&gt;&lt;/i&gt;</span>
+<span class="kw">&lt;/button&gt;</span></pre>
+        <div class="notes">
+          <h4>Classes</h4>
+          <ul>
+            <li><code>gl_btn</code> + size <strong>(xl&middot;lg&middot;md&middot;sm&middot;xs)</strong> + variant <strong>(solid&middot;outline&middot;ghost&middot;gray)</strong> + color <strong>(basic&middot;info&middot;success&middot;warning&middot;danger&middot;orange&middot;purple)</strong></li>
+            <li>Icon-only 需加 <code>.gl_btn-icon</code> 與 <code>aria-label</code></li>
+          </ul>
+          <h4>規則</h4>
+          <ul>
+            <li>主 CTA 用 <code>gl_btn-success</code>；每屏會1個主按鈕</li>
+            <li>破壞性動作用 <code>gl_btn-danger</code>，與 ghost 取消右部對置</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+</div>
+</body>
+</html>

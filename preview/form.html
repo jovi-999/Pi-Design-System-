@@ -1,0 +1,333 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Form" subtitle="Input · Select · Textarea · Checkbox · Radio · Toggle" viewport="1200x2400" -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1200" />
+<title>Pi DS — Form</title>
+<link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/assets/symicon.css" />
+<style>
+  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
+  .wrap { max-width: 1152px; margin: 0 auto; }
+  header { margin-bottom: 40px; }
+  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
+  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
+
+  section { margin-bottom: 56px; }
+  section > h2 { font-size: 22px; line-height: 30px; margin: 0 0 4px; }
+  section > .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 700px; text-wrap: pretty; }
+
+  .panel {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .panel h3 { font-size: 14px; line-height: 20px; margin: 0 0 16px; color: var(--fg-3); font-weight: 600; letter-spacing: .02em; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .col { display: flex; flex-direction: column; gap: 12px; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .on-dark { background: var(--cl-basic-900); border-radius: var(--radius-md); padding: 24px; }
+
+  .codelabel { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); margin-top: 6px; }
+  .sizecol { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sizecol-tag { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-2); }
+  .sizecol-px { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 11px; color: var(--fg-3); }
+  .kv { display: grid; grid-template-columns: 160px 1fr; gap: 16px 24px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .kv:last-child { border-bottom: 0; }
+  .kv .k { font-family: ui-monospace, monospace; font-size: 12px; color: var(--fg-3); }
+
+  /* fake modal stage */
+  .modal-stage {
+    position: relative;
+    height: 520px;
+    background: radial-gradient(at 30% 20%, rgba(0,170,144,.18), transparent 50%), var(--cl-basic-900);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
+  /* ------- Usage accordion ------- */
+  details.usage {
+    margin-top: 12px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  details.usage > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--fg-2);
+    user-select: none;
+  }
+  details.usage > summary::-webkit-details-marker { display: none; }
+  details.usage > summary .chev {
+    font-size: 16px; color: var(--fg-3); transition: transform var(--dur-fast) var(--ease-standard);
+  }
+  details.usage[open] > summary .chev { transform: rotate(90deg); }
+  details.usage > summary .tag {
+    margin-left: auto; font-size: 11px; font-weight: 500;
+    color: var(--fg-3); text-transform: none; letter-spacing: 0;
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+  }
+  details.usage > .usage-body {
+    padding: 4px 20px 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+  @media (max-width: 900px) {
+    details.usage > .usage-body { grid-template-columns: 1fr; }
+  }
+  details.usage pre {
+    margin: 0;
+    padding: 14px 16px;
+    background: var(--cl-basic-50);
+    border-radius: 8px;
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--fg);
+    font-family: ui-monospace, SF Mono, Menlo, monospace;
+    white-space: pre;
+    overflow-x: auto;
+    tab-size: 2;
+  }
+  details.usage pre .kw  { color: var(--cl-purple-600); }
+  details.usage pre .cls { color: var(--cl-green-700); }
+  details.usage pre .txt { color: var(--fg-2); }
+  details.usage pre .cmt { color: var(--fg-3); font-style: italic; }
+  details.usage .notes { font-size: 13px; line-height: 22px; color: var(--fg-2); }
+  details.usage .notes h4 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--fg-3); margin: 0 0 6px; font-weight: 600;
+  }
+  details.usage .notes ul { margin: 0 0 16px; padding-left: 18px; }
+  details.usage .notes ul:last-child { margin-bottom: 0; }
+  details.usage .notes li + li { margin-top: 4px; }
+  details.usage .notes li code,
+  details.usage .notes p code {
+    font-size: 12px; background: var(--cl-basic-50);
+    padding: 1px 6px; border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Pi Design System · Components</div>
+    <h1>Form</h1>
+  </header>
+
+<!-- ============ FORM ============ -->
+  <section>
+    <h2>Form · Input · Select · Textarea</h2>
+    <p class="dek"><code>.gl_form-group</code> 包住每個欄位。高度 48px、圓角 8px。</p>
+
+    <div class="split">
+      <div class="panel">
+        <h3>INPUT</h3>
+        <div class="col">
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" placeholder="職稱 · 公司 · 關鍵字" />
+          </div>
+          <div class="gl_form-group gl_icon-input-wrap">
+            <i class="icon icon-search"></i>
+            <input class="gl_form-control" type="text" placeholder="搜尋公司或職位" />
+          </div>
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" value="已填入的內容" />
+          </div>
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" value="停用狀態" disabled />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>SELECT · TEXTAREA</h3>
+        <div class="col">
+          <div class="gl_form-group">
+            <select class="gl_form-control">
+              <option>請選擇產業</option>
+              <option>半導體</option>
+              <option>金融服務</option>
+              <option>電子商務</option>
+            </select>
+          </div>
+          <div class="gl_form-group">
+            <textarea class="gl_form-control" placeholder="寫下面試心得 · 其他求職者會感謝你"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div class="panel">
+        <h3>PROMPT / HINT</h3>
+        <div class="col">
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" placeholder="最低期望月薪" />
+            <div class="form-prompt-text"><i class="icon icon-info"></i><span>以新台幣計算</span></div>
+          </div>
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" placeholder="最低期望月薪" />
+            <div class="form-prompt-text is-info"><i class="icon icon-info"></i><span>同職位中位數為 NT$ 52,800</span></div>
+          </div>
+          <div class="gl_form-group">
+            <input class="gl_form-control" type="text" placeholder="最低期望月薪" />
+            <div class="form-prompt-text is-warning"><i class="icon icon-alert-triangle"></i><span>請確認金額是否合理</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>VALIDATION</h3>
+        <div class="col">
+          <div class="gl_form-group is-valid">
+            <input class="gl_form-control" type="text" value="johndoe@example.com" />
+            <div class="form-feedback"><i class="icon icon-checked"></i><span>Email 格式正確</span></div>
+          </div>
+          <div class="gl_form-group is-invalid">
+            <input class="gl_form-control" type="text" value="johndoe" />
+            <div class="form-feedback"><i class="icon icon-alert-triangle"></i><span>缺少 @ 與網域</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <details class="usage">
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_form-group &middot; .gl_form-control</span></summary>
+      <div class="usage-body">
+        <pre><span class="cmt">&lt;!-- basic --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_form-group"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="cls">class="gl_form-control"</span> type="text" placeholder="職稱" <span class="kw">/&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- with leading icon --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_form-group gl_icon-input-wrap"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;i</span> <span class="cls">class="icon icon-search"</span><span class="kw">&gt;&lt;/i&gt;</span>
+  <span class="kw">&lt;input</span> <span class="cls">class="gl_form-control"</span> type="text" <span class="kw">/&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- hint --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_form-group"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="cls">class="gl_form-control"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;div</span> <span class="cls">class="form-prompt-text is-info"</span><span class="kw">&gt;</span>中位數 NT$ 52,800<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- validation --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_form-group is-invalid"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> <span class="cls">class="gl_form-control"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;div</span> <span class="cls">class="form-feedback"</span><span class="kw">&gt;</span>缺少 @ 與網域<span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+        <div class="notes">
+          <h4>Classes</h4>
+          <ul>
+            <li><code>.gl_form-group</code>：每個欄位的包裝。修飾用 <code>.is-valid</code> / <code>.is-invalid</code> / <code>.gl_icon-input-wrap</code></li>
+            <li><code>.gl_form-control</code>：<code>&lt;input&gt;</code>、<code>&lt;select&gt;</code>、<code>&lt;textarea&gt;</code>都套同一個 class</li>
+            <li><code>.form-prompt-text</code>（hint）可加 <code>.is-info</code> / <code>.is-warning</code></li>
+            <li><code>.form-feedback</code>（validation）顏色由父層 <code>.is-valid</code> / <code>.is-invalid</code> 決定</li>
+          </ul>
+          <h4>規則</h4>
+          <ul>
+            <li>Hint 與 feedback 都在 <code>input</code> <strong>下方</strong></li>
+            <li>高度 48px、radius 8px、tinted 底，focus 時翻白</li>
+            <li>Disabled 狀態直接在 <code>&lt;input&gt;</code> 加 <code>disabled</code></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+<!-- ============ CHECKBOX / RADIO / TOGGLE ============ -->
+  <section>
+    <h2>Checkbox · Radio · Toggle</h2>
+    <p class="dek">20 × 20 方框，與標籤間距 12px。主題變體 <code>-success / -info / -danger / -basic</code>。</p>
+
+    <div class="split">
+      <div class="panel">
+        <h3>CHECKBOX</h3>
+        <div class="col">
+          <div class="gl_checkbox-layout gl_checkbox-success"><label><input type="checkbox" checked /><span class="fz-body-sm">訂閱每週職缺摘要</span></label></div>
+          <div class="gl_checkbox-layout gl_checkbox-success"><label><input type="checkbox" /><span class="fz-body-sm">接受匿名面試回饋</span></label></div>
+          <div class="gl_checkbox-layout gl_checkbox-info"><label><input type="checkbox" checked /><span class="fz-body-sm">使用 Info 色</span></label></div>
+          <div class="gl_checkbox-layout gl_checkbox-danger"><label><input type="checkbox" checked /><span class="fz-body-sm">同意移除帳號與所有資料</span></label></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>RADIO</h3>
+        <div class="col">
+          <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="r1" checked /><span class="fz-body-sm">正職</span></label></div>
+          <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="r1" /><span class="fz-body-sm">實習 / 工讀</span></label></div>
+          <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="r1" /><span class="fz-body-sm">派遣 · 約聘</span></label></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>TOGGLE · sizes × colors</h3>
+      <div class="row" style="gap: 32px;">
+        <label class="gl_toggle gl_toggle-lg gl_toggle-success"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-md gl_toggle-success"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-sm gl_toggle-success"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-xs gl_toggle-success"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <span style="color: var(--fg-3); font-size: 12px;">↑ lg · md · sm · xs</span>
+      </div>
+      <div class="row" style="margin-top: 24px; gap: 20px;">
+        <label class="gl_toggle gl_toggle-md gl_toggle-basic"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-md gl_toggle-info"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-md gl_toggle-warning"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-md gl_toggle-danger"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>
+        <label class="gl_toggle gl_toggle-md gl_toggle-success"><input type="checkbox" class="toggle-checkbox" /><span class="knobs"></span><span class="layer"></span></label>
+        <span style="color: var(--fg-3); font-size: 12px;">↑ basic · info · warning · danger · off</span>
+      </div>
+    </div>
+
+    <details class="usage">
+      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_checkbox-layout &middot; .gl_radio-layout &middot; .gl_toggle</span></summary>
+      <div class="usage-body">
+        <pre><span class="cmt">&lt;!-- checkbox --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_checkbox-layout gl_checkbox-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;label&gt;&lt;input</span> type="checkbox" checked <span class="kw">/&gt;&lt;span&gt;</span>訂閱職缺摘要<span class="kw">&lt;/span&gt;&lt;/label&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- radio --&gt;</span>
+<span class="kw">&lt;div</span> <span class="cls">class="gl_radio-layout gl_radio-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;label&gt;&lt;input</span> type="radio" name="job" <span class="kw">/&gt;&lt;span&gt;</span>正職<span class="kw">&lt;/span&gt;&lt;/label&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+<span class="cmt">&lt;!-- toggle --&gt;</span>
+<span class="kw">&lt;label</span> <span class="cls">class="gl_toggle gl_toggle-md gl_toggle-success"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;input</span> type="checkbox" <span class="cls">class="toggle-checkbox"</span> <span class="kw">/&gt;</span>
+  <span class="kw">&lt;span</span> <span class="cls">class="knobs"</span><span class="kw">&gt;&lt;/span&gt;&lt;span</span> <span class="cls">class="layer"</span><span class="kw">&gt;&lt;/span&gt;</span>
+<span class="kw">&lt;/label&gt;</span></pre>
+        <div class="notes">
+          <h4>Classes</h4>
+          <ul>
+            <li>Checkbox / Radio：<code>.gl_[checkbox|radio]-layout</code> + 顏色 <code>-success / -info / -danger / -basic</code></li>
+            <li>Toggle：<code>.gl_toggle</code> + size <code>-lg / -md / -sm / -xs</code> + 顏色修飾</li>
+            <li>Toggle 內部必須有 <code>&lt;input&gt;</code>、<code>.knobs</code>、<code>.layer</code></li>
+          </ul>
+          <h4>規則</h4>
+          <ul>
+            <li>單選 Radio、多選 Checkbox、即時生效 Toggle</li>
+            <li>破壞性選項（同意刪除）用 <code>-danger</code></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+  </section>
+
+</div>
+</body>
+</html>
