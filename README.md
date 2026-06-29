@@ -1,14 +1,12 @@
 # Pi Design System
 
-從 Pi 系列求職與職場產品（面試準備、薪資情報、兼職媒合）萃取出的「產品中立」設計系統。這個 repo 是 **token 與 component 的唯一真相來源** —— 所有產品線都應該從這裡 import，不要在各自專案內重新定義。
-
-> **定位。** 功能優先、平易近人、能建立信任感。產品所處的場景跟錢與職涯決策有關，所以視覺語言優先考慮：清晰、易讀的數據、肯定且有自信的語氣，而非玩花樣。青綠色（teal-green）象徵信任與成長（不是俗氣的「新創藍」）；溫潤的中性色讓資訊密度高的畫面不會冷冰冰。
+這個 repo 是 **token 與 component 的唯一真相來源**，目前用途：**給前端切版時對照目前的元件內容與樣式**。本機跑預覽頁即可瀏覽，不發布到 npm。
 
 ---
 
 ## 對象與導覽
 
-本 README 給**開發者 / 維護者**（設計原則、安裝整合、開發與發版、字型管理）。其他文件分工：
+本 README 給**前端 / 維護者**（設計原則、本機預覽、開發與字型管理）。其他文件分工：
 
 | 文件 | 對象 | 內容 |
 |---|---|---|
@@ -25,55 +23,13 @@
 
 ## 目錄
 
-1. [內容基本原則](#內容基本原則)
-2. [視覺基礎](#視覺基礎)
-3. [字體排版](#字體排版)
-4. [色彩](#色彩)
-5. [圖示](#圖示)
-6. [間距、圓角與層次](#間距圓角與層次)
-7. [元件](#元件)
-8. [產品介面](#產品介面)
-9. [檔案結構](#檔案結構)
-
----
-
-## 內容基本原則
-
-**口吻。** 直白、鼓勵、具體。我們解釋使用者正在看什麼、接下來會發生什麼 —— 從不堆疊行銷形容詞，從不寫「解鎖你的潛能」這種空話。涉及數字（薪資、時薪、面試次數、福利）時，先讓數字說話。
-
-**不同情境的語氣校準。**
-
-| 情境                          | 語氣                              | 範例                                              |
-| ---------------------------- | --------------------------------- | ------------------------------------------------- |
-| 空狀態 & 首次使用              | 溫暖、引導、給一個下一步           | "還沒有面試紀錄 — 記下第一次，幫下一個求職者照亮路" |
-| 資料 & 搜尋結果                | 中性、事實                         | "台積電 · 新竹 · 月薪 45,000–62,000"               |
-| 成功 & 確認                    | 簡短、具體                         | "已送出評論 · 發布後會通知你"                      |
-| 錯誤 & 破壞性操作              | 直接、可回復、把錯怪在系統          | "這則內容暫時無法載入 · 點擊重試"                  |
-| 敏感（薪資、抱怨）             | 保護性、確認同意                    | "匿名發布 · 公司看不到你的姓名"                    |
-
-**密度規則。**
-
-- 列表卡片：每行 **最多 3 個事實**（例如 標題 · 公司 · 薪資）。再多就放進詳細頁。
-- 產品內文使用 `text-wrap: pretty` 斷行 —— 不要參差或落單。
-- 數字用 display 字體（`--font-display`，等寬數字、緊湊字距）；標籤維持 Inter。
-
-**多語系。** 繁體中文（zh-TW）為主市場，英文（en）為次要。每個字串都要為「zh-TW 比 en 多 15–20% 長度」預留空間（直向佈局預留垂直空間，單行按鈕預留水平空間）。IBM Plex Sans TC 透過 `--font-sans` fallback chain 自動處理 TC。
-
----
-
-## 視覺基礎
-
-**網格。** 4px 為基本單位。所有元件的 padding、gap、圓角都是 4 的倍數。桌面版 layout container 最大 `1152px`、左右 `24px` 留白；`768px` 是平板斷點；以下單欄。
-
-**密度。**
-
-- **舒適**（預設，消費者流程）：16px 內文、24–32px 區塊間距。
-- **緊湊**（資料表、儀表板）：14px 內文、12–16px 區塊間距。
-- **觸控**（mobile-first 流程）：點擊區最小 44px、內文最小 16px。
-
-**動態。** 狀態變化（hover、focus、select）120ms；視圖切換 200ms；sheet 與 modal 320ms。Easing 一律 `cubic-bezier(.2, 0, 0, 1)` —— 偏減速、不彈跳。不用 spring physics：這是工具型產品，不是玩具。
-
-**攝影 & 影像。** 我們呈現真實的工作場域、真實的桌面、真實的雙手 —— **絕不用** 商業圖庫的握手照、傍晚天際線、AI 生成的抽象圖。沒有圖片時，fallback 用具名插圖或公司兩字縮寫貼在 `--cl-basic-100` 色塊上。Logo 一律白底；不要替合作品牌 logo 上色。
+1. [字體排版](#字體排版)
+2. [色彩](#色彩)
+3. [圖示](#圖示)
+4. [間距、圓角與層次](#間距圓角與層次)
+5. [元件](#元件)
+6. [產品介面](#產品介面)
+7. [檔案結構](#檔案結構)
 
 ---
 
@@ -188,239 +144,84 @@ TBD —— 各產品的小型 UI kit（HTML mockup）：
 
 ## 安裝與使用
 
-### 1. 安裝（內部 npm registry）
+這個 repo **不發布到 npm**。前端切版時用法：clone 下來，本機跑預覽頁，對照元件樣式與 class 名稱即可。
+
+### 1. 啟動預覽
 
 ```bash
-# 在 Laravel / Vue / 其他專案根目錄
-npm install @yourteam/design-system
-
-# 若用 GitHub Packages，先在專案 .npmrc 加上：
-# @yourteam:registry=https://npm.pkg.github.com
+git clone <repo-url>
+cd Pi-Design-System
+npm install            # 只裝 sass / vite 等 build 工具
+npm run dev            # 啟動預覽，開瀏覽器看左側目錄 + 各元件對照頁
 ```
 
-### 2. Laravel + Vite 整合
+預覽頁吃 `src/index.scss`，改 SCSS 後 HMR 即時更新，不用先 build。
 
-**`resources/sass/app.scss`**
+### 2. 切版怎麼對照
 
-```scss
-// 方案 A：全部載入（tokens + base + components）
-@use "@yourteam/design-system" as *;
+- **看元件樣式**：`npm run dev` 後，左側目錄點各元件（button / form / alert…），右側 iframe 即是該元件實際樣式。
+- **查 class 名稱**：class 前綴 `gl_`，真相在 `src/components/_<元件>.scss`；Figma 名稱 ↔ class 對照見 [docs/ai-guide.md](docs/ai-guide.md)。
+- **查 token / 色票 / 圖示**：foundation 對照頁（color / type / shadow / tokens / icons）同樣在預覽左側目錄。
+- **禁自創 token / class**：切版只能用設計系統已存在的 token / class，不確定先 `grep src/` 或讀 `src/tokens`、`src/components` 確認。
 
-// 方案 B：只要 tokens，自己寫 component
-@use "@yourteam/design-system/tokens" as *;
+### 3. 要拿 CSS 產物時
 
-// 方案 C：挑選 component
-@use "@yourteam/design-system/tokens" as *;
-@use "@yourteam/design-system/components/button";
-@use "@yourteam/design-system/components/modal";
-```
-
-**`vite.config.js`**
-
-```js
-import { defineConfig } from "vite";
-import laravel from "laravel-vite-plugin";
-
-export default defineConfig({
-  plugins: [
-    laravel({
-      input: ["resources/sass/app.scss", "resources/js/app.js"],
-      refresh: true,
-    }),
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        // 可選：全域注入 tokens，讓 .vue/.scss 直接用 $cl-green-500
-        additionalData: `@use "@yourteam/design-system/tokens" as *;`,
-      },
-    },
-  },
-});
-```
-
-**Blade 載入字體與圖示（`resources/views/layouts/app.blade.php`）**
-
-```blade
-<link rel="stylesheet" href="{{ asset('vendor/design-system/symicon.css') }}">
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
-```
-
-發行期把 `node_modules/@yourteam/design-system/assets` 與 `fonts` copy 到 `public/vendor/design-system/` —— 用 Laravel Mix 的 `.copyDirectory()` 或 Vite 的 `vite-plugin-static-copy`。
-
-### 3. Docker 環境
-
-```yaml
-# docker-compose.yml 片段
-services:
-  node:
-    image: node:20-alpine
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www
-      - ~/.npmrc:/root/.npmrc:ro   # 把本機 registry 認證帶進容器
-    command: sh -c "npm ci && npm run dev"
-```
-
-CI 環境用 `NPM_TOKEN` 環境變數 + 專案內的 `.npmrc`：
-
-```
-//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
-@yourteam:registry=https://npm.pkg.github.com
-always-auth=true
-```
-
-### 4. 升級
+需要編譯後的 CSS（例如貼進其他頁面比對）：
 
 ```bash
-npm update @yourteam/design-system
+npm run build          # 產出 dist/pi-ds.css（expanded）
+npm run build:min      # 產出 dist/pi-ds.min.css（compressed）
 ```
 
-每次升版前看 `CHANGELOG.md`；major version bump 代表有 breaking（通常是 token rename 或 component class 改名）。
+`dist/` 是 build 產物（`.gitignore`，不入版控）。
 
 ---
 
 ## 開發本系統
 
-### Repo 心智模型
-
-這個 repo 同時有兩個「身份」，理解它們的差別才不會被流程搞混：
+### Repo 結構
 
 ```
-design-system/             ← 🏭 工廠：製造 SCSS 包本體
-├── src/                   ← 主程式（你寫的 SCSS）
+Pi-Design-System/
+├── src/                   ← 主程式（你寫的 SCSS，單一真相源）
+│   ├── tokens/            ← 設計 token（色 / 字 / 間距 / 圓角 / 陰影…）
+│   ├── base/              ← reset / fonts / utilities
+│   └── components/        ← 元件，每元件一檔，class 前綴 gl_
+├── preview/               ← 視覺對照頁（npm run dev 看，不用 build）
 ├── dist/                  ← npm run build 的產物（.gitignore，不入版控）
-├── preview/               ← 視覺對照頁（直接開 HTML，不用 build）
-├── package.json           ← 自己就是 @yourteam/design-system
-│
-└── sandbox/               ← 🏪 客戶：假裝是消費端的測試專案
-    ├── demo.html
-    ├── src/app.scss       ← 用 @use "@yourteam/design-system" 載入
-    └── package.json       ← 把上層用 "file:.." 當 dependency 安裝
+└── assets/ fonts/         ← icon 字體 / 字型檔
 ```
 
-| | 根目錄 (`design-system/`) | `sandbox/` |
-| --- | --- | --- |
-| **角色** | 製造這包 SCSS | 假扮成「裝這包來用」的別的專案 |
-| **`npm install` 裝什麼** | sass（build 工具） | sass + vite + **這份 design system 本人** |
-| **`npm run build` / `dev`** | SCSS → `dist/pi-ds.css` | 啟動 dev server 渲染 `demo.html` |
-| **回答的問題** | 「我寫的 SCSS 編得過嗎？」 | 「**別人裝來用** 行不行？」 |
+完整檔案地圖見 [STRUCTURE.md](STRUCTURE.md)。
 
-**為什麼需要 sandbox？** 因為「自己編得過」≠「別人裝來能用」。例如：
+### 日常開發
 
-- `package.json` 的 `exports` 寫錯路徑 → 根目錄 build 不會發現（它直接吃 `src/index.scss`），但 sandbox 一跑就爆，因為 sandbox 寫的是 `@use "@yourteam/design-system"`，這條路徑必須透過 `exports` 解析。
-- 加了新 component 但忘了在 `src/index.scss` 加 `@forward` → 根目錄 build 過，sandbox 用不到。
-- 改了 `files` 欄位漏掉某個 asset → `npm pack` 後安裝才會發現缺檔。
-
-換句話說：
-
-> **根目錄測「我寫的 SCSS 對不對」**  
-> **sandbox 測「我發布的 npm 包對不對」**  
-> 兩個都通過才可以放心發版。
-
----
-
-### 日常開發（最常見的情況）
-
-只改 SCSS 內容（顏色、間距、單一 component 樣式）：
+改 SCSS（顏色、間距、單一元件樣式）：
 
 ```bash
-# 1. 直接開預覽頁看視覺（不用 build）
-open preview/tokens.html
-open preview/components.html
+# 1. 開預覽頁即時看視覺（HMR，不用 build）
+npm run dev
 
-# 2. 改完跑一次 build，確認沒語法錯
+# 2. 改完跑一次 build + smoke test，確認沒語法錯
 npm run build
-npm test                  # smoke test：檢查產出 css 含關鍵 token / class
+npm test                  # 檢查產出 css 含關鍵 token / class
 
 # 3. 寫 CHANGELOG → commit → push
 ```
 
-平常不需要動 sandbox。
-
----
-
-### 改了「對外接口」時要跑 sandbox
-
-下列情況一定要進 `sandbox/` 跑一次：
-
-- ✅ 改了 `package.json` 的 `exports` / `main` / `files`
-- ✅ 加新 component（要確認 `src/index.scss` 的 `@forward` 真的把它 export 出去）
-- ✅ 加新 token 檔案
-- ✅ 動了字體 / icon 等 asset 路徑
-- ✅ 發版前最後一道把關
-
-```bash
-# 第一次：先在根目錄裝 sass、跑 build
-npm install
-npm run build && npm test
-
-# 進 sandbox
-cd sandbox
-npm install               # 透過 file:.. 把上層 link 進來
-npm run dev               # 開 http://localhost:5174/demo.html
-```
-
-**檢查重點**：
-
-- 顏色對嗎？綠色按鈕真的綠？
-- DevTools console 有沒有 `Undefined variable` 警告？
-- 點按鈕看 computed style，看到的是 `--cl-green-500` 還是 hex？
-
----
-
-### 模擬「發 npm」流程（發版前）
-
-`file:..` 用的是 symlink，跟真的 `npm install @yourteam/design-system` 還有一點點差別。發版前最好用 `npm pack` 走一次完整流程：
-
-```bash
-# 1. 在根目錄打包
-npm pack
-# → 產出 yourteam-design-system-0.1.0.tgz
-
-# 2. 換成 tgz 安裝
-cd sandbox
-npm uninstall @yourteam/design-system
-npm install ../yourteam-design-system-0.1.0.tgz
-npm run dev
-```
-
-如果樣式照常出現 → 真的可以發 npm 了 ✅
-
-```bash
-# 3. 正式發版（maintainer 權限）
-cd ..                     # 回到 design-system 根目錄
-npm version minor         # 自動改 package.json 版本 + 打 git tag
-git push --follow-tags
-npm publish
-```
-
----
-
 ### 編輯規則
 
-- 只改 `src/` 內檔案；`colors_and_type.css` 由 tokens 自動產生（暫時手動同步，之後加 build script）
-- 加新 component → `src/components/_xxx.scss` + `src/components/index.scss` 加一行 `@forward` + `preview/components.html` 加範例
-- 改 token → 先看 `preview/tokens.html` 評估衝擊面，CHANGELOG 寫清楚
-- breaking change（rename / 移除 token、改 class 名）→ 一定要 major bump 並在 CHANGELOG 寫遷移指引
-
----
-
-### Sandbox 的角色（重要）
-
-`sandbox/` 是「**用真實 npm 流程驗證 DS 的小型測試專案**」，不是 DS 的一部分，也不是 demo 站。它存在的唯一目的：當下游專案 `npm install @yourteam/design-system` 之後，import 路徑、`@use` 子路徑、字型 path 變數、tokens 是否都串得起來。
-
-**class 名以 `src/components/` 為唯一真相**。`sandbox/demo.html` 用的所有 `.gl_*` class 都必須能在 `src/components/_*.scss` 裡找到對應定義 —— sandbox 不能自己發明 class（例如 `.gl_field`、`.gl_input`），那會掩蓋 DS 真正缺的東西。
-
-**改 sandbox 前**：先 `grep -r "\.gl_xxx" src/components/` 確認 class 存在，或開對應的 `_*.scss` 看清楚結構（例如 `.gl_form-control` 必須包在 `.gl_form-group` 裡，`.gl_checkbox-layout` 是 wrapper class 不是 input 自己）。
-
-**如果發現 sandbox 需要某個 class 但 DS 沒有**：那是 DS 缺的，去 `src/components/` 補上、bump minor，不要在 sandbox 私下加樣式。
+- 只改 `src/` 內檔案；`colors_and_type.css` 由 tokens 自動產生（暫時手動同步，之後加 build script）。
+- 加新元件 → `src/components/_xxx.scss` + `src/components/index.scss` 加一行 `@forward` + `preview/` 加對照頁並在 `preview/index.html` 左目錄登記。
+- 改 token → 先看 `preview/tokens.html` 評估衝擊面，CHANGELOG 寫清楚。
+- **禁自創 token / class**：不確定先 `grep src/` 或讀 `src/tokens`、`src/components` 確認，絕不憑記憶發明。
+- rename / 移除 token、改 class 名屬 breaking change → CHANGELOG 寫清楚並同步所有引用處（preview、docs、README）。
 
 ---
 
 ## 字型管理（Fonts）
 
-字型是 design system 裡最容易出問題的部分 —— **檔案在哪、SCSS 怎麼引用、下游專案怎麼覆寫路徑** 三件事一旦不一致就會 404 / FOUT / build 失敗。這節是唯一的真相來源，所有字型相關的決策都從這裡開始。
+字型是 design system 裡最容易出問題的部分 —— **檔案在哪、SCSS 怎麼引用、路徑怎麼解析** 一旦不一致就會 404 / FOUT / build 失敗。這節是唯一的真相來源，所有字型相關的決策都從這裡開始。
 
 ### 架構
 
@@ -442,138 +243,17 @@ $font-path: "../../fonts" !default;
 }
 ```
 
-下游專案 `@use` 時可以這樣覆寫：
+`$font-path` 用 `!default` 留了覆寫鉤子（預設 `"../../fonts"`，相對 `src/base/`）。預覽頁吃這個預設值即可，不用改。
 
-```scss
-@use "@yourteam/design-system/base/fonts" with (
-  $font-path: "/fonts"      // ⭐ 你的專案實際字型放哪
-);
-@use "@yourteam/design-system" as *;
-```
+### 換 / 升級字型怎麼做
 
-> **重要**：`with(...)` 必須出現在 base/fonts **第一次** 被 @use 之前。所以前面要先單獨 `@use base/fonts with(...)`，再 `@use "@yourteam/design-system"`。
+| 情況 | 動哪裡 |
+|---|---|
+| 字型版本升級（family / 檔名不變，只換內容） | 把新檔覆蓋進 `fonts/`，`npm run dev` 確認還能載 |
+| 加新字重（例如多載 Inter Bold 700） | `fonts/` 加檔 → `src/base/_fonts.scss` 加 `@font-face`（`font-weight: 700`）|
+| 替換字型（改 family / token） | `fonts/` 換檔 → 改 `src/base/_fonts.scss` 的 `@font-face` → 改 `src/tokens/_typography.scss` 的 `--font-sans` → `preview/` 對照視覺有無走鐘（中文寬度可能不同）|
 
-### 下游專案常見 `$font-path` 設定
-
-| 場景 | `$font-path` 設成 | 配套 |
-|---|---|---|
-| Laravel + Vite，字型放 `public/fonts/` | `"/fonts"` | 把 `node_modules/@yourteam/design-system/fonts/*` copy 到 `public/fonts/`（用 `vite-plugin-static-copy`） |
-| Laravel + Vite，吃 `node_modules` | `"~@yourteam/design-system/fonts"` | Vite alias 加 `~` 規則 |
-| 純 SPA / 純 Vite | `"/fonts"` + `publicDir` 指向字型資料夾 | 見 `sandbox/vite.config.js` |
-| CDN | `"https://cdn.example.com/fonts"` | CDN 上備齊所有字重 |
-
-### 場景 A：字型版本升級（例如 Inter v3 → v4）
-
-不改 family、不改檔名、只換內容 → **patch bump**。
-
-```bash
-# 1. 把新檔丟進 fonts/，覆蓋舊的
-cp ~/Downloads/Inter-Regular-v4.woff2 fonts/Inter-Regular.woff2
-cp ~/Downloads/Inter-Regular-v4.woff  fonts/Inter-Regular.woff
-# Inter-SemiBold 同理
-
-# 2. sandbox 跑一次確認還能載
-cd sandbox && npm run dev
-# 開 http://localhost:5174/demo.html，devtools Network 確認字型 200
-
-# 3. 寫 CHANGELOG（patch 區塊）
-#    - chore(fonts): bump Inter to v4
-
-# 4. 發版
-cd ..
-npm version patch          # 0.1.0 → 0.1.1
-git push --follow-tags
-npm publish
-```
-
-下游：`npm update @yourteam/design-system` → 完成。
-
-### 場景 B：替換字型（例如 Inter → 思源黑體）
-
-改 family / 檔名 / token → **breaking change，major bump**。
-
-```bash
-# 1. fonts/ 換新檔
-rm fonts/Inter-*
-cp ~/Downloads/SourceHanSans-Regular.woff2 fonts/
-cp ~/Downloads/SourceHanSans-Bold.woff2    fonts/
-
-# 2. 改 src/base/_fonts.scss 的 @font-face：
-#    - font-family: "Source Han Sans TC"
-#    - src 檔名改 SourceHanSans-Regular.woff2
-#    - 字重對映確認（Regular = 400, Bold = 700, ...）
-
-# 3. 改 src/tokens/_typography.scss：
-#    --font-sans: "Source Han Sans TC", "IBM Plex Sans TC", system-ui, ...
-
-# 4. sandbox 跑一次：cd sandbox && npm run dev
-#    - 確認字型載入
-#    - 對照 preview/components.html 看視覺有無走鐘（中文寬度可能不同）
-
-# 5. 寫 CHANGELOG（major 區塊，含 BREAKING）
-#    - BREAKING(fonts): Inter → Source Han Sans TC
-#    - 下游需要：(a) npm update (b) public/fonts/ 換成新檔 (c) 對照 layout 是否需調整
-
-# 6. major bump
-npm version major          # 0.1.x → 1.0.0
-git push --follow-tags
-npm publish
-```
-
-下游升級：看 CHANGELOG → 確認影響範圍 → `npm install @yourteam/design-system@1` → 重新 copy fonts 到 public。
-
-### 場景 C：增加新字重（例如多載 Inter Bold 700）
-
-不改現有 token，只是多 export 一個 face → **minor bump**。
-
-```bash
-# 1. fonts/ 加 Inter-Bold.woff2 / .woff
-cp ~/Downloads/Inter-Bold.* fonts/
-
-# 2. src/base/_fonts.scss 加新的 @font-face：
-#    @font-face {
-#      font-family: "Inter";
-#      font-weight: 700;
-#      src: url("#{$font-path}/Inter-Bold.woff2") format("woff2"), ...;
-#    }
-
-# 3. 在某個 token / component 用到（例如 fz-headline-xl 改 font-weight: 700）
-#    或單純讓使用者可以自由用 font-weight: 700
-
-# 4. sandbox 確認
-# 5. 寫 CHANGELOG（minor 區塊）
-#    - feat(fonts): add Inter Bold 700
-
-# 6. minor bump
-npm version minor          # 0.1.0 → 0.2.0
-git push --follow-tags
-npm publish
-```
-
-### 場景 D：下游專案要用自己的字型（不動 DS 本人）
-
-例如某產品想用 Noto Sans，不想改 design system。下游自己處理：
-
-```scss
-// 該專案的 app.scss
-
-// 不要 @use base/fonts —— 改用方案 B 只載 tokens + components（不含 base/fonts）
-@use "@yourteam/design-system/tokens" as *;
-@use "@yourteam/design-system/components" as *;
-
-// 自己宣告 @font-face
-@font-face {
-  font-family: "Noto Sans TC";
-  src: url("/fonts/NotoSansTC-Regular.woff2") format("woff2");
-}
-
-// 覆寫 token
-:root {
-  --font-sans: "Noto Sans TC", system-ui, sans-serif;
-}
-```
-
-DS 不用發新版，下游自管字型。
+改完一律 `npm run dev` 在預覽頁確認字型載入（DevTools Network 看字型 200），並寫 CHANGELOG。
 
 ### 給 AI agent 的提醒
 
