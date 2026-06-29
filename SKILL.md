@@ -9,22 +9,14 @@
 ## 一、心智模型：這個 repo 是什麼
 
 ```
-design-system/        ← 工廠：製造 SCSS 包本體
+Pi-Design-System/     ← token 與 component 的唯一真相來源
 ├── src/              ← 你寫的 SCSS（唯一可改的地方）
-├── preview/          ← 視覺對照頁（純 HTML，不用 build）
-├── colors_and_type.css ← legacy CSS-only bundle（手動同步，不要直接改邏輯）
-└── sandbox/          ← 假裝「下游 npm install」的測試專案
+├── preview/          ← 視覺對照頁（Vite，npm run dev 即時看）
+├── assets/symicon.css ← icon 字型 @font-face + class + codepoint
+└── fonts/            ← 字型檔（含 icon 字型 symicon-X.s）
 ```
 
-兩個不同層次：
-
-| | 根目錄 | `sandbox/` |
-| --- | --- | --- |
-| 你在這裡改 SCSS | ✅ | ❌ |
-| 你在這裡測樣式 | 開 `preview/*.html` | 跑 `npm run dev` |
-| 角色 | DS 本身 | 模擬下游裝它的人 |
-
-**Sandbox 不是 demo 站、不是 DS 的一部分。** 它存在的唯一目的：驗證「別人 `npm install @yourteam/design-system` 之後能不能用」。
+**這個 repo 不發布 npm。** 用途：給前端切版時對照目前的元件樣式與 class，`npm run dev` 本機跑預覽即可。下游專案實際使用時用 vendored 方式（複製需要的 `src/*.scss` / `assets/symicon.css` / `fonts/` 進自己專案），以本 repo 為唯一真相。
 
 ---
 
@@ -33,8 +25,7 @@ design-system/        ← 工廠：製造 SCSS 包本體
 ### 1. `src/components/_*.scss` 是**唯一真相**
 
 所有 `.gl_*` class 必須在 `src/components/_xxx.scss` 裡看到定義。
-- ❌ 不要在 sandbox 自己發明 class（例如 `.gl_field`、`.gl_input`）
-- ❌ 不要在 preview 自己發明 class
+- ❌ 不要在 preview 自己發明 class（例如 `.gl_field`、`.gl_input`）
 - ✅ 改 demo 前先 `grep -r "\.gl_xxx" src/components/` 確認 class 存在
 - ✅ 找不到對應 class → 那是 DS 缺的，去 `src/components/_*.scss` 補上
 
@@ -138,24 +129,23 @@ design-system/        ← 工廠：製造 SCSS 包本體
 .icon  { font-family: $font-icon; }
 ```
 
-字型路徑透過 `$font-path !default` 給下游覆寫，**不要在 base/_fonts.scss 裡寫死路徑**。
+文字字型路徑透過 `$font-path !default` 控制，**不要在 base/_fonts.scss 裡寫死路徑**。icon 字型走 `assets/symicon.css`（不在 `_fonts.scss`）。
 
-詳見 README「字型管理（Fonts）」章節。
+詳見 README「字型管理（Fonts）」與「icon 字型（symicon）維護」章節。
 
 ---
 
 ## 五、加新 Component 的 SOP
 
-加一個新 component（例如 `_breadcrumb.scss`）時，**4 個地方都要動到**，缺一不可：
+加一個新 component（例如 `_breadcrumb.scss`）時，**3 個地方都要動到**，缺一不可：
 
 1. ✅ 建立 `src/components/_breadcrumb.scss`
    - 第一行 `@use "../tokens" as *;`
    - class 用 `.gl_breadcrumb` 開頭
 2. ✅ `src/components/index.scss` 加一行 `@forward "breadcrumb";`
-3. ✅ `preview/components.html` 加範例（給人類看視覺）
-4. ✅ `sandbox/demo.html` 加 1–2 個範例（驗證 npm 包真的 export 出去）
+3. ✅ `preview/` 加對照頁（給人類看視覺），並在 `preview/index.html` 左目錄登記
 
-如果只做 1+2，DS 會編得過，但下游裝來會少東西 → 一定要跑 sandbox 驗證。
+只做 1 沒做 2，`npm run dev` 預覽會載不到新元件。
 
 ---
 
@@ -167,7 +157,7 @@ design-system/        ← 工廠：製造 SCSS 包本體
 | 加新 token / 新 component / 新字重 | minor（`0.1.0 → 0.2.0`） |
 | 改 class 名 / 移除 token / 換字型 family | **major**（`0.x → 1.0.0`），CHANGELOG 必須寫遷移指引 |
 
-主動 bump 前先在 sandbox 跑過、寫好 CHANGELOG。
+repo 不發布 npm，version 僅作內部標記；改動前先 `npm run dev` 在預覽頁驗證、寫好 CHANGELOG。
 
 ---
 
@@ -176,20 +166,14 @@ design-system/        ← 工廠：製造 SCSS 包本體
 ### 可以改的
 - `src/**/*.scss` — DS 主程式
 - `preview/*.html` — 視覺對照頁
-- `sandbox/demo.html`、`sandbox/src/app.scss` — 測試用
-- `README.md`、`SKILL.md`、`CHANGELOG.md` — 文件
-- `package.json` 的 metadata、dependencies、scripts、`exports`、`files`
+- `README.md`、`SKILL.md`、`CHANGELOG.md`、`STRUCTURE.md` — 文件
+- `package.json` 的 metadata、dependencies、scripts
 
-### 不要直接動的
-- `colors_and_type.css` — legacy CSS bundle，目前手動同步，未來會自動產生
-- `dist/` — build 產物，`.gitignore` 中
-- `node_modules/`、`sandbox/node_modules/`
-- `fonts/` — 字型原始檔，只在「替換字型」的場景動
-- `assets/symicon.css`、`assets/icon-cp-map.json` — icon font 產物
-
-### Sandbox 規則
-- ❌ 不要在 `sandbox/src/app.scss` 偷偷補 component 樣式
-- ✅ sandbox 發現缺東西 → 回 DS 本身的 `src/components/` 補
+### 動之前要想清楚的
+- `dist/` — build 產物，`.gitignore` 中，勿手改
+- `node_modules/`
+- `fonts/` — 字型原始檔，只在「替換文字/icon 字型」的場景動
+- `assets/symicon.css`、`assets/icon-cp-map.json` — icon 字型 class 與 codepoint，升級 icon 字型時才動（流程見 README）
 
 ---
 
@@ -225,10 +209,9 @@ design-system/        ← 工廠：製造 SCSS 包本體
 |---|---|
 | `Undefined variable $xxx` | `src/tokens/index.scss` 是否 `@forward` 了該檔 |
 | `.gl_xxx` 沒套到樣式 | `src/components/_xxx.scss` 確認 class 真的存在 |
-| 字型 404 | sandbox 看 `vite.config.js` 的 `publicDir` + `server.fs.allow` |
-| `Can't find stylesheet @yourteam/design-system` | sandbox `npm install` 沒跑、或 `package.json` 的 `exports` 寫錯 |
-| 樣式編得過但下游裝不到 | `package.json` 的 `files` 欄位漏了該檔 |
-| sandbox 樣式對不上 preview | sandbox 用了 DS 沒有的 class（去查 `src/components/`） |
+| 預覽元件載不到 | `src/components/index.scss` 是否 `@forward` 了新元件 |
+| 文字字型 404 | `vite.config` 的 `publicDir` / `server.fs.allow`、`$font-path` 路徑 |
+| icon 不顯示 / 變方框 | `assets/symicon.css` 的 `@font-face` url 是否指到 `fonts/` 既有檔、codepoint 是否對 |
 
 ---
 

@@ -40,7 +40,7 @@
 **Display（僅數字用）：** D-DIN / D-DIN Condensed —— 只用於統計、價格、面試次數、薪資範圍。**永遠不要** 用 display 設定內文。
 **圖示：** `symicon`（自家 icon font，172 個 glyph，見 [圖示](#圖示)）。
 
-**Scale。** 詳見 `colors_and_type.css`。三大家族：
+**Scale。** 詳見 `src/tokens/_typography.scss`、預覽 `type` 對照頁。三大家族：
 
 - **Headline**（`fz-headline-*`，xxl→xs）：主視覺標題、區塊主標。一律 600 或 700；xl / xxl 微負字距。
 - **Title**（`fz-title-*`，lg/md/sm）：卡片標題、表單標籤、行內強調。600 weight。
@@ -211,7 +211,7 @@ npm test                  # 檢查產出 css 含關鍵 token / class
 
 ### 編輯規則
 
-- 只改 `src/` 內檔案；`colors_and_type.css` 由 tokens 自動產生（暫時手動同步，之後加 build script）。
+- 只改 `src/` 內檔案；CSS 一律由 `npm run build` 從 SCSS 產出，不手寫 CSS。
 - 加新元件 → `src/components/_xxx.scss` + `src/components/index.scss` 加一行 `@forward` + `preview/` 加對照頁並在 `preview/index.html` 左目錄登記。
 - 改 token → 先看 `preview/tokens.html` 評估衝擊面，CHANGELOG 寫清楚。
 - **禁自創 token / class**：不確定先 `grep src/` 或讀 `src/tokens`、`src/components` 確認，絕不憑記憶發明。
@@ -261,6 +261,84 @@ $font-path: "../../fonts" !default;
 - ❌ **不要** 在 component 檔裡再加 `@font-face`
 - ✅ 字型只在 `src/base/_fonts.scss` 一個地方宣告
 - ✅ 引用字型一律用 `$font-sans` / `$font-display` / `$font-icon` 變數，不要寫 `font-family: "Inter"`
+
+---
+
+## icon 字型（symicon）維護
+
+icon 字型跟文字字型機制不同：它**不走 `src/base/_fonts.scss`**，而是獨立在 `assets/symicon.css` —— 一個檔同時管 `@font-face` 與每個 `.icon-*` 的 codepoint（`content: "\eXXX"`）。版本號直接寫進**檔名**（`symicon-6.4s.woff2`）當作 cache-bust，升級時連檔名一起換。
+
+```
+fonts/symicon-6.4s.woff2 / .woff   ← icon 字型本體（檔名帶版本號）
+assets/symicon.css                 ← @font-face（url 指向 ../fonts/）+ .icon-* codepoint
+assets/icon-cp-map.json            ← icon 名稱 ↔ codepoint 對應
+assets/icon-names.json             ← icon 名稱清單
+assets/icons-preview.html          ← glyph 視覺索引
+```
+
+> ⚠️ **codepoint 對應**：icon 字型工具（IcoMoon / Fontello）匯出時附 `selection.json`（每個 icon 的 codepoint）。**glyph 順序一變，所有 `content: "\eXXX"` 都要重新對應** —— 升級前務必拿到對照表確認。
+
+### 情境 1：在本預覽專案升級 icon 字型
+
+本 repo 用 Vite 預覽。`assets/` 與 `fonts/` 是靜態檔，Vite 直接服務，**不用改 `vite.config`**。
+
+```bash
+# 1. 放新字型檔進 fonts/，檔名帶新版本號（如 6.4s → 7.0s），舊檔先留著
+cp ~/Downloads/symicon-7.0s.woff2 fonts/
+cp ~/Downloads/symicon-7.0s.woff  fonts/
+
+# 2. 改 assets/symicon.css：
+#    - 檔頭註解版本號 symicon-6.4s → symicon-7.0s
+#    - @font-face 的 src url：../fonts/symicon-7.0s.woff2 / .woff
+#    - 若 glyph 順序變了 → 依新 selection.json 重新對應所有 .icon-* 的 content
+#      （連帶更新 assets/icon-cp-map.json、icon-names.json、icons-preview.html）
+
+# 3. 啟動預覽驗證
+npm run dev
+#    開 icons 對照頁 / 各元件頁，確認 icon 正常顯示
+#    重點檢查有用到 icon 的元件：form 的 valid/invalid、loading、alert、callout
+
+# 4. 全部 OK → 刪舊 symicon-6.4s.*，寫 CHANGELOG
+```
+
+### 情境 2：在其他專案（Vite）實際使用
+
+下游專案不 link 整包，而是**把 icon 字型檔與 class 表 vendored 進自己專案**。典型 Vite 專案做法：
+
+**a. 放字型檔**：把 `fonts/symicon-X.woff2 / .woff` copy 到該專案 `public/fonts/`（Vite 對 `public/` 靜態服務，不經打包）。
+
+**b. 宣告 `@font-face`**（該專案某支 scss，url 用絕對路徑指向 `public/`）：
+
+```scss
+@font-face {
+  font-family: "symicon";
+  src: url("/fonts/symicon-X.woff2") format("woff2"),
+       url("/fonts/symicon-X.woff")  format("woff");
+  font-display: swap;
+}
+```
+
+**c. icon class 表**：把 `assets/symicon.css` 的 `.icon` / `.icon-*` 規則 vendored 進該專案（或只挑用到的 glyph），class 名與 codepoint 以本 repo 的 `symicon.css` 為唯一真相。
+
+**d. （建議）preload 首屏會用到的 icon 字型**，降 FOUT：
+
+```html
+<link rel="preload" href="/fonts/symicon-X.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+**e. 該專案升級 icon 版本流程**：
+
+```
+1. 新 symicon-N.woff2/woff 放 public/fonts/（新版本號檔名，舊檔先留）
+2. 改 @font-face 的 src url → 新檔名
+3. 改 preload href → 新檔名
+4. 若 glyph 順序變 → 依新 selection.json 重對 content codepoint
+   ↳ 連動檢查寫死 codepoint 的地方：表單 valid/invalid feedback icon、
+     loading 動畫 icon、layout icon
+5. npm run build / dev 驗證 → icon 全正常 → 刪舊檔
+```
+
+> 兩種情境共通鐵則：**版本號寫進檔名**（cache-bust）、**舊檔驗證通過才刪**、**glyph 順序變動務必重對 codepoint**。
 
 ---
 

@@ -7,13 +7,13 @@
 //
 // 覆寫方式（在使用端的 app.scss）：
 //
-//   @use "@yourteam/design-system/base/fonts" with (
+//   @use "pi-design-system/base/fonts" with (
 //     $font-path: "/fonts"          // 你的專案實際字體放哪
 //   );
 //
 // 常見覆寫值：
 //   "/fonts"                          → 專案 public/fonts/
-//   "~@yourteam/design-system/fonts"  → webpack alias 解 node_modules
+//   "~pi-design-system/fonts"  → webpack alias 解 node_modules
 //   "https://cdn.example.com/fonts"   → CDN
 // ============================================================
 

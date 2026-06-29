@@ -12,13 +12,15 @@
 ## [Unreleased]
 
 ### Added
-- 待加入
+- README 新增「icon 字型（symicon）維護」章節：分「本預覽專案升級」與「其他 Vite 專案使用」兩情境。
 
 ### Changed
-- 待加入
+- repo 定位明確為「前端切版對照用，不發布 npm」。
+- `package.json` 改名 `@yourteam/design-system` → `pi-design-system`，移除 npm 發版機制（`exports`/`main`/`files`/`publishConfig`/`prepublishOnly`/`repository` placeholder）。
+- README / STRUCTURE / SKILL 去 npm 化、去 sandbox 化，改述本機預覽與 vendored 使用。
 
 ### Removed
-- 待加入
+- 散佈產物 CSS：`styles.css`、`colors_and_type.css`、`assets/components.css`（無下游 link，repo 純預覽用）。
 
 ---
 

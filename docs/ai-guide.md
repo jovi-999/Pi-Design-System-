@@ -23,7 +23,7 @@
 4. 寫 markup（用 `.gl_*` + utility class）
 5. 真的需要自訂樣式時，**import tokens 再寫**：
    ```scss
-   @use "@yourteam/design-system/tokens" as *;
+   @use "pi-design-system/tokens" as *;
    .my-feature { padding: $space-4; color: $fg; }
    ```
 
@@ -305,7 +305,7 @@ padding: 1rem;
 ```
 
 ```scss
-@use "@yourteam/design-system/tokens" as *;
+@use "pi-design-system/tokens" as *;
 
 .my-card {
   padding: $space-4;
