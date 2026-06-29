@@ -2,11 +2,10 @@
 // Pi DS — Vite 設定（僅供本 repo 開發 / 預覽用）
 //
 // 用途：改 src/**/*.scss → 預覽頁即時 HMR。
-// 預覽頁直接吃 src/index.scss（單一真相源），不再依賴
-// 手動維護的 colors_and_type.css，消除漂移。
+// 預覽頁直接吃 src/index.scss（單一真相源）。
 //
-// 注意：此設定「不」改變散佈方式。下游 7 個專案仍透過
-// vendored .scss + @use 選擇性引用 src/，Vite 不進下游。
+// 此 repo 不發布 npm；下游採 vendored 方式複製 src/ 使用，
+// Vite 僅供本機預覽，不進下游。
 // ============================================================
 
 export default {
@@ -21,7 +20,7 @@ export default {
 
   css: {
     preprocessorOptions: {
-      // 用 modern-compiler API，與 sandbox 一致，避免棄用警告。
+      // 用 modern-compiler API，避免 Dart Sass 棄用警告。
       scss: { api: "modern-compiler" },
     },
   },
