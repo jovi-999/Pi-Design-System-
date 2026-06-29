@@ -11,3 +11,7 @@ preview/_shot_*.png
 sandbox/node_modules/
 sandbox/dist/
 sandbox/*.css
+
+# vim swap
+*.swp
+*.swo
