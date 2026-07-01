@@ -1,106 +1,89 @@
 // ============================================================
-// Pi DS — Pagination (.gl_pagination-outer > .gl_pagination)
+// Pi DS — Pagination v3 (.iw_pagination-outer-v3 > .iw_pagination-wrap)
 //
-// 結構（對齊 Figma sym-pagination）：
-//   .gl_pagination-outer  外層 flex 列：prev 箭頭 | 頁組(置中) | next 箭頭
-//     └ .gl_pagination    內層數字清單（flex:1，數字置中、彼此 gap 4px）
-//   尺寸 / 色彩修飾掛在 outer：gl_pagination-md / -sm、cl-success / cl-info
+// 結構（對齊生產環境 iw_pagination-outer-v3）：
+//   .iw_pagination-outer-v3   最外層：置中容器（width:100%）
+//     └ .iw_pagination-wrap   列：prev 箭頭 | 頁組 | next 箭頭（推到兩端）
+//         ├ .gl_page-link         prev / next 箭頭（wrap 直接子）
+//         ├ .gl_pagination-group  數字清單（<ul>），彼此 gap 4px
+//         │   └ li.page（當前頁加 .iw_active）> .gl_page-link
+//         └ .gl_page-link         next 箭頭
 //
-// 設計重點（Figma）：非當前頁與箭頭皆「透明無底」，僅當前頁深色實心。
-// RWD：md 在 ≤768px 自動縮為 sm 度量（手機版小尺寸）。
+// 設計重點：非當前頁與箭頭皆白底，當前頁深色實心；箭頭 .is-disabled 不可點。
+// RWD：≤768px 時 cell 自動縮為 32px（手機版小尺寸）。
 // ============================================================
 
 @use "../tokens" as *;
 
-// 尺寸度量共用：cell 寬高、左右 padding、icon 字級、列間距
-@mixin pagination-size($cell, $pad, $icon, $row-gap) {
-  gap: $row-gap;
+// 頁碼 v3 樣式
+.iw_pagination-outer-v3 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .iw_pagination-wrap {
+    display: flex;
+    justify-content: space-between;
+    max-width: 408px;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .gl_pagination-group {
+    // 數字清單置中排列
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    overflow: hidden;
+    background-color: $cl-basic-0;
+    padding: 0;
+    border-radius: 0;
+    list-style: none;
+    margin: 0;
+
+    li { display: flex; }
+  }
 
   .gl_page-link {
-    min-width: $cell;
-    height: $cell;
-    padding: 0 $pad;
-    .icon { font-size: $icon; }
+    box-sizing: border-box; // 固定寬高不與 border 疊加
+    color: $cl-basic-900;
+    background: $cl-basic-0;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 8px;
+
+    &:hover { background: $cl-basic-alpha-50; }
+
+    // 首/末頁：箭頭停用
+    &.is-disabled {
+      background: transparent;
+      color: $cl-basic-300;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &:hover { background: transparent; }
+    }
+
+    // RWD：≤768px（tablet 以下）縮為 32px
+    @media (max-width: 768px) {
+      width: 32px;
+      height: 32px;
+    }
   }
-  .gl_ellipsis {
-    min-width: $cell;
-    height: $cell;
+
+  // 當前頁：深色實心
+  .iw_active {
+    .gl_page-link {
+      color: $cl-basic-0;
+      background: $cl-basic-900;
+    }
   }
-}
-
-// 外層列：箭頭推到兩端、數字組置中
-.gl_pagination-outer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px; // md 預設；sm 由修飾覆寫
-}
-
-// 內層數字清單
-.gl_pagination {
-  display: flex;
-  flex: 1 0 0; // 撐開以把箭頭推到兩端
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li { display: flex; }
-}
-
-// 頁碼 / 箭頭共用：透明無底、深色字、8px 圓角
-.gl_page-link {
-  box-sizing: border-box; // min-width / padding 不互相疊加，避免溢出
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: $cl-basic-900;
-  text-decoration: none;
-  border-radius: $radius-sm; // 8px
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 500;
-
-  &:hover { background: $cl-basic-100; }
-}
-
-// 當前頁：深色實心
-.gl_pagination li.active .gl_page-link {
-  background: $cl-basic-900;
-  color: $cl-basic-0;
-  cursor: default;
-
-  &:hover { background: $cl-basic-900; }
-}
-
-// 當前頁色彩變體（掛 outer）
-.gl_pagination-outer.cl-success .gl_pagination li.active .gl_page-link {
-  background: $cl-green-500;
-  &:hover { background: $cl-green-500; }
-}
-.gl_pagination-outer.cl-info .gl_pagination li.active .gl_page-link {
-  background: $cl-blue-500;
-  &:hover { background: $cl-blue-500; }
-}
-
-// 省略號：透明、與頁碼同尺寸
-.gl_ellipsis {
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: $cl-basic-900;
-}
-
-// 尺寸（掛 outer，連箭頭一起套用）
-.gl_pagination-md { @include pagination-size(40px, 12px, 20px, 32px); }
-.gl_pagination-sm { @include pagination-size(32px, 8px, 16px, 16px); }
-
-// RWD：≤768px 時 md 自動縮為 sm 度量（手機版）
-@media (max-width: 768px) {
-  .gl_pagination-md { @include pagination-size(32px, 8px, 16px, 16px); }
 }
