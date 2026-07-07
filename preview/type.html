@@ -1,42 +1,14 @@
 <!doctype html>
-<!-- @dsCard group="Type" name="Type" subtitle="Inter + Plex TC + D-DIN specimen" viewport="1200x2800" -->
+<!-- @dsCard group="Type" name="Type" subtitle="Google Sans Flex + Noto Sans TC specimen" viewport="1200x2800" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=1200" />
 <title>Pi DS — Type</title>
 <link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/preview/preview.scss" />
 <style>
-  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
-  .wrap { max-width: 1104px; margin: 0 auto; }
-  header { margin-bottom: 40px; }
-  header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
-  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
-  header p { max-width: 680px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
-
-  section { margin-bottom: 56px; }
-  section h2 { font-size: 20px; line-height: 28px; margin: 0 0 4px; }
-  section .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 24px; max-width: 640px; text-wrap: pretty; }
-
-  .specimen {
-    display: grid;
-    grid-template-columns: 180px 100px 1fr;
-    gap: 24px;
-    align-items: baseline;
-    padding: 20px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .specimen:last-child { border-bottom: none; }
-  .specimen .token { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 12px; color: var(--fg-3); }
-  .specimen .spec { font-family: ui-monospace, SF Mono, Menlo, monospace; font-size: 12px; color: var(--fg-3); white-space: nowrap; }
-  .specimen .sample { color: var(--fg); }
-
-  .stack-card {
-    background: var(--surface);
-    border-radius: var(--radius-lg);
-    padding: 28px 32px;
-    box-shadow: var(--shadow-sm);
-  }
+  section h2 { font-size: 20px; line-height: 28px; }
 
   .fontchip {
     display: inline-flex; align-items: baseline; gap: 12px;
@@ -63,62 +35,56 @@
 
   <section>
     <h2>標題級距 Headline scale</h2>
-    <div class="stack-card">
-      <div class="specimen"><div class="token">fz-headline-xxl</div><div class="spec">48 / 72 · 700</div><div class="sample fz-headline-xxl">透明的職涯</div></div>
-      <div class="specimen"><div class="token">fz-headline-xl</div><div class="spec">40 / 60 · 700</div><div class="sample fz-headline-xl">三百萬筆真實薪水</div></div>
-      <div class="specimen"><div class="token">fz-headline-lg</div><div class="spec">32 / 48 · 700</div><div class="sample fz-headline-lg">面試這家公司前，先看看過來人怎麼說</div></div>
-      <div class="specimen"><div class="token">fz-headline-md</div><div class="spec">28 / 42 · 700</div><div class="sample fz-headline-md">附近的時薪工作 · 今天就能上工</div></div>
-      <div class="specimen"><div class="token">fz-headline-sm</div><div class="spec">24 / 36 · 700</div><div class="sample fz-headline-sm">節慶加給 · 端午禮金 2,000 元</div></div>
-      <div class="specimen"><div class="token">fz-headline-xs</div><div class="spec">20 / 30 · 700</div><div class="sample fz-headline-xs">最近的面試心得</div></div>
+    <div class="stack-card gl_border-inner">
+      <div class="specimen"><div class="token">.fz-headline-xxl</div><div class="spec">48 / 72 · 700</div><div class="sample fz-headline-xxl">透明的職涯</div></div>
+      <div class="specimen"><div class="token">.fz-headline-xl</div><div class="spec">40 / 60 · 700</div><div class="sample fz-headline-xl">三百萬筆真實薪水</div></div>
+      <div class="specimen"><div class="token">.fz-headline-lg</div><div class="spec">32 / 48 · 700</div><div class="sample fz-headline-lg">面試這家公司前，先看看過來人怎麼說</div></div>
+      <div class="specimen"><div class="token">.fz-headline-md</div><div class="spec">28 / 42 · 700</div><div class="sample fz-headline-md">附近的時薪工作 · 今天就能上工</div></div>
+      <div class="specimen"><div class="token">.fz-headline-sm</div><div class="spec">24 / 36 · 700</div><div class="sample fz-headline-sm">節慶加給 · 端午禮金 2,000 元</div></div>
+      <div class="specimen"><div class="token">.fz-headline-xs</div><div class="spec">20 / 30 · 700</div><div class="sample fz-headline-xs">最近的面試心得</div></div>
     </div>
   </section>
 
   <section>
     <h2>標題字體 Title</h2>
-    <div class="stack-card">
-      <div class="specimen"><div class="token">fz-title-lg</div><div class="spec">18 / 28 · 600</div><div class="sample fz-title-lg">Title Large 大標題</div></div>
-      <div class="specimen"><div class="token">fz-title-md</div><div class="spec">16 / 24 · 600</div><div class="sample fz-title-md">Title Medium 中標題</div></div>
-      <div class="specimen"><div class="token">fz-title-sm</div><div class="spec">14 / 20 · 600</div><div class="sample fz-title-sm">Title Small 小標題</div></div>
+    <div class="stack-card gl_border-inner">
+      <div class="specimen"><div class="token">.fz-title-lg</div><div class="spec">18 / 28 · 600</div><div class="sample fz-title-lg">Title Large 大標題</div></div>
+      <div class="specimen"><div class="token">.fz-title-md</div><div class="spec">16 / 24 · 600</div><div class="sample fz-title-md">Title Medium 中標題</div></div>
+      <div class="specimen"><div class="token">.fz-title-sm</div><div class="spec">14 / 20 · 600</div><div class="sample fz-title-sm">Title Small 小標題</div></div>
+      <div class="specimen"><div class="token">.fz-title-xs</div><div class="spec">12 / 18 · 600</div><div class="sample fz-title-xs">Title Extra Small 極小標題</div></div>
     </div>
   </section>
 
   <section>
     <h2>內文級距 Body scale</h2>
-    <div class="stack-card">
-      <div class="specimen"><div class="token">fz-body-lg</div><div class="spec">18 / 32 · 400</div><div class="sample fz-body-lg" style="max-width: 560px;">這家公司的面試流程分為三輪 — 人資初談、技術筆試，最後與直屬主管面對面。整體流程約兩週。</div></div>
-      <div class="specimen"><div class="token">fz-body-md</div><div class="spec">16 / 28 · 400</div><div class="sample fz-body-md" style="max-width: 560px;">我在 2024 年春天面試了這個職缺。面試官態度很專業，會深入問到實作細節，但不會刁難。</div></div>
-      <div class="specimen"><div class="token">fz-body-sm</div><div class="spec">14 / 24 · 400</div><div class="sample fz-body-sm" style="max-width: 560px; color: var(--fg-2);">發布於 3 天前 · 已通過驗證 · 252 人覺得有幫助</div></div>
-      <div class="specimen"><div class="token">fz-body-xs</div><div class="spec">12 / 20 · 400</div><div class="sample fz-body-xs" style="color: var(--fg-3);">匿名發布 · 公司看不到你的姓名</div></div>
+    <div class="stack-card gl_border-inner">
+      <div class="specimen"><div class="token">.fz-body-lg</div><div class="spec">18 / 32 · 400</div><div class="sample fz-body-lg" style="max-width: 560px;">這家公司的面試流程分為三輪 — 人資初談、技術筆試，最後與直屬主管面對面。整體流程約兩週。</div></div>
+      <div class="specimen"><div class="token">.fz-body-md</div><div class="spec">16 / 28 · 400</div><div class="sample fz-body-md" style="max-width: 560px;">我在 2024 年春天面試了這個職缺。面試官態度很專業，會深入問到實作細節，但不會刁難。</div></div>
+      <div class="specimen"><div class="token">.fz-body-sm</div><div class="spec">14 / 24 · 400</div><div class="sample fz-body-sm" style="max-width: 560px; color: var(--fg-2);">發布於 3 天前 · 已通過驗證 · 252 人覺得有幫助</div></div>
+      <div class="specimen"><div class="token">.fz-body-xs</div><div class="spec">12 / 20 · 400</div><div class="sample fz-body-xs" style="color: var(--fg-3);">匿名發布 · 公司看不到你的姓名</div></div>
     </div>
   </section>
 
   <section>
     <h2>數字 display Numeric display</h2>
-    <div class="stack-card" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
-      <div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600;">月薪中位數</div>
-        <div class="ft-semicondensed" style="font-size: 56px; line-height: 1;">NT$ 52,800</div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-top: 8px;">基於 1,247 筆回報</div>
+    <div class="stack-card gl_border-inner">
+      <div class="specimen">
+        <div class="token">.ft-semicondensed</div>
+        <div class="spec">stretch 64% · 448</div>
+        <div class="sample ft-semicondensed" style="font-size: 56px; line-height: 1;">NT$ 52,800 · 64.2%</div>
       </div>
-      <div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600;">面試通過率</div>
-        <div class="ft-semicondensed" style="font-size: 56px; line-height: 1; color: var(--cl-green-600);">64.2%</div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-top: 8px;">近 6 個月統計</div>
-      </div>
-      <div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .06em; font-weight: 600;">時薪範圍</div>
-        <div class="ft-semicondensed" style="font-size: 56px; line-height: 1;">183<span style="font-size: 28px; color: var(--fg-3);"> – </span>245</div>
-        <div style="font-size: 12px; color: var(--fg-3); margin-top: 8px;">依地區、時段調整</div>
+      <div class="specimen">
+        <div class="token">.ft-condensed</div>
+        <div class="spec">stretch 48% · 448</div>
+        <div class="sample ft-condensed" style="font-size: 56px; line-height: 1;">NT$ 52,800 · 64.2%</div>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>中英混排 Mixed script composition</h2>
-    <div class="stack-card">
-      <div style="max-width: 640px;" class="tc-sample">
-        Pi Design System 提供完整的 token、component 與 pattern，協助團隊在不同產品線之間維持一致的視覺節奏 — <strong>that consistency is the whole product</strong>.
-      </div>
+    <h2>標題加粗 Title emphasis</h2>
+    <div class="stack-card gl_border-inner">
+      <div class="specimen"><div class="token">.fz-tit</div><div class="spec">font-weight · 700</div><div class="sample fz-title-lg fz-tit">月薪中位數 NT$ 52,800</div></div>
     </div>
   </section>
 </div>

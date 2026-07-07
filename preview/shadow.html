@@ -6,17 +6,10 @@
 <meta name="viewport" content="width=1280" />
 <title>Pi DS — Shadow & Border</title>
 <link rel="stylesheet" href="/src/index.scss" />
+<link rel="stylesheet" href="/preview/preview.scss" />
 <style>
-  body { margin: 0; padding: 48px; background: var(--bg-muted); color: var(--fg); }
-  .wrap { max-width: 1200px; margin: 0 auto; }
-  header { margin-bottom: 40px; }
-  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 12px; }
-  header h1 { font-size: 40px; line-height: 48px; margin: 0 0 12px; letter-spacing: -0.01em; }
-  header p { max-width: 720px; margin: 0; color: var(--fg-2); font-size: 16px; line-height: 28px; text-wrap: pretty; }
-
   section { margin-bottom: 48px; }
-  section > h2 { font-size: 22px; line-height: 30px; margin: 0 0 4px; }
-  section > .dek { font-size: 14px; line-height: 22px; color: var(--fg-3); margin: 0 0 20px; max-width: 760px; text-wrap: pretty; }
+  section > .dek { max-width: 760px; }
 
   /* panel 底色：#f1f1f1（預覽專用，非設計系統 token；由使用者指定） */
   .panel { background: #f1f1f1; border-radius: var(--radius-lg); padding: 24px; }

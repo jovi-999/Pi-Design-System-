@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pi DS — 預覽</title>
     <link rel="stylesheet" href="/src/index.scss" />
+    <link rel="stylesheet" href="/preview/preview.scss" />
     <style>
       /* ============================================================
      預覽殼層：左側固定目錄 + 右側 iframe 內容區
@@ -23,11 +24,12 @@
       body {
         display: flex;
         height: 100vh;
+        padding: 0;
         overflow: hidden;
         /* 暖白底色（預覽殼層專用，非設計系統 token；由使用者指定） */
         background: #e6e6e6;
         color: var(--fg);
-        font-family: Inter, system-ui, sans-serif;
+        font-family: var(--font-sans);
       }
 
       /* 左側目錄：透明融入暖白底，去除右框線 */
@@ -74,17 +76,10 @@
         border-radius: 6px;
         background: var(--cl-green-500, #16a34a);
       }
-      .brand .name {
-        font-size: 15px;
-        font-weight: 600;
-      }
-
       .nav-group {
         margin-top: 18px;
       }
       .nav-group .gtitle {
-        font-size: 11px;
-        font-weight: 800;
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--fg-5);
@@ -97,8 +92,6 @@
         border-radius: var(--radius-md, 8px);
         text-decoration: none;
         color: var(--fg-2);
-        font-size: 14px;
-        line-height: 20px;
         cursor: pointer;
       }
       .nav-link:hover {
@@ -108,17 +101,14 @@
       .nav-link.active {
         background: var(--cl-green-50, #f0fdf4);
         color: var(--cl-green-700, #15803d);
-        font-weight: 600;
       }
       .nav-link .sub {
         display: block;
-        font-size: 12px;
         color: var(--fg-3);
-        font-weight: 400;
         margin-top: 2px;
       }
 
-      /* 右側內容：外圍留白 + iframe 包成 claude.ai 風卡片（圓角 + 陰影） */
+      /* 右側內容：外圍留白 + iframe 包成卡片 */
       .content {
         flex: 1;
         height: 100%;
@@ -132,7 +122,6 @@
         /* 對齊內頁 body 底色（--bg-muted），避免內容短時露出兩截底色 */
         background: var(--bg-muted);
         border-radius: var(--radius-lg, 16px);
-        box-shadow: var(--shadow-md);
       }
     </style>
   </head>
@@ -140,13 +129,13 @@
     <aside class="sidebar">
       <div class="brand">
         <span class="dot"></span>
-        <span class="name">Pi Design System</span>
+        <span class="name fz-title-sm">Pi Design System</span>
       </div>
       <nav id="nav"></nav>
     </aside>
 
     <main class="content">
-      <iframe id="frame" title="預覽內容"></iframe>
+      <iframe id="frame" class="gl_border-outer gl_shadow-xs" title="預覽內容"></iframe>
     </main>
 
     <script>
@@ -162,7 +151,7 @@
           file: "type.html",
           group: "Foundation",
           name: "Typo",
-          sub: "Inter + Plex TC + D-DIN specimen",
+          sub: "Google Sans Flex + Noto Sans TC",
         },
         {
           file: "shadow.html",
@@ -262,16 +251,16 @@
         const wrap = document.createElement("div");
         wrap.className = "nav-group";
         const title = document.createElement("div");
-        title.className = "gtitle";
+        title.className = "gtitle fz-title-xs fz-tit";
         title.textContent = g.title;
         wrap.appendChild(title);
         g.items.forEach((p) => {
           const a = document.createElement("a");
-          a.className = "nav-link";
+          a.className = "nav-link fz-body-sm";
           a.href = "#" + p.file.replace(".html", "");
           a.dataset.file = p.file;
           a.innerHTML =
-            "<span>" + p.name + '</span><span class="sub">' + p.sub + "</span>";
+            "<span>" + p.name + '</span><span class="sub fz-body-xs">' + p.sub + "</span>";
           wrap.appendChild(a);
         });
         navEl.appendChild(wrap);
@@ -321,3 +310,4 @@
     </script>
   </body>
 </html>
+
