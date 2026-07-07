@@ -97,6 +97,7 @@ Size token：`xs`(32px) / `sm`(40px) / `md`(48px, **預設**) / `lg`(56px) / `xl
 | Headline / LG | `.fz-headline-lg` | section lead |
 | Title / LG | `.fz-title-lg` | 卡片主標 |
 | Title / MD | `.fz-title-md` | 表單 label |
+| Title / XS | `.fz-title-xs` | 小型標籤 |
 | Body / MD | `.fz-body-md` | 預設內文 |
 | Body / SM | `.fz-body-sm` | 密集資訊 |
 | Body / XS | `.fz-body-xs` | 時間戳、metadata |
@@ -178,8 +179,8 @@ font-family: "Inter", sans-serif;
 font-family: "Microsoft JhengHei";
 
 // ✅ 一律用 token
-font-family: $font-sans;       // 內文（Inter + 中文 fallback）
-font-family: $font-display;    // 數字大標（D-DIN）
+font-family: $font-sans;       // 內文（Noto Sans TC + system fallback）
+font-family: $font-display;    // 數字大標（Google Sans Flex）
 font-family: $font-icon;       // 圖示
 ```
 
@@ -197,10 +198,10 @@ font-family: $font-icon;       // 圖示
 
 | Figma 標的 font-family | 你該用的 token | 備註 |
 |---|---|---|
-| Inter | `$font-sans` | 預設內文 |
-| IBM Plex Sans TC | `$font-sans` | 中文自動 fallback，**不用** 自己寫 |
+| Google Sans Flex | `$font-sans` | 英數與 UI 文字 |
+| Noto Sans TC | `$font-sans` | 中文主字體，**不用** 自己寫 |
 | Microsoft JhengHei / 微軟正黑 | `$font-sans` | 同上，DS 已處理 |
-| D-DIN / D-DIN Condensed | `$font-display` | **僅限數字 / 統計**，不要拿來寫文字 |
+| Google Sans Flex display variants | `.ft-semicondensed` / `.ft-condensed` | **僅限數字 / 統計**，不要拿來寫文字 |
 | symicon-fill | `$font-icon` | 用 `<i class="icon icon-*">` 不用直接設 |
 
 ### Blade / HTML 端

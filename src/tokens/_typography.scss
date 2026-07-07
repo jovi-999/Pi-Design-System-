@@ -3,8 +3,8 @@
 // ============================================================
 
 :root {
-  --font-sans:    "Inter", "IBM Plex Sans TC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --font-display: "D-DIN Condensed", "D-DIN", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans:    "Google Sans Flex", "Noto Sans TC", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-display: "Google Sans Flex", "Noto Sans TC", ui-sans-serif, system-ui, sans-serif;
   --font-icon:    "symicon";
 }
 
@@ -26,6 +26,7 @@ $fz-headline-xs:  (size: 20px, lh: 30px, weight: 700, tracking: 0);
 $fz-title-lg: (size: 18px, lh: 28px, weight: 600, tracking: 0);
 $fz-title-md: (size: 16px, lh: 24px, weight: 600, tracking: 0);
 $fz-title-sm: (size: 14px, lh: 20px, weight: 600, tracking: 0);
+$fz-title-xs: (size: 12px, lh: 18px, weight: 600, tracking: 0);
 
 // Body
 $fz-body-lg: (size: 18px, lh: 32px, weight: 400, tracking: 0);
@@ -46,6 +47,7 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
 .fz-title-lg { font-size: 18px; line-height: 28px; font-weight: 600; }
 .fz-title-md { font-size: 16px; line-height: 24px; font-weight: 600; }
 .fz-title-sm { font-size: 14px; line-height: 20px; font-weight: 600; }
+.fz-title-xs { font-size: 12px; line-height: 18px; font-weight: 600; }
 
 // Body
 .fz-body-lg { font-size: 18px; line-height: 32px; font-weight: 400; }
@@ -67,7 +69,7 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
 .fz-t3 { font-size: 14px; line-height: 24px; }
 .fz-t4 { font-size: 12px; line-height: 20px; }
 
-// Numeric display font — for stats / money / counts only
+// Legacy display aliases. Prefer .ft-semicondensed / .ft-condensed.
 .ft-d-din,
 .ft-d-din-c {
   font-family: $font-display;

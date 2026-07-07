@@ -35,9 +35,9 @@
 
 ## 字體排版
 
-**主字體：** Inter（variable，預設載 400 / 600；700 視需要載入）。
-**TC fallback：** IBM Plex Sans TC —— x-height 跟 Inter 接近，漢字與英文視覺重量相當。
-**Display（僅數字用）：** D-DIN / D-DIN Condensed —— 只用於統計、價格、面試次數、薪資範圍。**永遠不要** 用 display 設定內文。
+**主字體：** Noto Sans TC（400 / 500 / 600 / 700）。
+**英數字體：** Google Sans Flex（variable，400–700 / stretch 48%–150%）。
+**Display（僅數字用）：** `.ft-semicondensed` / `.ft-condensed` —— 只用於統計、價格、面試次數、薪資範圍。**永遠不要** 用 display 設定內文。
 **圖示：** `symicon`（自家 icon font，172 個 glyph，見 [圖示](#圖示)）。
 
 **Scale。** 詳見 `src/tokens/_typography.scss`、預覽 `type` 對照頁。三大家族：
@@ -237,9 +237,9 @@ src/tokens/_typography.scss ← --font-sans / --font-display CSS variable
 $font-path: "../../fonts" !default;
 
 @font-face {
-  font-family: "Inter";
-  src: url("#{$font-path}/Inter-Regular.woff2") format("woff2"),
-       url("#{$font-path}/Inter-Regular.woff") format("woff");
+  font-family: "symicon";
+  src: url("#{$font-path}/symicon-6.4s.woff2") format("woff2"),
+       url("#{$font-path}/symicon-6.4s.woff") format("woff");
 }
 ```
 
@@ -250,7 +250,7 @@ $font-path: "../../fonts" !default;
 | 情況 | 動哪裡 |
 |---|---|
 | 字型版本升級（family / 檔名不變，只換內容） | 把新檔覆蓋進 `fonts/`，`npm run dev` 確認還能載 |
-| 加新字重（例如多載 Inter Bold 700） | `fonts/` 加檔 → `src/base/_fonts.scss` 加 `@font-face`（`font-weight: 700`）|
+| 加新字型檔（例如升級 symicon 版本） | `fonts/` 加檔 → 更新對應 `@font-face` 的檔名與版本號 |
 | 替換字型（改 family / token） | `fonts/` 換檔 → 改 `src/base/_fonts.scss` 的 `@font-face` → 改 `src/tokens/_typography.scss` 的 `--font-sans` → `preview/` 對照視覺有無走鐘（中文寬度可能不同）|
 
 改完一律 `npm run dev` 在預覽頁確認字型載入（DevTools Network 看字型 200），並寫 CHANGELOG。
@@ -260,7 +260,7 @@ $font-path: "../../fonts" !default;
 - ❌ **不要** 在 component 檔裡寫 `@import url('https://fonts.googleapis.com/...')`
 - ❌ **不要** 在 component 檔裡再加 `@font-face`
 - ✅ 字型只在 `src/base/_fonts.scss` 一個地方宣告
-- ✅ 引用字型一律用 `$font-sans` / `$font-display` / `$font-icon` 變數，不要寫 `font-family: "Inter"`
+- ✅ 引用字型一律用 `$font-sans` / `$font-display` / `$font-icon` 變數，不要寫死 `font-family: "symicon"`
 
 ---
 
@@ -344,8 +344,8 @@ npm run dev
 
 ## 授權 / 引用
 
-- **Inter** —— SIL Open Font License 1.1，© Rasmus Andersson。
-- **IBM Plex Sans TC** —— SIL Open Font License 1.1，© IBM Corp。
+- **Noto Sans TC** —— SIL Open Font License 1.1，© Google。
+- **Google Sans Flex** —— SIL Open Font License 1.1，© Google。
 - **symicon-fill** —— 內部資產，© Pi。
 
 ## SKILL.md
