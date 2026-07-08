@@ -8,103 +8,166 @@
 <link rel="stylesheet" href="/src/index.scss" />
 <link rel="stylesheet" href="/preview/preview.scss" />
 <style>
-  section h2 { font-size: 20px; line-height: 28px; }
-  section .dek { max-width: 640px; }
+  .ramp { display: block; }
+  .ramp .label { margin-bottom: var(--sp-2); }
+  .ramp .label .name { margin-bottom: 0; }
+  .color-swatches-stack { display: grid; gap: var(--sp-1); }
+  .color-swatches { display: grid; grid-template-columns: repeat(10, 1fr); gap: var(--sp-1); }
+  .color-swatch { aspect-ratio: 1/1; padding: var(--sp-2); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; position: relative; border-radius: var(--radius-md); overflow: hidden; }
+  .color-swatch-step { opacity: .9; }
+  .color-swatch-meta { display: grid; gap: 2px; margin-top: auto; }
+  .color-swatch-var,
+  .color-swatch-value { font-family: ui-monospace, SF Mono, Menlo, monospace; word-break: break-all; }
+  .color-swatch-var { opacity: .85; }
+  .color-swatch-value { opacity: .6; }
+  .color-swatch.is-dark { color: var(--cl-light-500); }
+  .color-swatch.is-light { color: var(--cl-dark-400); }
+  .color-swatch.is-low-contrast { color: var(--cl-basic-alpha-700); }
+  .color-swatch.is-low-contrast .color-swatch-var,
+  .color-swatch.is-low-contrast .color-swatch-value { color: var(--cl-basic-alpha-500); opacity: 1; }
 
-  .ramp { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: start; }
-  .ramp .label { padding-top: 12px; }
-  .ramp .label .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-  .ramp .label .hint { font-size: 12px; color: var(--fg-3); line-height: 18px; }
-  .swatches { display: grid; grid-template-columns: repeat(10, 1fr); border-radius: var(--radius-md); overflow: hidden; outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; }
-  .sw { aspect-ratio: 1/1.1; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; font-size: 11px; line-height: 14px; cursor: pointer; position: relative; }
-  .sw .step { font-weight: 600; opacity: .9; }
-  .sw .var { font-family: ui-monospace, SF Mono, Menlo, monospace; opacity: .85; word-break: break-all; }
-  .sw .hex { font-family: ui-monospace, SF Mono, Menlo, monospace; opacity: .6; }
-  .sw.dark { color: rgba(255,255,255,.9); }
-  .sw.light { color: rgba(31,33,35,.7); }
-
-  /* copy toast */
   .toast {
     position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px);
     background: var(--cl-basic-900); color: var(--cl-basic-0);
-    padding: 12px 20px; border-radius: 999px; font-size: 13px;
-    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    padding: 12px 20px; border-radius: 999px;
+    box-shadow: var(--shadow-xl);
     opacity: 0; pointer-events: none; transition: opacity .18s, transform .18s;
     z-index: 100; display: flex; align-items: center; gap: 8px;
     font-family: ui-monospace, SF Mono, Menlo, monospace;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .alpha-row { display: flex; border-radius: var(--radius-md); overflow: hidden; outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; background-image: linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%); background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0px; }
-  .alpha-row .ac { flex: 1; height: 72px; display: flex; align-items: flex-end; padding: 10px; color: rgba(0,0,0,.7); font-size: 10px; font-family: ui-monospace, monospace; word-break: break-all; line-height: 1.3; cursor: pointer; }
+  .color-preview-stack { display: grid; gap: var(--sp-6); padding: var(--sp-1); }
+  .color-preview-label { margin-bottom: var(--sp-2); }
+  header .eyebrow,
+  header h1 { margin-bottom: var(--sp-1); }
+  .color-swatch.is-alpha {
+    color: var(--cl-dark-400);
+    background:
+      linear-gradient(var(--alpha-fill), var(--alpha-fill)),
+      linear-gradient(var(--cl-basic-0), var(--cl-basic-0)),
+      linear-gradient(45deg, var(--cl-basic-100) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--cl-basic-100) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--cl-basic-100) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--cl-basic-100) 75%);
+    background-size:
+      auto,
+      auto,
+      var(--sp-4) var(--sp-4),
+      var(--sp-4) var(--sp-4),
+      var(--sp-4) var(--sp-4),
+      var(--sp-4) var(--sp-4);
+    background-position:
+      0 0,
+      0 0,
+      0 0,
+      0 var(--sp-2),
+      var(--sp-2) calc(-1 * var(--sp-2)),
+      calc(-1 * var(--sp-2)) 0;
+  }
+  .color-swatch.is-alpha-on-dark {
+    color: var(--cl-light-500);
+    background:
+      linear-gradient(var(--alpha-fill), var(--alpha-fill)),
+      linear-gradient(var(--cl-basic-1000), var(--cl-basic-1000));
+    background-size: auto;
+    background-position: 0 0;
+  }
+  .color-swatch.is-alpha-text-light { color: var(--cl-light-500); }
+  .color-swatch.is-alpha-text-dark { color: var(--cl-dark-500); }
 </style>
 </head>
 <body>
-<div class="wrap" data-toast-host>
+<div class="wrap">
   <header>
-    <div class="eyebrow">Foundation</div>
-    <h1>色彩 Color</h1>
-    <p>點擊任一色塊可複製其 SCSS 變數（如 <code>$cl-blue-400</code>）。</p>
+    <div class="eyebrow fz-title-xs text-basic-alpha-500">Foundation</div>
+    <h1 class="fz-headline-xl text-basic-alpha-900">色彩 Color</h1>
+    <p class="fz-body-md text-basic-alpha-700">點擊任一色塊可複製其 SCSS 變數（如 <code>$cl-blue-400</code>）。</p>
   </header>
 
   <section>
-    <h2>色階 Tonal ramps</h2>
-    <div id="ramps" style="display: grid; gap: 16px;"></div>
+    <h2 class="fz-headline-xs">General</h2>
+    <div class="color-preview-stack" id="ramps"></div>
   </section>
 
   <section>
-    <h2>透明色 Alpha overlays</h2>
-    <div style="display: grid; gap: 12px;">
+    <h2 class="fz-headline-xs">透明色 Alpha overlays</h2>
+    <div class="color-preview-stack">
       <div>
-        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">Basic alpha（深色疊淺底）</div>
-        <div class="alpha-row" id="basic-alpha"></div>
+        <div class="color-preview-label fz-title-xs">Basic alpha（深色疊淺底）</div>
+        <div class="color-swatches" id="basic-alpha"></div>
       </div>
       <div>
-        <div style="font-size: 13px; font-weight: 600; margin-bottom: 6px;">White alpha（淺色疊深底）</div>
-        <div class="alpha-row" id="white-alpha" style="background: var(--cl-basic-900); background-image: none;"></div>
+        <div class="color-preview-label fz-title-xs">White alpha（淺色疊深底）</div>
+        <div class="color-swatches" id="white-alpha"></div>
       </div>
     </div>
   </section>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="toast fz-body-xs" id="toast" role="status" aria-live="polite"></div>
 
 <script>
   const ramps = [
-    ['basic',   'Basic',   '中性灰：文字、表面、邊框'],
-    ['red',     'Red',     '破壞性動作、錯誤、負面標記'],
-    ['orange',  'Orange',  'VIP / 付費方案專用'],
-    ['yellow',  'Yellow',  '提醒、輕度確認'],
-    ['green',   'Green',   'CTA 與正向狀態'],
-    ['blue',    'Blue',    '資訊提示、密集表格連結'],
-    ['purple',  'Purple',  'AI 內容、智慧推薦專用'],
+    ['basic',   'Basic'],
+    ['red',     'Red'],
+    ['orange',  'Orange'],
+    ['yellow',  'Yellow'],
+    ['green',   'Green'],
+    ['blue',    'Blue'],
+    ['purple',  'Purple'],
   ];
-  const steps = [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
-  // per-ramp steps (basic has 0 and 1000; colored ramps 50–900)
   const rampsEl = document.getElementById('ramps');
-  ramps.forEach(([key, name, hint]) => {
+  ramps.forEach(([key, name]) => {
     const row = document.createElement('div');
     row.className = 'ramp';
-    const rampSteps = key === 'basic' ? [0,50,100,200,300,400,500,600,700,800,900,1000] : [50,100,200,300,400,500,600,700,800,900];
-    const swatches = rampSteps.map((s) => {
+    const rampSteps = [50,100,200,300,400,500,600,700,800,900];
+    const makeSwatch = (s) => {
       const varname = `--cl-${key}-${s}`;
       const scssVar = `$cl-${key}-${s}`;
       const label = key === 'basic' ? (s === 0 ? '0 (White)' : String(s)) : String(s);
-      return `<div class="sw ${s >= 500 ? 'dark' : 'light'}" style="background: var(${varname});" data-copy="${scssVar}" title="點擊複製 ${scssVar}"><span class="step">${label}</span><span class="var">${scssVar}</span><span class="hex" data-var="${varname}"></span></div>`;
-    }).join('');
+      const toneClass = s >= 500 ? 'is-dark' : 'is-light';
+      const contrastClass = s <= 100 ? 'is-low-contrast' : '';
+      return `<div class="color-swatch gl_border-inner ${toneClass} ${contrastClass}" style="background: var(${varname});" data-copy="${scssVar}" title="點擊複製 ${scssVar}"><span class="color-swatch-step fz-title-xs">${label}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="${varname}"></span></span></div>`;
+    };
+    const swatches = rampSteps.map(makeSwatch).join('');
+    const basicEnds = [0,1000].map(makeSwatch).join('');
     row.innerHTML = `
-      <div class="label"><div class="name">${name}</div></div>
-      <div class="swatches" style="grid-template-columns: repeat(${rampSteps.length}, 1fr);">${swatches}</div>
+      <div class="label"><div class="name fz-title-xs">${name}</div></div>
+      <div class="color-swatches-stack">
+        <div class="color-swatches">${swatches}</div>
+        ${key === 'basic' ? `<div class="color-swatches">${basicEnds}</div>` : ''}
+      </div>
     `;
     rampsEl.appendChild(row);
   });
-  // fill hex labels post-mount
-  requestAnimationFrame(() => {
+  function colorValueToHex(value) {
+    const text = value.trim();
+    if (!text.startsWith('rgb')) return text.toUpperCase();
+
+    const hasAlpha = text.startsWith('rgba');
+    const parts = text
+      .replace(/^rgba?\(/, '')
+      .replace(/\)$/, '')
+      .replace(/\s*\/\s*/, ',')
+      .split(/[\s,]+/)
+      .filter(Boolean);
+
+    const [r, g, b] = parts.slice(0, 3).map((part) => Number(part));
+    const alpha = parts[3] === undefined ? 1 : Number(parts[3]);
+    if ([r, g, b, alpha].some((n) => Number.isNaN(n))) return text.toUpperCase();
+
+    const toHex = (n) => Math.round(Math.max(0, Math.min(255, n))).toString(16).padStart(2, '0');
+    const alphaHex = hasAlpha ? toHex(alpha <= 1 ? alpha * 255 : alpha) : '';
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}${alphaHex}`.toUpperCase();
+  }
+
+  function fillComputedColorLabels() {
     document.querySelectorAll('[data-var]').forEach(el => {
       const v = getComputedStyle(document.documentElement).getPropertyValue(el.dataset.var).trim();
-      el.textContent = v.toUpperCase();
+      el.textContent = colorValueToHex(v);
     });
-  });
+  }
 
   // ---- 點擊色塊複製 SCSS 變數 ----
   const toast = document.getElementById('toast');
@@ -139,28 +202,26 @@
   const basicAlpha = document.getElementById('basic-alpha');
   [50,100,200,300,400,500,600,700,800,900].forEach(n => {
     const c = document.createElement('div');
-    c.className = 'ac';
+    c.className = `color-swatch is-alpha ${n >= 500 ? 'is-alpha-text-light' : ''} gl_border-inner`;
     const scssVar = `$cl-basic-alpha-${n}`;
-    c.style.background = `var(--cl-basic-alpha-${n})`;
+    c.style.setProperty('--alpha-fill', `var(--cl-basic-alpha-${n})`);
     c.dataset.copy = scssVar;
     c.title = `點擊複製 ${scssVar}`;
-    c.style.cursor = 'pointer';
-    c.textContent = scssVar;
+    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-basic-alpha-${n}"></span></span>`;
     basicAlpha.appendChild(c);
   });
   const whiteAlpha = document.getElementById('white-alpha');
   [50,100,200,300,400,500,600,700,800,900].forEach(n => {
     const c = document.createElement('div');
-    c.className = 'ac';
+    c.className = `color-swatch is-alpha is-alpha-on-dark ${n >= 500 ? 'is-alpha-text-dark' : ''} gl_border-inner`;
     const scssVar = `$cl-white-alpha-${n}`;
-    c.style.background = `var(--cl-white-alpha-${n})`;
-    c.style.color = 'rgba(255,255,255,.8)';
+    c.style.setProperty('--alpha-fill', `var(--cl-white-alpha-${n})`);
     c.dataset.copy = scssVar;
     c.title = `點擊複製 ${scssVar}`;
-    c.style.cursor = 'pointer';
-    c.textContent = scssVar;
+    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-white-alpha-${n}"></span></span>`;
     whiteAlpha.appendChild(c);
   });
+  requestAnimationFrame(fillComputedColorLabels);
 </script>
 </body>
 </html>
