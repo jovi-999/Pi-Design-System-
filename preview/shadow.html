@@ -11,8 +11,8 @@
   section { margin-bottom: 48px; }
   section > .dek { max-width: 760px; }
 
-  /* panel 底色：#f1f1f1（預覽專用，非設計系統 token；由使用者指定） */
-  .panel { background: #f1f1f1; border-radius: var(--radius-lg); padding: 24px; }
+  /* panel 底色：basic-0（由使用者指定） */
+  .panel { background: var(--cl-basic-0); border-radius: var(--radius-lg); padding: 24px; box-shadow: none; }
 
   .grid { display: grid; gap: 24px; }
   .grid-2 { grid-template-columns: repeat(2, max-content); }
@@ -49,7 +49,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Foundations</div>
+    <div class="eyebrow">Foundation</div>
     <h1>Shadow &amp; Border</h1>
     <p>三組工具：<strong>Border</strong>（outline 描邊，不佔空間）、<strong>Shadow</strong>（六階陰影）、<strong>Ring</strong>（= Shadow + Border 組合，無獨立 class）。直接把 class 疊加即可，例如 <code>class="gl_shadow-md gl_border-outer"</code>。</p>
   </header>
@@ -58,7 +58,7 @@
   <section>
     <h2>Border</h2>
     <p class="dek"><code>.gl_border-*</code> 用 <code>outline</code> 實作，不影響 box model，可疊在 shadow 上。</p>
-    <div class="panel">
+    <div class="panel gl_border-inner">
       <div class="grid grid-2">
         <div class="cell">
           <div class="swatch gl_border-outer"></div>
@@ -73,6 +73,11 @@
           <pre><span class="sel">.gl_border-inner</span> {
   <span class="prop">outline</span>: 1px solid $cl-basic-alpha-100;
   <span class="prop">outline-offset</span>: -1px;
+
+  <span class="sel">@media</span> (max-width: $bp-md) {
+    <span class="prop">outline</span>: 1px solid $cl-basic-alpha-50;
+    <span class="prop">outline-offset</span>: 0;
+  }
 }</pre>
         </div>
       </div>
@@ -83,7 +88,7 @@
   <section>
     <h2>Shadow</h2>
     <p class="dek"><code>.gl_shadow-*</code> 六階。卡片預設 <code>sm</code>、hover 升 <code>md</code>、modal 用 <code>xl</code>。</p>
-    <div class="panel">
+    <div class="panel gl_border-inner">
       <div class="grid grid-6" id="shadow-grid"></div>
     </div>
   </section>
@@ -92,10 +97,10 @@
   <section>
     <h2>Ring</h2>
     <p class="dek">Ring = <code>Shadow</code> + <code>Border</code> 兩個 class 疊加，<strong>沒有獨立的 ring class / 變數</strong>。outer 用 <code>.gl_border-outer</code>，inner 用 <code>.gl_border-inner</code>。</p>
-    <div class="panel" style="margin-bottom: 16px;">
+    <div class="panel gl_border-inner" style="margin-bottom: 16px;">
       <div class="grid grid-6" id="ring-outer-grid"></div>
     </div>
-    <div class="panel">
+    <div class="panel gl_border-inner">
       <div class="grid grid-6" id="ring-inner-grid"></div>
     </div>
   </section>

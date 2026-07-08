@@ -72,7 +72,7 @@
     background: var(--surface);
     padding: 8px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px;
   }
   .token {
     display: flex; align-items: center; gap: 12px;
@@ -177,7 +177,7 @@
     background: var(--surface);
     padding: 8px;
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px;
   }
 
   /* no-results */
@@ -188,7 +188,7 @@
     color: var(--fg-3);
     background: var(--surface);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+    outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px;
   }
   .no-results.is-show { display: block; }
 </style>
@@ -197,7 +197,7 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Pi Design System</div>
+    <div class="eyebrow">Reference</div>
     <h1>Tokens Reference</h1>
     <p>色彩與字體 tokens 對照表。點一下任一 row 可複製變數名。切版時優先使用 SCSS 變數（$cl-xxx），語意層用 $fg / $bg / $border 等 alias。可用上方搜尋過濾。</p>
   </header>

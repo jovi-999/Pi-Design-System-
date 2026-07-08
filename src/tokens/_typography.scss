@@ -36,34 +36,34 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
 
 // ---------- Type classes ----------
 // Headline
-.fz-headline-xxl { font-size: 48px; line-height: 72px; font-weight: 700; letter-spacing: -0.01em; }
-.fz-headline-xl  { font-size: 40px; line-height: 60px; font-weight: 700; letter-spacing: -0.01em; }
-.fz-headline-lg  { font-size: 32px; line-height: 48px; font-weight: 700; letter-spacing: -0.005em; }
-.fz-headline-md  { font-size: 28px; line-height: 42px; font-weight: 700; }
-.fz-headline-sm  { font-size: 24px; line-height: 36px; font-weight: 700; }
-.fz-headline-xs  { font-size: 20px; line-height: 30px; font-weight: 700; }
+.fz-headline-xxl { font-size: 48px; line-height: 72px; letter-spacing: -0.01em; }
+.fz-headline-xl  { font-size: 40px; line-height: 60px; letter-spacing: -0.01em; }
+.fz-headline-lg  { font-size: 32px; line-height: 48px; letter-spacing: -0.005em; }
+.fz-headline-md  { font-size: 28px; line-height: 42px; }
+.fz-headline-sm  { font-size: 24px; line-height: 36px; }
+.fz-headline-xs  { font-size: 20px; line-height: 30px; }
 
 // Title
-.fz-title-lg { font-size: 18px; line-height: 28px; font-weight: 600; }
-.fz-title-md { font-size: 16px; line-height: 24px; font-weight: 600; }
-.fz-title-sm { font-size: 14px; line-height: 20px; font-weight: 600; }
-.fz-title-xs { font-size: 12px; line-height: 18px; font-weight: 600; }
+.fz-title-lg { font-size: 18px; line-height: 28px; }
+.fz-title-md { font-size: 16px; line-height: 24px; }
+.fz-title-sm { font-size: 14px; line-height: 20px; }
+.fz-title-xs { font-size: 12px; line-height: 18px; }
 
 // Body
-.fz-body-lg { font-size: 18px; line-height: 32px; font-weight: 400; }
-.fz-body-md { font-size: 16px; line-height: 28px; font-weight: 400; }
-.fz-body-sm { font-size: 14px; line-height: 24px; font-weight: 400; }
-.fz-body-xs { font-size: 12px; line-height: 20px; font-weight: 400; }
+.fz-body-lg { font-size: 18px; line-height: 32px; }
+.fz-body-md { font-size: 16px; line-height: 28px; }
+.fz-body-sm { font-size: 14px; line-height: 24px; }
+.fz-body-xs { font-size: 12px; line-height: 20px; }
 
 // Legacy aliases (h1-h4 / s1-s4 / t1-t4) — preserved for migration
-.fz-h1 { font-size: 40px; line-height: 48px; font-weight: 700; }
-.fz-h2 { font-size: 32px; line-height: 40px; font-weight: 700; }
-.fz-h3 { font-size: 24px; line-height: 32px; font-weight: 700; }
-.fz-h4 { font-size: 20px; line-height: 24px; font-weight: 700; }
-.fz-s1 { font-size: 18px; line-height: 26px; font-weight: 600; }
-.fz-s2 { font-size: 16px; line-height: 24px; font-weight: 600; }
-.fz-s3 { font-size: 14px; line-height: 22px; font-weight: 600; }
-.fz-s4 { font-size: 12px; line-height: 20px; font-weight: 600; }
+.fz-h1 { font-size: 40px; line-height: 48px; }
+.fz-h2 { font-size: 32px; line-height: 40px; }
+.fz-h3 { font-size: 24px; line-height: 32px; }
+.fz-h4 { font-size: 20px; line-height: 24px; }
+.fz-s1 { font-size: 18px; line-height: 26px; }
+.fz-s2 { font-size: 16px; line-height: 24px; }
+.fz-s3 { font-size: 14px; line-height: 22px; }
+.fz-s4 { font-size: 12px; line-height: 20px; }
 .fz-t1 { font-size: 18px; line-height: 32px; }
 .fz-t2 { font-size: 16px; line-height: 28px; }
 .fz-t3 { font-size: 14px; line-height: 24px; }
@@ -75,7 +75,6 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
   font-family: $font-display;
   font-variant-numeric: tabular-nums lining-nums;
   letter-spacing: -0.02em;
-  font-weight: 600;
 }
 .ft-d-din-c { letter-spacing: -1px; }
 
@@ -85,7 +84,6 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
 .ft-semicondensed {
   font-family: "Google Sans Flex", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif !important;
   font-stretch: 64%;
-  font-weight: 448;
   &.fz-tit {
     font-weight: 648;
     -webkit-font-smoothing: antialiased;
@@ -96,7 +94,6 @@ $fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
 .ft-condensed {
   font-family: "Google Sans Flex", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Arial, "Segoe UI", sans-serif !important;
   font-stretch: 48%;
-  font-weight: 448;
   &.fz-tit {
     font-weight: 648;
     -webkit-font-smoothing: antialiased;

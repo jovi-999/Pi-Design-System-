@@ -18,4 +18,10 @@
 .gl_border-inner {
   outline: 1px solid $cl-basic-alpha-100;
   outline-offset: -1px;
+
+  // 手機下：描邊貼齊外框、色階降為 alpha-50
+  @media (max-width: $bp-md) {
+    outline: 1px solid $cl-basic-alpha-50;
+    outline-offset: 0;
+  }
 }

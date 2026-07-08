@@ -1,0 +1,16 @@
+# 統一行尾為 LF，避免跨作業系統反覆污染 diff
+* text=auto eol=lf
+
+# 文字檔明確標記
+*.html   text eol=lf
+*.scss   text eol=lf
+*.css    text eol=lf
+*.js     text eol=lf
+*.mjs    text eol=lf
+*.json   text eol=lf
+*.md     text eol=lf
+*.svg    text eol=lf
+
+# 二進位檔，git 不得干涉
+*.woff   binary
+*.woff2  binary

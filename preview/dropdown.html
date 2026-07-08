@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="/src/index.scss" />
 <link rel="stylesheet" href="/preview/preview.scss" />
 <link rel="stylesheet" href="/assets/symicon.css" />
-<style>
+<style>
+
 
   /* fake modal stage */
   .modal-stage {
@@ -19,13 +20,14 @@
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Components</div>
+    <div class="eyebrow">Components</div>
     <h1>Dropdown menu</h1>
   </header>
 
@@ -34,14 +36,14 @@
     <h2>Dropdown menu</h2>
     <p class="dek"><code>.gl_dropdown-item</code> + 尺寸。用於浮出的 popover 選單內。</p>
     <div class="split">
-      <div class="panel" style="padding: 8px;">
+      <div class="panel gl_border-inner" style="padding: 8px;">
         <h3 style="padding: 12px 12px 0;">MD</h3>
         <button class="gl_dropdown-item gl_dropdown-item-md"><i class="icon icon-bookmark"></i>收藏這則職缺</button>
         <button class="gl_dropdown-item gl_dropdown-item-md"><i class="icon icon-share"></i>分享</button>
         <button class="gl_dropdown-item gl_dropdown-item-md"><i class="icon icon-flag"></i>檢舉</button>
         <button class="gl_dropdown-item gl_dropdown-item-md" style="color: var(--cl-red-600);"><i class="icon icon-delete"></i>刪除</button>
       </div>
-      <div class="panel" style="padding: 8px;">
+      <div class="panel gl_border-inner" style="padding: 8px;">
         <h3 style="padding: 12px 12px 0;">SM</h3>
         <button class="gl_dropdown-item gl_dropdown-item-sm"><i class="icon icon-edit-undo"></i>復原</button>
         <button class="gl_dropdown-item gl_dropdown-item-sm"><i class="icon icon-edit-redo"></i>重做</button>

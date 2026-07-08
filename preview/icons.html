@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/preview/preview.scss" />
 <link rel="stylesheet" href="/assets/symicon.css" />
 <style>
-  .toolbar { display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+  .toolbar { display: flex; gap: 16px; align-items: center; padding: 16px 20px; background: var(--surface); border-radius: var(--radius-md); outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; margin-bottom: 24px; }
   .toolbar input { flex: 1; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font: inherit; color: var(--fg); outline: none; }
   .toolbar input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 20%, transparent); }
   .toolbar .count { font-size: 13px; color: var(--fg-3); white-space: nowrap; }
@@ -18,7 +18,7 @@
   section h2 { font-size: 18px; line-height: 24px; }
   section .dek { font-size: 13px; line-height: 20px; margin-bottom: 16px; }
 
-  .sizes { display: flex; gap: 24px; align-items: center; padding: 24px; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+  .sizes { display: flex; gap: 24px; align-items: center; padding: 24px; background: var(--surface); border-radius: var(--radius-md); outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; }
   .sizes .demo { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--fg); }
   .sizes .demo .lbl { font-size: 11px; color: var(--fg-3); font-family: ui-monospace, monospace; }
 
@@ -32,10 +32,10 @@
     border-radius: var(--radius-sm);
     padding: 18px 12px 12px;
     display: flex; flex-direction: column; align-items: center; gap: 8px;
-    box-shadow: var(--shadow-sm);
+    outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px;
     transition: box-shadow var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard);
   }
-  .tile:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+  .tile:hover { outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; transform: translateY(-1px); }
   .tile .glyph { font-size: 28px; color: var(--fg); line-height: 1; }
   .tile .name {
     font-size: 11px; font-family: ui-monospace, SF Mono, Menlo, monospace;
@@ -43,7 +43,7 @@
     max-width: 100%;
   }
 
-  .inline-demo { padding: 20px 24px; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: grid; gap: 12px; }
+  .inline-demo { padding: 20px 24px; background: var(--surface); border-radius: var(--radius-md); outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; display: grid; gap: 12px; }
   .inline-demo .row { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--fg); }
   .inline-demo .row .i14 { font-size: 14px; color: var(--fg-3); }
   .inline-demo .row .i16 { font-size: 16px; color: var(--fg-2); }
@@ -51,7 +51,7 @@
   .inline-demo .row code { font-size: 12px; color: var(--fg-3); background: var(--bg-subtle); padding: 2px 6px; border-radius: 4px; }
 
   /* usage panel */
-  .usage { padding: 24px; background: var(--surface); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
+  .usage { padding: 24px; background: var(--surface); border-radius: var(--radius-md); outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px; }
   .usage h4 { font-size: 13px; font-weight: 600; margin: 0 0 8px; color: var(--fg); text-transform: uppercase; letter-spacing: .06em; }
   .usage p, .usage li { font-size: 13px; line-height: 20px; color: var(--fg-2); margin: 0; }
   .usage ul { margin: 0; padding-left: 18px; }
@@ -76,7 +76,7 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Foundations</div>
+    <div class="eyebrow">Foundation</div>
     <h1>Iconography</h1>
     <p>symicon — 250 glyphs in a single filled weight (symicon-6.4s, latest). Product-scoped: job-hunting verbs sit first-class (interview, allowance, atm, receipt) alongside standard UI chrome.</p>
   </header>

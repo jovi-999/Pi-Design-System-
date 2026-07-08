@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="/src/index.scss" />
 <link rel="stylesheet" href="/preview/preview.scss" />
 <link rel="stylesheet" href="/assets/symicon.css" />
-<style>
+<style>
+
 
   /* fake modal stage */
   .modal-stage {
@@ -19,13 +20,14 @@
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Components</div>
+    <div class="eyebrow">Components</div>
     <h1>Notification</h1>
   </header>
 
@@ -33,7 +35,7 @@
   <section>
     <h2>Notification item</h2>
     <p class="dek"><code>/notifications</code> 通知列表的列。<code>.gl_notification-item</code> + icon 上的顏色變體。</p>
-    <div class="panel" style="padding: 0 20px;">
+    <div class="panel gl_border-inner" style="padding: 0 20px;">
       <div class="gl_notification-item gl_notification-success">
         <span class="gl_icon-wrap"><i class="icon icon-checked"></i></span>
         <div class="gl_notification-item__main">

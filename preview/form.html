@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="/src/index.scss" />
 <link rel="stylesheet" href="/preview/preview.scss" />
 <link rel="stylesheet" href="/assets/symicon.css" />
-<style>
+<style>
+
 
   /* fake modal stage */
   .modal-stage {
@@ -19,13 +20,14 @@
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Components</div>
+    <div class="eyebrow">Components</div>
     <h1>Form</h1>
   </header>
 
@@ -35,7 +37,7 @@
     <p class="dek"><code>.gl_form-group</code> 包住每個欄位。高度 48px、圓角 8px。</p>
 
     <div class="split">
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>INPUT</h3>
         <div class="col">
           <div class="gl_form-group">
@@ -54,7 +56,7 @@
         </div>
       </div>
 
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>SELECT · TEXTAREA</h3>
         <div class="col">
           <div class="gl_form-group">
@@ -73,7 +75,7 @@
     </div>
 
     <div class="split">
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>PROMPT / HINT</h3>
         <div class="col">
           <div class="gl_form-group">
@@ -91,7 +93,7 @@
         </div>
       </div>
 
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>VALIDATION</h3>
         <div class="col">
           <div class="gl_form-group is-valid">
@@ -156,7 +158,7 @@
     <p class="dek">20 × 20 方框，與標籤間距 12px。主題變體 <code>-success / -info / -danger / -basic</code>。</p>
 
     <div class="split">
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>CHECKBOX</h3>
         <div class="col">
           <div class="gl_checkbox-layout gl_checkbox-success"><label><input type="checkbox" checked /><span class="fz-body-sm">訂閱每週職缺摘要</span></label></div>
@@ -165,7 +167,7 @@
           <div class="gl_checkbox-layout gl_checkbox-danger"><label><input type="checkbox" checked /><span class="fz-body-sm">同意移除帳號與所有資料</span></label></div>
         </div>
       </div>
-      <div class="panel">
+      <div class="panel gl_border-inner">
         <h3>RADIO</h3>
         <div class="col">
           <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="r1" checked /><span class="fz-body-sm">正職</span></label></div>
@@ -175,7 +177,7 @@
       </div>
     </div>
 
-    <div class="panel">
+    <div class="panel gl_border-inner">
       <h3>TOGGLE · sizes × colors</h3>
       <div class="row" style="gap: 32px;">
         <label class="gl_toggle gl_toggle-lg gl_toggle-success"><input type="checkbox" class="toggle-checkbox" checked /><span class="knobs"></span><span class="layer"></span></label>

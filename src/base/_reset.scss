@@ -6,11 +6,11 @@
 
 html, body {
   font-family: $font-sans;
+  font-weight: 500;          // 預設字重下限
   color: $fg;
   background: $bg;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "cv11", "ss01";
 }
 
 // Semantic heading defaults
@@ -20,7 +20,7 @@ h3 { font-size: 24px; line-height: 32px; font-weight: 700; }
 h4 { font-size: 20px; line-height: 24px; font-weight: 700; }
 h5 { font-size: 18px; line-height: 26px; font-weight: 600; }
 h6 { font-size: 16px; line-height: 24px; font-weight: 600; }
-p  { font-size: 16px; line-height: 28px; font-weight: 400; color: $fg-2; }
+p  { font-size: 16px; line-height: 28px; font-weight: 500; color: $fg-2; }
 small { font-size: 12px; line-height: 20px; color: $fg-3; }
 code {
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;

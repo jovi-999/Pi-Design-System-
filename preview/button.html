@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- @dsCard group="Components" name="Button" subtitle="SOLID / OUTLINE / GHOST / GRAY · 7 色系 · 尺寸" viewport="1200x2400" -->
+<!-- @dsCard group="Components" name="Button" subtitle="FILLED / GRAY / OUTLINE / GHOST · 7 色系 · 尺寸" viewport="1200x2400" -->
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8" />
@@ -8,7 +8,8 @@
 <link rel="stylesheet" href="/src/index.scss" />
 <link rel="stylesheet" href="/preview/preview.scss" />
 <link rel="stylesheet" href="/assets/symicon.css" />
-<style>
+<style>
+
 
   /* fake modal stage */
   .modal-stage {
@@ -19,22 +20,23 @@
     overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+  .modal-stage::before { content: ''; position: absolute; inset: 0; backdrop-filter: blur(2px); background: rgba(31,33,35,.4); }
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow">Pi Design System · Components</div>
+    <div class="eyebrow">Components</div>
     <h1>Button</h1>
   </header>
 
-<!-- ============ BUTTON ============ -->
+<!-- ============ SIZE ============ -->
   <section>
-    <h2>Button</h2>
-    <p class="dek"><code>.gl_btn</code> + 尺寸 (xl/lg/md/sm/xs) + 變體 (solid, outline, ghost, gray) + 顏色 (basic/info/success/warning/danger/orange/purple)。</p>
+    <h2>Size</h2>
+    <p class="dek">尺寸 <code>xl</code> / <code>lg</code> / <code>md</code> / <code>sm</code> / <code>xs</code>，對應高度 64 / 56 / 48 / 40 / 32px。</p>
 
-    <div class="panel">
+    <div class="panel gl_border-inner">
       <h3>SIZES</h3>
       <div class="row" style="align-items: flex-start;">
         <div class="sizecol"><button class="gl_btn gl_btn-xl gl_btn-success">XL 按鈕</button><code class="sizecol-tag">.gl_btn-xl</code><span class="sizecol-px">64px</span></div>
@@ -44,9 +46,32 @@
         <div class="sizecol"><button class="gl_btn gl_btn-xs gl_btn-success">XS 按鈕</button><code class="sizecol-tag">.gl_btn-xs</code><span class="sizecol-px">32px</span></div>
       </div>
     </div>
+  </section>
 
-    <div class="panel">
-      <h3>SOLID · by color</h3>
+<!-- ============ TYPE ============ -->
+  <section>
+    <h2>Type</h2>
+    <p class="dek">純文字、左 icon、右 icon、左右 icon、純 icon 五種組合。純 icon 需加 <code>.gl_btn-icon</code> 與 <code>aria-label</code>。</p>
+
+    <div class="panel gl_border-inner">
+      <h3>BY CONTENT</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success">純文字</button></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success"><i class="icon icon-search"></i><span>左 icon</span></button></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success"><span>右 icon</span><i class="icon icon-download"></i></button></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success"><i class="icon icon-search"></i><span>左右 icon</span><i class="icon icon-download"></i></button></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-icon gl_btn-success" aria-label="搜尋"><i class="icon icon-search"></i></button><code class="sizecol-tag">.gl_btn-icon</code></div>
+      </div>
+    </div>
+  </section>
+
+<!-- ============ COLOR ============ -->
+  <section>
+    <h2>Color</h2>
+    <p class="dek">變體 (filled / gray / outline / ghost) × 7 色系 (basic / info / success / warning / danger / orange / purple)。</p>
+
+    <div class="panel gl_border-inner">
+      <h3>Filled</h3>
       <div class="row" style="align-items: flex-start;">
         <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-basic">Basic</button><code class="sizecol-tag">.gl_btn-basic</code></div>
         <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success">Green</button><code class="sizecol-tag">.gl_btn-success</code></div>
@@ -58,34 +83,8 @@
       </div>
     </div>
 
-    <div class="panel">
-      <h3>OUTLINE · by color</h3>
-      <div class="row" style="align-items: flex-start;">
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-basic">Basic</button><code class="sizecol-tag">.gl_btn-outline-basic</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-success">Green</button><code class="sizecol-tag">.gl_btn-outline-success</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-info">Blue</button><code class="sizecol-tag">.gl_btn-outline-info</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-warning">Yellow</button><code class="sizecol-tag">.gl_btn-outline-warning</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-danger">Red</button><code class="sizecol-tag">.gl_btn-outline-danger</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-orange">Orange</button><code class="sizecol-tag">.gl_btn-outline-orange</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-purple">Purple</button><code class="sizecol-tag">.gl_btn-outline-purple</code></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h3>GHOST · by color</h3>
-      <div class="row" style="align-items: flex-start;">
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-basic">Basic</button><code class="sizecol-tag">.gl_btn-ghost-basic</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-success">Green</button><code class="sizecol-tag">.gl_btn-ghost-success</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-info">Blue</button><code class="sizecol-tag">.gl_btn-ghost-info</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-warning">Yellow</button><code class="sizecol-tag">.gl_btn-ghost-warning</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-danger">Red</button><code class="sizecol-tag">.gl_btn-ghost-danger</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-orange">Orange</button><code class="sizecol-tag">.gl_btn-ghost-orange</code></div>
-        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-purple">Purple</button><code class="sizecol-tag">.gl_btn-ghost-purple</code></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h3>GRAY · by color</h3>
+    <div class="panel gl_border-inner">
+      <h3>Gray</h3>
       <div class="row" style="align-items: flex-start;">
         <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-basic">Basic</button><code class="sizecol-tag">.gl_btn-gray-basic</code></div>
         <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-success">Green</button><code class="sizecol-tag">.gl_btn-gray-success</code></div>
@@ -97,14 +96,29 @@
       </div>
     </div>
 
-    <div class="panel">
-      <h3>WITH ICON · DISABLED · ICON-ONLY</h3>
-      <div class="row">
-        <button class="gl_btn gl_btn-md gl_btn-success"><i class="icon icon-search"></i><span>搜尋職缺</span></button>
-        <button class="gl_btn gl_btn-md gl_btn-outline-basic"><span>下載報告</span><i class="icon icon-download"></i></button>
-        <button class="gl_btn gl_btn-md gl_btn-success" disabled>已送出</button>
-        <button class="gl_btn gl_btn-md gl_btn-icon gl_btn-gray-basic" aria-label="更多"><i class="icon icon-more-horiz"></i></button>
-        <button class="gl_btn gl_btn-md gl_btn-icon gl_btn-danger" aria-label="刪除"><i class="icon icon-delete"></i></button>
+    <div class="panel gl_border-inner">
+      <h3>Outline</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-basic">Basic</button><code class="sizecol-tag">.gl_btn-outline-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-success">Green</button><code class="sizecol-tag">.gl_btn-outline-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-info">Blue</button><code class="sizecol-tag">.gl_btn-outline-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-warning">Yellow</button><code class="sizecol-tag">.gl_btn-outline-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-danger">Red</button><code class="sizecol-tag">.gl_btn-outline-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-orange">Orange</button><code class="sizecol-tag">.gl_btn-outline-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-purple">Purple</button><code class="sizecol-tag">.gl_btn-outline-purple</code></div>
+      </div>
+    </div>
+
+    <div class="panel gl_border-inner">
+      <h3>Ghost</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-basic">Basic</button><code class="sizecol-tag">.gl_btn-ghost-basic</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-success">Green</button><code class="sizecol-tag">.gl_btn-ghost-success</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-info">Blue</button><code class="sizecol-tag">.gl_btn-ghost-info</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-warning">Yellow</button><code class="sizecol-tag">.gl_btn-ghost-warning</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-danger">Red</button><code class="sizecol-tag">.gl_btn-ghost-danger</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-orange">Orange</button><code class="sizecol-tag">.gl_btn-ghost-orange</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-ghost-purple">Purple</button><code class="sizecol-tag">.gl_btn-ghost-purple</code></div>
       </div>
     </div>
 
@@ -127,7 +141,7 @@
         <div class="notes">
           <h4>Classes</h4>
           <ul>
-            <li><code>gl_btn</code> + size <strong>(xl&middot;lg&middot;md&middot;sm&middot;xs)</strong> + variant <strong>(solid&middot;outline&middot;ghost&middot;gray)</strong> + color <strong>(basic&middot;info&middot;success&middot;warning&middot;danger&middot;orange&middot;purple)</strong></li>
+            <li><code>gl_btn</code> + size <strong>(xl&middot;lg&middot;md&middot;sm&middot;xs)</strong> + variant <strong>(filled&middot;gray&middot;outline&middot;ghost)</strong> + color <strong>(basic&middot;info&middot;success&middot;warning&middot;danger&middot;orange&middot;purple)</strong></li>
             <li>Icon-only 需加 <code>.gl_btn-icon</code> 與 <code>aria-label</code></li>
           </ul>
           <h4>規則</h4>
@@ -138,6 +152,21 @@
         </div>
       </div>
     </details>
+  </section>
+
+<!-- ============ DISABLED ============ -->
+  <section>
+    <h2>Disabled</h2>
+    <p class="dek">任一變體加 <code>disabled</code> 屬性或 <code>.gl_disabled</code>，透明度降為 0.32、游標 not-allowed。</p>
+
+    <div class="panel gl_border-inner">
+      <h3>DISABLED</h3>
+      <div class="row" style="align-items: flex-start;">
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-success" disabled>已送出</button><code class="sizecol-tag">[disabled]</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-outline-basic" disabled>已送出</button><code class="sizecol-tag">[disabled]</code></div>
+        <div class="sizecol"><button class="gl_btn gl_btn-md gl_btn-gray-basic gl_disabled">已送出</button><code class="sizecol-tag">.gl_disabled</code></div>
+      </div>
+    </div>
   </section>
 
 </div>

@@ -63,7 +63,6 @@ section .dek {
 .panel {
   background: var(--surface);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
   padding: 24px;
   margin-bottom: 16px;
 }
@@ -80,7 +79,7 @@ section .dek {
 .row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
   align-items: center;
 }
 
@@ -117,8 +116,9 @@ section .dek {
 .sizecol {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: 12px;
+  width: fit-content;
 }
 
 .sizecol-tag {
@@ -147,7 +147,7 @@ section .dek {
 .stack-card {
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 8px 32px;
+  padding: 0 32px;
 }
 
 .specimen {
@@ -155,7 +155,7 @@ section .dek {
   grid-template-columns: 180px 180px 1fr;
   gap: 24px;
   align-items: baseline;
-  padding: 20px 0;
+  padding: 32px 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -182,7 +182,7 @@ details.usage {
   margin-top: 12px;
   background: var(--surface);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
+  outline: 1px solid var(--cl-basic-alpha-100); outline-offset: -1px;
   overflow: hidden;
 }
 

@@ -26,8 +26,8 @@
         height: 100vh;
         padding: 0;
         overflow: hidden;
-        /* 暖白底色（預覽殼層專用，非設計系統 token；由使用者指定） */
-        background: #e6e6e6;
+        /* 暖白底色（由使用者指定：basic-100） */
+        background: var(--cl-basic-100);
         color: var(--fg);
         font-family: var(--font-sans);
       }
@@ -68,7 +68,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 0 8px 20px;
+        padding: 0 12px 20px;
       }
       .brand .dot {
         width: 22px;
@@ -82,16 +82,16 @@
       .nav-group .gtitle {
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        color: var(--fg-5);
-        padding: 0 8px;
+        color: var(--cl-basic-500);
+        padding: 0 12px;
         margin-bottom: 6px;
       }
       .nav-link {
         display: block;
-        padding: 8px 10px;
+        padding: 8px 12px;
         border-radius: var(--radius-md, 8px);
         text-decoration: none;
-        color: var(--fg-2);
+        color: var(--cl-basic-900);
         cursor: pointer;
       }
       .nav-link:hover {
@@ -99,8 +99,8 @@
         color: var(--fg);
       }
       .nav-link.active {
-        background: var(--cl-green-50, #f0fdf4);
-        color: var(--cl-green-700, #15803d);
+        background: var(--cl-basic-0);
+        color: var(--cl-green-500);
       }
       .nav-link .sub {
         display: block;
@@ -112,7 +112,7 @@
       .content {
         flex: 1;
         height: 100%;
-        padding: 8px;
+        padding: 8px 8px 8px 0;
       }
       .content iframe {
         width: 100%;
@@ -128,8 +128,7 @@
   <body>
     <aside class="sidebar">
       <div class="brand">
-        <span class="dot"></span>
-        <span class="name fz-title-sm">Pi Design System</span>
+        <img src="../assets/logo.svg" width="160" alt="Pi Design System" />
       </div>
       <nav id="nav"></nav>
     </aside>
@@ -157,25 +156,25 @@
           file: "shadow.html",
           group: "Foundation",
           name: "Shadow & Border",
-          sub: "Shadow · Border · Ring",
+          sub: "Shadow ・ Border ・ Ring",
         },
         {
           file: "icons.html",
           group: "Foundation",
           name: "Icons",
-          sub: "250 symicon glyphs · 可搜尋",
+          sub: "250 symicon glyphs ・ 可搜尋",
         },
         {
           file: "button.html",
           group: "Components",
           name: "Button",
-          sub: "SOLID / OUTLINE / GHOST / GRAY",
+          sub: "SOLID ・ OUTLINE ・ GHOST ・ GRAY",
         },
         {
           file: "form.html",
           group: "Components",
           name: "Form",
-          sub: "Input · Select · Checkbox · Toggle…",
+          sub: "Input ・ Select ・ Checkbox ・ Toggle…",
         },
         {
           file: "alert.html",
@@ -217,13 +216,13 @@
           file: "loading.html",
           group: "Components",
           name: "Loading · Spinner",
-          sub: "載入 / spinner",
+          sub: "載入 ・ spinner",
         },
         {
           file: "modal.html",
           group: "Components",
           name: "Modal",
-          sub: "Reveal · GSAP modal",
+          sub: "Reveal ・ GSAP modal",
         },
         {
           file: "tokens.html",
@@ -301,7 +300,10 @@
           PAGES.find((p) => p.file.replace(".html", "") === key) || PAGES[0];
         frameEl.src = "/preview/" + page.file;
         document.querySelectorAll(".nav-link").forEach((a) => {
-          a.classList.toggle("active", a.dataset.file === page.file);
+          const on = a.dataset.file === page.file;
+          a.classList.toggle("active", on);
+          a.classList.toggle("gl_border-outer", on);
+          a.classList.toggle("gl_shadow-xs", on);
         });
       }
 
