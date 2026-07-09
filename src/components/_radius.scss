@@ -1,0 +1,18 @@
+// ============================================================
+// Pi DS — Radius utility classes (.gl_radius-*)
+//
+// 每個 class = border-radius + corner-shape 組合。
+// corner-shape 雖已由 base reset 全域套用，這裡仍顯式帶上，
+// 讓 class 自成一體、語意完整。
+//   <div class="gl_radius-md">…</div>
+// ============================================================
+
+@use "../tokens" as *;
+
+.gl_radius-xs   { border-radius: $radius-xs;   corner-shape: $corner-shape; }
+.gl_radius-sm   { border-radius: $radius-sm;   corner-shape: $corner-shape; }
+.gl_radius-md   { border-radius: $radius-md;   corner-shape: $corner-shape; }
+.gl_radius-lg   { border-radius: $radius-lg;   corner-shape: $corner-shape; }
+.gl_radius-xl   { border-radius: $radius-xl;   corner-shape: $corner-shape; }
+.gl_radius-xxl  { border-radius: $radius-xxl;  corner-shape: $corner-shape; }
+.gl_radius-pill { border-radius: $radius-pill; corner-shape: $corner-shape; }

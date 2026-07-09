@@ -4,6 +4,12 @@
 
 @use "../tokens" as *;
 
+// 圓角恆伴隨超橢圓角形：套在所有元素，border-radius 為 0 時 corner-shape 無視覺效果，
+// 故只要有圓角就自動套用 superellipse(1.05)，無需逐元件重複宣告。
+*, *::before, *::after {
+  corner-shape: $corner-shape;
+}
+
 html, body {
   font-family: $font-sans;
   font-weight: 500;          // 預設字重下限

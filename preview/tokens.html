@@ -212,6 +212,7 @@
       <button class="tab is-active" data-filter="all">All</button>
       <button class="tab" data-filter="color">Color</button>
       <button class="tab" data-filter="type">Type</button>
+      <button class="tab" data-filter="radius">Radius</button>
     </div>
     <div style="font-size: 12px; color: var(--fg-3);">
       <kbd style="font-family: ui-monospace, monospace; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">/</kbd> 搜尋 ·
@@ -335,11 +336,12 @@ const SPACING = [
 
 // Radius
 const RADIUS = [
-  { name: "radius-xs",   px: 2,   note: "sub-component、tag 邊角" },
+  { name: "radius-xs",   px: 4,   note: "基準單位、sub-component、tag 邊角" },
   { name: "radius-sm",   px: 8,   note: "input、小按鈕" },
   { name: "radius-md",   px: 12,  note: "⭐ 預設卡片 / 按鈕" },
   { name: "radius-lg",   px: 16,  note: "feature card、modal" },
   { name: "radius-xl",   px: 24,  note: "hero tile、marketing" },
+  { name: "radius-xxl",  px: 32,  note: "大型 hero、panel 外框" },
   { name: "radius-pill", px: 999, note: "filter chip、avatar、pill" },
 ].map(r => ({ ...r, family: "radius", cssVar: `--${r.name}`, scssVar: `$${r.name}` }));
 
@@ -561,6 +563,14 @@ root.appendChild(renderSection({
   items: TYPE,
   renderItem: renderTypeToken,
   layout: "list",
+}));
+
+root.appendChild(renderSection({
+  title: "Radius",
+  dek: "六階基準（xs 4px 為基準單位）＋ pill 全圓角。所有圓角恆伴隨 corner-shape: superellipse(1.05)。",
+  family: "radius",
+  items: RADIUS,
+  renderItem: renderRadiusToken,
 }));
 
 // ============================================================

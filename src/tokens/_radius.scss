@@ -3,12 +3,16 @@
 // ============================================================
 
 :root {
-  --radius-xs: 2px;
+  --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
+  --radius-xxl: 32px;
   --radius-pill: 999px;
+
+  // 圓角一律搭配超橢圓角形（squircle 感）；radius 為 0 時無效果。
+  --corner-shape: superellipse(1.05);
 }
 
 $radius-xs:   var(--radius-xs);
@@ -16,4 +20,7 @@ $radius-sm:   var(--radius-sm);
 $radius-md:   var(--radius-md);
 $radius-lg:   var(--radius-lg);
 $radius-xl:   var(--radius-xl);
+$radius-xxl:  var(--radius-xxl);
 $radius-pill: var(--radius-pill);
+
+$corner-shape: var(--corner-shape);
