@@ -15,7 +15,7 @@
   .color-swatches { display: grid; grid-template-columns: repeat(10, 1fr); gap: var(--sp-1); }
   .color-swatch { aspect-ratio: 1/1; padding: var(--sp-2); display: flex; flex-direction: column; justify-content: space-between; cursor: pointer; position: relative; border-radius: var(--radius-md); overflow: hidden; }
   .color-swatch-step { opacity: .9; }
-  .color-swatch-meta { display: grid; gap: 2px; margin-top: auto; }
+  .color-swatch-meta { display: grid; gap: 2px; margin-top: auto; font-size: 10px; line-height: 12px; }
   .color-swatch-var,
   .color-swatch-value { font-family: ui-monospace, SF Mono, Menlo, monospace; word-break: break-all; }
   .color-swatch-var { opacity: .85; }
@@ -37,7 +37,7 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .color-preview-stack { display: grid; gap: var(--sp-6); padding: var(--sp-1); }
+  .color-preview-stack { display: grid; gap: var(--sp-6); padding: 0; }
   .color-preview-label { margin-bottom: var(--sp-2); }
   header .eyebrow,
   header h1 { margin-bottom: var(--sp-1); }
@@ -128,7 +128,7 @@
       const label = key === 'basic' ? (s === 0 ? '0 (White)' : String(s)) : String(s);
       const toneClass = s >= 500 ? 'is-dark' : 'is-light';
       const contrastClass = s <= 100 ? 'is-low-contrast' : '';
-      return `<div class="color-swatch gl_border-inner ${toneClass} ${contrastClass}" style="background: var(${varname});" data-copy="${scssVar}" title="點擊複製 ${scssVar}"><span class="color-swatch-step fz-title-xs">${label}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="${varname}"></span></span></div>`;
+      return `<div class="color-swatch gl_border-inner ${toneClass} ${contrastClass}" style="background: var(${varname});" data-copy="${scssVar}" title="點擊複製 ${scssVar}"><span class="color-swatch-step fz-title-xs">${label}</span><span class="color-swatch-meta"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="${varname}"></span></span></div>`;
     };
     const swatches = rampSteps.map(makeSwatch).join('');
     const basicEnds = [0,1000].map(makeSwatch).join('');
@@ -207,7 +207,7 @@
     c.style.setProperty('--alpha-fill', `var(--cl-basic-alpha-${n})`);
     c.dataset.copy = scssVar;
     c.title = `點擊複製 ${scssVar}`;
-    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-basic-alpha-${n}"></span></span>`;
+    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-basic-alpha-${n}"></span></span>`;
     basicAlpha.appendChild(c);
   });
   const whiteAlpha = document.getElementById('white-alpha');
@@ -218,7 +218,7 @@
     c.style.setProperty('--alpha-fill', `var(--cl-white-alpha-${n})`);
     c.dataset.copy = scssVar;
     c.title = `點擊複製 ${scssVar}`;
-    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta fz-body-xs"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-white-alpha-${n}"></span></span>`;
+    c.innerHTML = `<span class="color-swatch-step fz-title-xs">${n}</span><span class="color-swatch-meta"><span class="color-swatch-var">${scssVar}</span><span class="color-swatch-value" data-var="--cl-white-alpha-${n}"></span></span>`;
     whiteAlpha.appendChild(c);
   });
   requestAnimationFrame(fillComputedColorLabels);
