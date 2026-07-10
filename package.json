@@ -14,6 +14,7 @@
     "test": "npm run build && grep -q -- '--cl-green-500' dist/pi-ds.css && grep -q '.gl_btn' dist/pi-ds.css && echo 'smoke test passed'"
   },
   "devDependencies": {
+    "gsap": "^3.15.0",
     "sass": "^1.77.0",
     "vite": "^8.0.0"
   },

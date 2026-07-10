@@ -26,7 +26,7 @@
     width: 352px;
     border-radius: 24px;
     overflow: hidden;
-    background: var(--cl-basic-50);
+    background: var(--cl-basic-0);
   }
   /* div 版（GSAP）自帶佈局 + 陰影；dialog 版交給 .gs-dialog */
   .gl_gs-modal:not(.gs-dialog) {
@@ -48,23 +48,11 @@
   .gl_gs-modal-footer { padding: 0 16px 16px; }
   .gl_gs-modal-footer .gl_btn { width: 100%; }
 
-  /* GSAP 圓形毛玻璃 close（非 gl_btn-icon 版） */
-  .gl_gs-modal-header-close {
-    width: 40px; height: 40px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border: 0; border-radius: var(--radius-pill);
-    cursor: pointer;
-    background: var(--cl-basic-alpha-100);
-    color: var(--cl-basic-700);
-  }
-
-  /* badge header 變體（範例2：flex + 直式 title） */
-  .gl_gs-modal-header.is-badge { display: flex; }
+  /* badge header 變體（範例2：維持 grid，title 改直式） */
   .gl_gs-modal-header.is-badge .gl_gs-modal-header-title {
-    flex: 1;
     display: flex; flex-direction: column; align-items: center; gap: 2px;
   }
-  .gl_gs-modal-header-spacer { width: 56px; flex: none; }
+  .gl_gs-modal-header-spacer { width: 56px; }
 
   /* native <dialog> 元素重置 + 遮罩 / 置中 */
   .gs-dialog {
@@ -97,11 +85,11 @@
 <!-- ============ DIALOG MODAL ============ -->
   <section>
     <h2>Dialog Modal</h2>
-    <p class="dek">以原生 <code>&lt;dialog&gt;</code> 作為 modal 元素，外觀沿用 GSAP Modal 的樣式 class（<code>gl_gs-modal</code>）。<strong>行為全交給原生</strong> API：<code>showModal()</code> / <code>close()</code>，<code>::backdrop</code> 遮罩、focus trap、Esc 關閉、<code>:modal</code> 置中皆由瀏覽器提供，不依賴 GSAP。</p>
+    <p class="dek">以原生 <code>&lt;dialog&gt;</code> 作為 modal 元素，外觀沿用 GSAP Modal 的樣式 class（<code>gl_gs-modal</code>）。<strong>開啟與關閉行為交給原生</strong> API：<code>showModal()</code> / <code>close()</code>，<code>::backdrop</code> 遮罩、focus trap、Esc 關閉、<code>:modal</code> 置中皆由瀏覽器提供。GSAP 只處理進場與退場過渡。</p>
     <div class="split">
       <!-- 範例 1：只有按鈕，點按開啟 dialog 預覽 -->
       <div class="modal-stage">
-        <button type="button" class="gl_btn gl_btn-md gl_btn-success iw_js-open-gs-dialog-btn">開啟 Dialog</button>
+        <button type="button" class="gl_btn gl_btn-sm gl_btn-success iw_js-open-gs-dialog-btn">開啟 Dialog</button>
       </div>
 
       <!-- 範例 2：只展示 dialog 外觀（inline 靜態）-->
@@ -152,20 +140,44 @@
   <span class="kw">&lt;button</span> <span class="cls">class="iw_js-close-gs-dialog-btn"</span><span class="kw">&gt;</span>送出<span class="kw">&lt;/button&gt;</span>
 <span class="kw">&lt;/dialog&gt;</span>
 
-<span class="cmt">// 開關：呼叫原生 API</span>
-openBtn.addEventListener('click', () =&gt; dlg.showModal());
-closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
+<span class="cmt">// 開啟：原生 API 控制狀態，GSAP 只處理過渡</span>
+openBtn.addEventListener('click', () =&gt; {
+  dlg.showModal();
+  gsap.fromTo(dlg, { autoAlpha: 0, y: 32 }, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 0.35,
+    ease: 'power2.out',
+    clearProps: 'opacity,transform,visibility',
+  });
+});
+
+<span class="cmt">// 關閉：GSAP 完成退場後，仍由原生 API 關閉</span>
+function animateDialogOut() {
+  gsap.to(dlg, {
+    autoAlpha: 0,
+    y: 32,
+    duration: 0.25,
+    ease: 'power2.in',
+    onComplete: () =&gt; {
+      dlg.close();
+      gsap.set(dlg, { clearProps: 'opacity,transform,visibility' });
+    },
+  });
+}
+
+closeBtn.addEventListener('click', animateDialogOut);</pre>
         <div class="notes">
           <h4>為何用 &lt;dialog&gt;</h4>
           <ul>
             <li>原生 <code>showModal()</code> 自帶 <code>::backdrop</code> 遮罩、focus trap、Esc 關閉，不需自造 overlay 層</li>
-            <li>不依賴 GSAP；開關用少量 JS 呼叫原生 <code>showModal()</code> / <code>close()</code></li>
+            <li>開關由原生 <code>showModal()</code> / <code>close()</code> 控制；GSAP 只處理進場與退場過渡</li>
             <li>置中由 <code>:modal</code> UA 樣式提供；外觀完全沿用 <code>gl_gs-modal</code> 樣式 class，只是容器換成 <code>&lt;dialog&gt;</code></li>
           </ul>
           <h4>原生行為</h4>
           <ul>
             <li>開啟：<code>dlg.showModal()</code>；關閉：<code>dlg.close()</code>（X 與 footer 按鈕皆同）</li>
-            <li>Esc、focus trap 皆為瀏覽器原生，無需額外處理</li>
+            <li>focus trap 由瀏覽器處理；Esc 的原生 <code>cancel</code> 事件只延後關閉，讓退場動畫先完成</li>
             <li>暫不用 invoker command（<code>command</code> / <code>commandfor</code>），以向下相容舊瀏覽器</li>
           </ul>
         </div>
@@ -176,25 +188,25 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
 <!-- ============ GSAP MODAL ============ -->
   <section>
     <h2>GSAP Modal</h2>
-    <p class="dek">三段式 header（左 spacer / 中 title 置中 / 右毛玻璃 close）+ body + footer。命名空間 <code>gl_gs-modal-*</code>（gs = GSAP），與 reveal modal 的 <code>gl_modal-*</code> 完全獨立。動畫由 <code>tools/GsapModal.js</code> + GSAP timeline 驅動。</p>
+    <p class="dek">三段式 header（左操作 / 中 title 置中 / 右關閉）+ body + footer。Header 與按鈕樣式沿用 Dialog Modal：三欄 grid 搭配 <code>gl_btn-icon</code>、<code>gl_btn-sm</code>、<code>gl_btn-gray-basic</code>。命名空間 <code>gl_gs-modal-*</code>（gs = GSAP），與 reveal modal 的 <code>gl_modal-*</code> 完全獨立。動畫由 <code>tools/GsapModal.js</code> + GSAP timeline 驅動。</p>
     <div class="split">
       <!-- 範例 1：標準三段式 header + footer -->
       <div class="modal-stage">
         <div class="iw_report-modal gl_gs-modal">
           <div class="gl_gs-modal-header">
-            <button type="button" class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic"><i class="icon icon-chevron-left"></i></button>
+            <button type="button" class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic"><i class="icon icon-arrow-left"></i></button>
             <div class="gl_gs-modal-header-title fz-title-md fz-tit">檢舉這則內容</div>
-            <button type="button" class="gl_gs-modal-header-close iw_js-close-report-modal-btn">
+            <button type="button" class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic iw_js-close-report-modal-btn">
               <i class="icon icon-cross"></i>
             </button>
           </div>
-          <div class="gl_gs-modal-content iw_modal-body">
+          <div class="gl_gs-modal-content">
             <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="gsr" checked /><span class="fz-body-sm">不實內容</span></label></div>
             <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="gsr" /><span class="fz-body-sm">廣告或洗版</span></label></div>
             <div class="gl_radio-layout gl_radio-success"><label><input type="radio" name="gsr" /><span class="fz-body-sm">人身攻擊</span></label></div>
           </div>
           <div class="gl_gs-modal-footer">
-            <button class="gl_btn gl_btn-md gl_btn-danger">送出檢舉</button>
+            <button class="gl_btn gl_btn-sm gl_btn-danger">送出檢舉</button>
           </div>
         </div>
       </div>
@@ -208,17 +220,17 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
               <span class="fz-title-md fz-tit">我來回答</span>
               <span class="iw_qa-answer-modal__badge fz-body-xs text-green-600">+ 10 積分</span>
             </div>
-            <button type="button" class="gl_gs-modal-header-close iw_js-close-qa-answer-modal-btn">
+            <button type="button" class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic iw_js-close-qa-answer-modal-btn">
               <i class="icon icon-cross"></i>
             </button>
           </div>
-          <div class="gl_gs-modal-content iw_modal-body">
+          <div class="gl_gs-modal-content">
             <div class="gl_form-group">
               <textarea class="gl_form-control" placeholder="分享你的面試經驗…"></textarea>
             </div>
           </div>
           <div class="gl_gs-modal-footer">
-            <button class="gl_btn gl_btn-md gl_btn-success">送出回答</button>
+            <button class="gl_btn gl_btn-sm gl_btn-success">送出回答</button>
           </div>
         </div>
       </div>
@@ -230,17 +242,19 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
         <pre><span class="kw">&lt;div</span> id="reportModalOverlay" <span class="cls">class="gl-v2_modal-overlay"</span><span class="kw">&gt;</span>
   <span class="kw">&lt;div</span> id="reportModal" <span class="cls">class="iw_report-modal gl_gs-modal"</span><span class="kw">&gt;</span>
 
-    <span class="cmt">{{-- Header：左 spacer + title 置中 + 右 close --}}</span>
+    <span class="cmt">{{-- Header：三欄 grid，按鈕與 Dialog Modal 一致 --}}</span>
     <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-header"</span><span class="kw">&gt;</span>
-      <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-header-spacer"</span><span class="kw">&gt;&lt;/div&gt;</span>
+      <span class="kw">&lt;button</span> type="button" <span class="cls">class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;i</span> <span class="cls">class="icon icon-arrow-left"</span><span class="kw">&gt;&lt;/i&gt;</span>
+      <span class="kw">&lt;/button&gt;</span>
       <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-header-title fz-title-md fz-tit"</span><span class="kw">&gt;</span>標題<span class="kw">&lt;/div&gt;</span>
-      <span class="kw">&lt;button</span> type="button" <span class="cls">class="gl_gs-modal-header-close iw_js-close-report-modal-btn"</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;button</span> type="button" <span class="cls">class="gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic iw_js-close-report-modal-btn"</span><span class="kw">&gt;</span>
         <span class="kw">&lt;i</span> <span class="cls">class="icon icon-cross"</span><span class="kw">&gt;&lt;/i&gt;</span>
       <span class="kw">&lt;/button&gt;</span>
     <span class="kw">&lt;/div&gt;</span>
 
     <span class="cmt">{{-- Body --}}</span>
-    <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-content iw_modal-body"</span><span class="kw">&gt;</span> … <span class="kw">&lt;/div&gt;</span>
+    <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-content"</span><span class="kw">&gt;</span> … <span class="kw">&lt;/div&gt;</span>
 
     <span class="cmt">{{-- Footer --}}</span>
     <span class="kw">&lt;div</span> <span class="cls">class="gl_gs-modal-footer"</span><span class="kw">&gt;</span> … <span class="kw">&lt;/div&gt;</span>
@@ -251,9 +265,9 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
           <h4>結構</h4>
           <ul>
             <li><strong>兩層必備</strong>：<code>gl-v2_modal-overlay</code>（遮罩）+ <code>gl_gs-modal</code>（本體），缺一不可</li>
-            <li><strong>三段式 header</strong>：spacer 56px + title flex-1 + close 圓形 40px，spacer 與 close 對稱讓 title 置中</li>
-            <li>header title 是 <code>flex-direction: column</code> 容器，可放 badge / 副標</li>
-            <li>無 navigation 的 modal（如 unlock）用頁面專屬 header class，close 改 absolute 定位</li>
+            <li><strong>三段式 header</strong>：左右各 56px 操作區 + 中間 <code>1fr</code>，讓 title 固定置中</li>
+            <li>header 按鈕統一用 <code>gl_btn gl_btn-icon gl_btn-sm gl_btn-gray-basic</code>，40px 按鈕加 8px margin</li>
+            <li>含 badge / 副標時加 <code>is-badge</code>；無左側操作時以 56px spacer 保持對稱</li>
           </ul>
           <h4>命名規範</h4>
           <ul>
@@ -288,8 +302,8 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
             </div>
           </div>
           <div class="gl_modal-footer flex-column">
-            <button class="gl_btn gl_btn-md gl_btn-success">確定送出</button>
-            <button class="gl_btn gl_btn-md gl_btn-ghost-basic">返回編輯</button>
+            <button class="gl_btn gl_btn-sm gl_btn-success">確定送出</button>
+            <button class="gl_btn gl_btn-sm gl_btn-gray-basic">返回編輯</button>
           </div>
         </div>
       </div>
@@ -303,8 +317,8 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
             </div>
           </div>
           <div class="gl_modal-footer flex-row">
-            <button class="gl_btn gl_btn-md gl_btn-ghost-basic">取消</button>
-            <button class="gl_btn gl_btn-md gl_btn-danger">確定刪除</button>
+            <button class="gl_btn gl_btn-sm gl_btn-gray-basic">取消</button>
+            <button class="gl_btn gl_btn-sm gl_btn-danger">確定刪除</button>
           </div>
         </div>
       </div>
@@ -322,8 +336,8 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
     <span class="kw">&lt;/div&gt;</span>
   <span class="kw">&lt;/div&gt;</span>
   <span class="kw">&lt;div</span> <span class="cls">class="gl_modal-footer flex-column"</span><span class="kw">&gt;</span>
-    <span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-md gl_btn-success"</span><span class="kw">&gt;</span>確定送出<span class="kw">&lt;/button&gt;</span>
-    <span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-md gl_btn-ghost-basic"</span><span class="kw">&gt;</span>返回編輯<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-sm gl_btn-success"</span><span class="kw">&gt;</span>確定送出<span class="kw">&lt;/button&gt;</span>
+    <span class="kw">&lt;button</span> <span class="cls">class="gl_btn gl_btn-sm gl_btn-gray-basic"</span><span class="kw">&gt;</span>返回編輯<span class="kw">&lt;/button&gt;</span>
   <span class="kw">&lt;/div&gt;</span>
 <span class="kw">&lt;/div&gt;</span></pre>
         <div class="notes">
@@ -344,14 +358,47 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
   </section>
 
 </div>
-<script>
+<script type="module">
+  import { gsap } from 'gsap';
+
   (function () {
     var dlg = document.getElementById('gsDialog');
     if (!dlg) return;
     var openBtn = document.querySelector('.iw_js-open-gs-dialog-btn');
-    if (openBtn) openBtn.addEventListener('click', function () { dlg.showModal(); });
+    var isClosing = false;
+
+    function animateDialogOut() {
+      if (isClosing) return;
+      isClosing = true;
+      gsap.to(dlg, {
+        autoAlpha: 0,
+        y: 32,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: function () {
+          dlg.close();
+          gsap.set(dlg, { clearProps: 'opacity,transform,visibility' });
+          isClosing = false;
+        },
+      });
+    }
+
+    if (openBtn) openBtn.addEventListener('click', function () {
+      dlg.showModal();
+      gsap.fromTo(dlg, { autoAlpha: 0, y: 32 }, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.35,
+        ease: 'power2.out',
+        clearProps: 'opacity,transform,visibility',
+      });
+    });
     dlg.querySelectorAll('.iw_js-close-gs-dialog-btn').forEach(function (b) {
-      b.addEventListener('click', function () { dlg.close(); });
+      b.addEventListener('click', animateDialogOut);
+    });
+    dlg.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      animateDialogOut();
     });
   })();
 </script>
