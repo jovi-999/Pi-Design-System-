@@ -5,10 +5,10 @@
 @use "../tokens" as *;
 
 .gl_dropdown-item {
+  @extend .fz-tit;
   display: flex;
   align-items: center;
   border-radius: $radius-xs;
-  font-weight: 600;
   color: $cl-basic-900;
   background: transparent;
   border: 0;

@@ -10,7 +10,7 @@
 <style>
   /* ---------- header ---------- */
   header { margin-bottom: 24px; }
-  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 10px; }
+  .eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 10px; }
   header h1 { font-size: 40px; line-height: 48px; margin: 0 0 10px; letter-spacing: -0.01em; }
   header p { max-width: 720px; margin: 0; color: var(--fg-2); font-size: 15px; line-height: 26px; text-wrap: pretty; }
 
@@ -47,7 +47,7 @@
 
   .tabs { display: inline-flex; gap: 4px; background: var(--surface); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
   .tab {
-    padding: 8px 14px; font-size: 13px; font-weight: 600; border-radius: 6px;
+    padding: 8px 14px; font-size: 13px; border-radius: 6px;
     background: transparent; border: 0; cursor: pointer; color: var(--fg-2);
     font-family: inherit;
   }
@@ -104,7 +104,7 @@
   .token .info { flex: 1; min-width: 0; }
   .token .name {
     font-family: ui-monospace, SF Mono, Menlo, Consolas, monospace;
-    font-size: 12px; font-weight: 600;
+    font-size: 12px;
     color: var(--fg);
     display: flex; align-items: center; gap: 6px;
   }
@@ -118,7 +118,7 @@
   .copied-hint {
     position: absolute; right: 12px; top: 50%;
     transform: translateY(-50%);
-    font-size: 11px; font-weight: 600;
+    font-size: 11px;
     background: var(--cl-green-500); color: var(--cl-basic-0);
     padding: 4px 8px; border-radius: 999px;
     opacity: 0; pointer-events: none;
@@ -160,7 +160,7 @@
   .type-row:hover { background: var(--bg-subtle); }
   .type-row.is-hidden { display: none; }
   .type-row .name {
-    font-family: ui-monospace, monospace; font-size: 12px; font-weight: 600;
+    font-family: ui-monospace, monospace; font-size: 12px;
     color: var(--fg);
   }
   .type-row .name .meta {
@@ -197,8 +197,8 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow fz-title-xs text-basic-alpha-500">Reference</div>
-    <h1 class="fz-headline-xl text-basic-alpha-900">設計變數 Tokens</h1>
+    <div class="eyebrow fz-title-xs fz-tit text-basic-alpha-500">Reference</div>
+    <h1 class="fz-headline-xl fz-tit text-basic-alpha-900">設計變數 Tokens</h1>
     <p class="fz-body-md text-basic-alpha-700">色彩與字體 tokens 對照表。點一下任一 row 可複製變數名。切版時優先使用 SCSS 變數（$cl-xxx），語意層用 $fg / $bg / $border 等 alias。可用上方搜尋過濾。</p>
   </header>
 
@@ -209,10 +209,10 @@
       <input id="q" type="search" placeholder="搜尋 token（例：green、fg、#10、brand）" autocomplete="off" />
     </div>
     <div class="tabs" id="tabs">
-      <button class="tab is-active" data-filter="all">All</button>
-      <button class="tab" data-filter="color">Color</button>
-      <button class="tab" data-filter="type">Type</button>
-      <button class="tab" data-filter="radius">Radius</button>
+      <button class="tab fz-tit is-active" data-filter="all">All</button>
+      <button class="tab fz-tit" data-filter="color">Color</button>
+      <button class="tab fz-tit" data-filter="type">Type</button>
+      <button class="tab fz-tit" data-filter="radius">Radius</button>
     </div>
     <div style="font-size: 12px; color: var(--fg-3);">
       <kbd style="font-family: ui-monospace, monospace; background: var(--surface); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border);">/</kbd> 搜尋 ·
@@ -303,21 +303,21 @@ const SEMANTIC = [
 // Typography classes
 const TYPE = [
   // headline
-  { name: "fz-headline-xxl", size: 48, lh: 72, w: 700, note: "Hero title — 品牌主視覺" },
-  { name: "fz-headline-xl",  size: 40, lh: 60, w: 700, note: "頁面主標" },
-  { name: "fz-headline-lg",  size: 32, lh: 48, w: 700, note: "section lead" },
-  { name: "fz-headline-md",  size: 28, lh: 42, w: 700, note: "" },
-  { name: "fz-headline-sm",  size: 24, lh: 36, w: 700, note: "" },
-  { name: "fz-headline-xs",  size: 20, lh: 30, w: 700, note: "" },
+  { name: "fz-headline-xxl", size: 48, lh: 72, emphasis: true, note: "Hero title — 品牌主視覺" },
+  { name: "fz-headline-xl",  size: 40, lh: 60, emphasis: true, note: "頁面主標" },
+  { name: "fz-headline-lg",  size: 32, lh: 48, emphasis: true, note: "section lead" },
+  { name: "fz-headline-md",  size: 28, lh: 42, emphasis: true, note: "" },
+  { name: "fz-headline-sm",  size: 24, lh: 36, emphasis: true, note: "" },
+  { name: "fz-headline-xs",  size: 20, lh: 30, emphasis: true, note: "" },
   // title
-  { name: "fz-title-lg", size: 18, lh: 28, w: 600, note: "卡片主標" },
-  { name: "fz-title-md", size: 16, lh: 24, w: 600, note: "表單 label、inline 強調" },
-  { name: "fz-title-sm", size: 14, lh: 20, w: 600, note: "" },
+  { name: "fz-title-lg", size: 18, lh: 28, emphasis: true, note: "卡片主標" },
+  { name: "fz-title-md", size: 16, lh: 24, emphasis: true, note: "表單 label、inline 強調" },
+  { name: "fz-title-sm", size: 14, lh: 20, emphasis: true, note: "" },
   // body
-  { name: "fz-body-lg", size: 18, lh: 32, w: 400, note: "長文閱讀" },
-  { name: "fz-body-md", size: 16, lh: 28, w: 400, note: "預設內文" },
-  { name: "fz-body-sm", size: 14, lh: 24, w: 400, note: "密集資訊" },
-  { name: "fz-body-xs", size: 12, lh: 20, w: 400, note: "時間戳、metadata" },
+  { name: "fz-body-lg", size: 18, lh: 32, emphasis: false, note: "長文閱讀" },
+  { name: "fz-body-md", size: 16, lh: 28, emphasis: false, note: "預設內文" },
+  { name: "fz-body-sm", size: 14, lh: 24, emphasis: false, note: "密集資訊" },
+  { name: "fz-body-xs", size: 12, lh: 20, emphasis: false, note: "時間戳、metadata" },
 ].map(t => ({ ...t, family: "type", cssClass: t.name }));
 
 // Spacing
@@ -390,11 +390,11 @@ function renderColorToken(c) {
 
   // info
   const info = el("div", "info");
-  info.appendChild(el("div", "name", c.scssVar));
+  info.appendChild(el("div", "name fz-tit", c.scssVar));
   info.appendChild(el("div", "meta", `${c.cssVar} · ${c.hex}${c.note ? " · " + c.note : ""}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -411,11 +411,11 @@ function renderSemanticToken(s) {
   row.appendChild(sw);
 
   const info = el("div", "info");
-  info.appendChild(el("div", "name", s.scssVar));
+  info.appendChild(el("div", "name fz-tit", s.scssVar));
   info.appendChild(el("div", "meta", `${s.cssVar} · ${s.role}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -423,16 +423,17 @@ function renderTypeToken(t) {
   const row = el("div", "type-row");
   row.dataset.search = `${t.name} ${t.cssClass} type font ${t.note}`.toLowerCase();
   row.dataset.family = "type";
-  row.dataset.copy = `.${t.cssClass}`;
+  row.dataset.copy = `.${t.cssClass}${t.emphasis ? ".fz-tit" : ""}`;
 
-  const name = el("div", "name", `.${t.cssClass}<span class="meta">${t.note || ""}</span>`);
-  const preview = el("div", `preview ${t.cssClass}`, "中文職涯 Aa 薪資 · Apr 2026");
-  const specs = el("div", "specs", `${t.size} / ${t.lh} · ${t.w}`);
+  const classLabel = `.${t.cssClass}${t.emphasis ? " + .fz-tit" : ""}`;
+  const name = el("div", "name fz-tit", `${classLabel}<span class="meta">${t.note || ""}</span>`);
+  const preview = el("div", `preview ${t.cssClass}${t.emphasis ? " fz-tit" : ""}`, "中文職涯 Aa 薪資 · Apr 2026");
+  const specs = el("div", "specs", `${t.size} / ${t.lh} · ${t.emphasis ? "fz-tit" : "500"}`);
 
   row.appendChild(name);
   row.appendChild(preview);
   row.appendChild(specs);
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -449,11 +450,11 @@ function renderSpacingToken(s) {
   row.appendChild(vis);
 
   const info = el("div", "info");
-  info.appendChild(el("div", "name", s.scssVar));
+  info.appendChild(el("div", "name fz-tit", s.scssVar));
   info.appendChild(el("div", "meta", `${s.px}px · ${s.cssVar}${s.note ? " · " + s.note : ""}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -470,11 +471,11 @@ function renderRadiusToken(r) {
   row.appendChild(vis);
 
   const info = el("div", "info");
-  info.appendChild(el("div", "name", r.scssVar));
+  info.appendChild(el("div", "name fz-tit", r.scssVar));
   info.appendChild(el("div", "meta", `${r.px === 999 ? "pill (999px)" : r.px + "px"} · ${r.cssVar}${r.note ? " · " + r.note : ""}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -491,11 +492,11 @@ function renderShadowToken(s) {
   row.appendChild(vis);
 
   const info = el("div", "info");
-  info.appendChild(el("div", "name", s.scssVar));
+  info.appendChild(el("div", "name fz-tit", s.scssVar));
   info.appendChild(el("div", "meta", `${s.cssVar}${s.note ? " · " + s.note : ""}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 
@@ -510,11 +511,11 @@ function renderMotionToken(m) {
   row.appendChild(vis);
 
   const info = el("div", "info");
-  info.appendChild(el("div", "name", m.scssVar));
+  info.appendChild(el("div", "name fz-tit", m.scssVar));
   info.appendChild(el("div", "meta", `${m.value} · ${m.note}`));
   row.appendChild(info);
 
-  row.appendChild(el("div", "copied-hint", "copied ✓"));
+  row.appendChild(el("div", "copied-hint fz-tit", "copied ✓"));
   return row;
 }
 

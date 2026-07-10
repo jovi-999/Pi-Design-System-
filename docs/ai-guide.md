@@ -92,12 +92,12 @@ Size token：`xs`(32px) / `sm`(40px) / `md`(48px, **預設**) / `lg`(56px) / `xl
 
 | Figma 名稱 | class | 用途 |
 |---|---|---|
-| Headline / XXL | `.fz-headline-xxl` | Hero 主視覺 |
-| Headline / XL | `.fz-headline-xl` | 頁面主標 |
-| Headline / LG | `.fz-headline-lg` | section lead |
-| Title / LG | `.fz-title-lg` | 卡片主標 |
-| Title / MD | `.fz-title-md` | 表單 label |
-| Title / XS | `.fz-title-xs` | 小型標籤 |
+| Headline / XXL | `.fz-headline-xxl` + `.fz-tit` | Hero 主視覺 |
+| Headline / XL | `.fz-headline-xl` + `.fz-tit` | 頁面主標 |
+| Headline / LG | `.fz-headline-lg` + `.fz-tit` | section lead |
+| Title / LG | `.fz-title-lg` + `.fz-tit` | 卡片主標 |
+| Title / MD | `.fz-title-md` + `.fz-tit` | 表單 label |
+| Title / XS | `.fz-title-xs` + `.fz-tit` | 小型標籤 |
 | Body / MD | `.fz-body-md` | 預設內文 |
 | Body / SM | `.fz-body-sm` | 密集資訊 |
 | Body / XS | `.fz-body-xs` | 時間戳、metadata |
@@ -296,7 +296,7 @@ padding: 1rem;
 
 ```html
 <article class="my-card">
-  <h3 class="fz-title-lg">台積電</h3>
+  <h3 class="fz-title-lg fz-tit">台積電</h3>
   <p class="fz-body-sm">新竹科學園區 · 月薪 45,000–62,000</p>
   <div class="my-card__actions">
     <button class="gl_btn gl_btn-success gl_btn-md">投遞履歷</button>

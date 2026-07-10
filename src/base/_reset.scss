@@ -8,11 +8,11 @@
 // 故只要有圓角就自動套用 superellipse(1.05)，無需逐元件重複宣告。
 *, *::before, *::after {
   corner-shape: $corner-shape;
+  font-weight: 500;
 }
 
 html, body {
   font-family: $font-sans;
-  font-weight: 500;          // 預設字重下限
   color: $fg;
   background: $bg;
   -webkit-font-smoothing: antialiased;
@@ -20,12 +20,13 @@ html, body {
 }
 
 // Semantic heading defaults
-h1 { font-size: 40px; line-height: 48px; font-weight: 700; }
-h2 { font-size: 32px; line-height: 40px; font-weight: 700; }
-h3 { font-size: 24px; line-height: 32px; font-weight: 700; }
-h4 { font-size: 20px; line-height: 24px; font-weight: 700; }
-h5 { font-size: 18px; line-height: 26px; font-weight: 600; }
-h6 { font-size: 16px; line-height: 24px; font-weight: 600; }
+h1, h2, h3, h4, h5, h6 { @extend .fz-tit; }
+h1 { font-size: 40px; line-height: 48px; }
+h2 { font-size: 32px; line-height: 40px; }
+h3 { font-size: 24px; line-height: 32px; }
+h4 { font-size: 20px; line-height: 24px; }
+h5 { font-size: 18px; line-height: 26px; }
+h6 { font-size: 16px; line-height: 24px; }
 p  { font-size: 16px; line-height: 28px; font-weight: 500; color: $fg-2; }
 small { font-size: 12px; line-height: 20px; color: $fg-3; }
 code {

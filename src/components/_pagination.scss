@@ -46,11 +46,11 @@
   }
 
   .gl_page-link {
+    @extend .fz-tit;
     box-sizing: border-box; // 固定寬高不與 border 疊加
     color: $cl-basic-900;
     background: $cl-basic-0;
     text-decoration: none;
-    font-weight: 700;
     font-size: 14px;
     width: 40px;
     height: 40px;

@@ -42,9 +42,9 @@
 
 **Scale。** 詳見 `src/tokens/_typography.scss`、預覽 `type` 對照頁。三大家族：
 
-- **Headline**（`fz-headline-*`，xxl→xs）：主視覺標題、區塊主標。一律 600 或 700；xl / xxl 微負字距。
-- **Title**（`fz-title-*`，lg/md/sm）：卡片標題、表單標籤、行內強調。600 weight。
-- **Body**（`fz-body-*`，lg/md/sm/xs）：段落、描述、metadata。400 weight，行高寬鬆（1.7–1.8）。
+- **Headline**（`fz-headline-*`，xxl→xs）：主視覺標題、區塊主標。搭配 `.fz-tit`；xl / xxl 微負字距。
+- **Title**（`fz-title-*`，lg/md/sm）：卡片標題、表單標籤、行內強調。搭配 `.fz-tit`。
+- **Body**（`fz-body-*`，lg/md/sm/xs）：段落、描述、metadata。預設繼承全域 500，行高寬鬆（1.7–1.8）。
 
 舊有的 `fz-h1`/`fz-s1`/`fz-t1` 別名為了漸進遷移保留 —— 新功能請用語意化命名。
 

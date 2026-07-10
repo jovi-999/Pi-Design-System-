@@ -90,8 +90,8 @@
 <body>
 <div class="wrap">
   <header>
-    <div class="eyebrow fz-title-xs text-basic-alpha-500">Components</div>
-    <h1 class="fz-headline-xl text-basic-alpha-900">對話框 Modal</h1>
+    <div class="eyebrow fz-title-xs fz-tit text-basic-alpha-500">Components</div>
+    <h1 class="fz-headline-xl fz-tit text-basic-alpha-900">對話框 Modal</h1>
   </header>
 
 <!-- ============ DIALOG MODAL ============ -->
@@ -142,7 +142,7 @@
     </dialog>
 
     <details class="usage">
-      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">&lt;dialog&gt; native</span></summary>
+      <summary class="fz-tit"><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">&lt;dialog&gt; native</span></summary>
       <div class="usage-body">
         <pre><span class="cmt">{{-- gl_gs-modal 直接掛在 &lt;dialog&gt;，不再包一層 div --}}</span>
 <span class="kw">&lt;button</span> <span class="cls">class="iw_js-open-gs-dialog-btn"</span><span class="kw">&gt;</span>開啟<span class="kw">&lt;/button&gt;</span>
@@ -225,7 +225,7 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
     </div>
 
     <details class="usage">
-      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_gs-modal（GSAP）</span></summary>
+      <summary class="fz-tit"><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_gs-modal（GSAP）</span></summary>
       <div class="usage-body">
         <pre><span class="kw">&lt;div</span> id="reportModalOverlay" <span class="cls">class="gl-v2_modal-overlay"</span><span class="kw">&gt;</span>
   <span class="kw">&lt;div</span> id="reportModal" <span class="cls">class="iw_report-modal gl_gs-modal"</span><span class="kw">&gt;</span>
@@ -283,7 +283,7 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
           <div class="gl_modal-header flex-column">
             <span class="gl_modal-icon text-green-500"><i class="icon icon-shield-checked"></i></span>
             <div class="gl_modal-info">
-              <div class="fz-title-lg">匿名發布這則心得</div>
+              <div class="fz-title-lg fz-tit">匿名發布這則心得</div>
               <div class="fz-body-sm">公司不會看到你的姓名或 Email，只有面試流程與評價會被刊登。</div>
             </div>
           </div>
@@ -298,7 +298,7 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
           <div class="gl_modal-header flex-column">
             <span class="gl_modal-icon text-red-500"><i class="icon icon-alert-triangle"></i></span>
             <div class="gl_modal-info">
-              <div class="fz-title-lg">刪除這則薪資回報？</div>
+              <div class="fz-title-lg fz-tit">刪除這則薪資回報？</div>
               <div class="fz-body-sm">刪除後無法還原，其他使用者看到的統計也會更新。</div>
             </div>
           </div>
@@ -311,13 +311,13 @@ closeBtn.addEventListener('click', () =&gt; dlg.close());</pre>
     </div>
 
     <details class="usage">
-      <summary><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_modal</span></summary>
+      <summary class="fz-tit"><i class="icon icon-chevron-right chev"></i>Usage <span class="tag">.gl_modal</span></summary>
       <div class="usage-body">
         <pre><span class="kw">&lt;div</span> <span class="cls">class="gl_modal"</span><span class="kw">&gt;</span>
   <span class="kw">&lt;div</span> <span class="cls">class="gl_modal-header flex-column"</span><span class="kw">&gt;</span>
     <span class="kw">&lt;span</span> <span class="cls">class="gl_modal-icon"</span><span class="kw">&gt;&lt;i</span> <span class="cls">class="icon icon-shield-checked"</span><span class="kw">&gt;&lt;/i&gt;&lt;/span&gt;</span>
     <span class="kw">&lt;div</span> <span class="cls">class="gl_modal-info"</span><span class="kw">&gt;</span>
-      <span class="kw">&lt;div</span> <span class="cls">class="fz-title-lg"</span><span class="kw">&gt;</span>匯名發布這則心得<span class="kw">&lt;/div&gt;</span>
+      <span class="kw">&lt;div</span> <span class="cls">class="fz-title-lg fz-tit"</span><span class="kw">&gt;</span>匯名發布這則心得<span class="kw">&lt;/div&gt;</span>
       <span class="kw">&lt;div</span> <span class="cls">class="fz-body-sm"</span><span class="kw">&gt;</span>公司不會看到你的資料<span class="kw">&lt;/div&gt;</span>
     <span class="kw">&lt;/div&gt;</span>
   <span class="kw">&lt;/div&gt;</span>

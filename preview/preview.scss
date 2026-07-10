@@ -16,7 +16,6 @@ header {
 
 header .eyebrow {
   font-size: 12px;
-  font-weight: 600;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--fg-3);
@@ -72,7 +71,6 @@ section .dek {
   line-height: 20px;
   margin: 0 0 16px;
   color: var(--fg-3);
-  font-weight: 600;
   letter-spacing: .02em;
 }
 
@@ -194,7 +192,6 @@ details.usage > summary {
   align-items: center;
   gap: 10px;
   font-size: 12px;
-  font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--fg-2);
@@ -270,7 +267,6 @@ details.usage .notes h4 {
   letter-spacing: .08em;
   color: var(--fg-3);
   margin: 0 0 6px;
-  font-weight: 600;
 }
 
 details.usage .notes ul {

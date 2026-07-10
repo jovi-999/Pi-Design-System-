@@ -15,24 +15,24 @@ $font-icon:    var(--font-icon);
 // ---------- Type scale (numeric — for mixins) ----------
 
 // Headline
-$fz-headline-xxl: (size: 48px, lh: 72px, weight: 700, tracking: -0.01em);
-$fz-headline-xl:  (size: 40px, lh: 60px, weight: 700, tracking: -0.01em);
-$fz-headline-lg:  (size: 32px, lh: 48px, weight: 700, tracking: -0.005em);
-$fz-headline-md:  (size: 28px, lh: 42px, weight: 700, tracking: 0);
-$fz-headline-sm:  (size: 24px, lh: 36px, weight: 700, tracking: 0);
-$fz-headline-xs:  (size: 20px, lh: 30px, weight: 700, tracking: 0);
+$fz-headline-xxl: (size: 48px, lh: 72px, tracking: -0.01em);
+$fz-headline-xl:  (size: 40px, lh: 60px, tracking: -0.01em);
+$fz-headline-lg:  (size: 32px, lh: 48px, tracking: -0.005em);
+$fz-headline-md:  (size: 28px, lh: 42px, tracking: 0);
+$fz-headline-sm:  (size: 24px, lh: 36px, tracking: 0);
+$fz-headline-xs:  (size: 20px, lh: 30px, tracking: 0);
 
 // Title
-$fz-title-lg: (size: 18px, lh: 28px, weight: 600, tracking: 0);
-$fz-title-md: (size: 16px, lh: 24px, weight: 600, tracking: 0);
-$fz-title-sm: (size: 14px, lh: 20px, weight: 600, tracking: 0);
-$fz-title-xs: (size: 12px, lh: 18px, weight: 600, tracking: 0);
+$fz-title-lg: (size: 18px, lh: 28px, tracking: 0);
+$fz-title-md: (size: 16px, lh: 24px, tracking: 0);
+$fz-title-sm: (size: 14px, lh: 20px, tracking: 0);
+$fz-title-xs: (size: 12px, lh: 18px, tracking: 0);
 
 // Body
-$fz-body-lg: (size: 18px, lh: 32px, weight: 400, tracking: 0);
-$fz-body-md: (size: 16px, lh: 28px, weight: 400, tracking: 0);
-$fz-body-sm: (size: 14px, lh: 24px, weight: 400, tracking: 0);
-$fz-body-xs: (size: 12px, lh: 20px, weight: 400, tracking: 0);
+$fz-body-lg: (size: 18px, lh: 32px, tracking: 0);
+$fz-body-md: (size: 16px, lh: 28px, tracking: 0);
+$fz-body-sm: (size: 14px, lh: 24px, tracking: 0);
+$fz-body-xs: (size: 12px, lh: 20px, tracking: 0);
 
 // ---------- Type classes ----------
 // Headline
